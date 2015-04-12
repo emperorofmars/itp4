@@ -6,13 +6,14 @@
 
 class Hexfield{
 public:
+    Hexfield();
     void setOccupation(Unit unit);
 
 private:
     int terrain;
     Unit isOccupied;
 
-    std::vector position;
+    int position[2];
 
     Hexfield *linkedTo[6];
 

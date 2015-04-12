@@ -11,26 +11,27 @@
 
 class Player {
 public:
+    Player();
 
-    std::string &getName() const {
+    string getName() const {
         return name;
     }
 
-    void setName(std::string &name) {
+    void setName(string name) {
         Player::name = name;
     }
 
-    std::vector const &getColor() const {
+    vec4 getColor() const {
         return color;
     }
 
-    void setColor(std::vector const &color) {
+    void setColor(vec4 color) {
         Player::color = color;
     }
 
 private:
     std::string name;
-    std::vector color;
+    glm::vec4 color;
 
 
 };
