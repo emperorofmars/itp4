@@ -19,19 +19,22 @@ public:
     void start();
 
 
+    shared_ptr<Player> getMPlayer(int i);
+    void setMPlayers(Player mPlayers[]);
 
 private:
-    Player players[];
-    Player winner;
+    Player mPlayers[];
+    shared_ptr<Player> mWinner;
 
-    int rounds;
 
-    time_t started;
-    time_t ended;
+    int mRounds;
 
-    std::vector< std::vector<Hexfield*> > field;
+    time_t mStarted;
+    time_t mEnded;
 
-    GameLoop loop;
+    shared_ptr<Hexfield> mFirstField;
+
+    GameLoop mLoop;
 
     void generatePlayingField();
     void writeStatsToDb();

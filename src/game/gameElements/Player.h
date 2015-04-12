@@ -12,22 +12,14 @@
 class Player {
 public:
     Player();
+    shared_ptr<Player> mNext;
 
-    string getName() const {
-        return name;
-    }
-
-    void setName(string name) {
-        Player::name = name;
-    }
-
-    vec4 getColor() const {
-        return color;
-    }
-
-    void setColor(vec4 color) {
-        Player::color = color;
-    }
+    void setName(std::string name);
+    std::string getName();
+    void setColor(vec4 color);
+    glm::vec4 getColor();
+    void setNext(shared_ptr<Player> player);
+    shared_ptr<Player> getNext();
 
 private:
     std::string name;
