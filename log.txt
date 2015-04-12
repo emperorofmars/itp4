@@ -1,0 +1,3 @@
+==========================================
+12.04.2015-19:06:17 : Logging Started
+12.04.2015-19:06:17 : ERROR   : /home/mars/Projekte/itp4/src/tbs.cpp: main: 5: sjdghkjgh

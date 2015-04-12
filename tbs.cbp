@@ -40,7 +40,9 @@
 			<Add option="-lGL" />
 			<Add option="-lassimp" />
 		</Linker>
+		<Unit filename="src/libs/mlog.h" />
 		<Unit filename="src/tbs.cpp" />
+		<Unit filename="src/tbs.h" />
 		<Extensions>
 			<envvars />
 			<code_completion />
