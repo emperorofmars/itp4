@@ -2,3 +2,5 @@ bin
 obj
 tbs.layout
 tbs.depend
+.idea/
+CMakeLists.txt
