@@ -8,3 +8,35 @@
 Player::Player(std::string name) {
     this->name = name;
 }
+
+
+
+
+
+/*
+ * Setter & Getter
+ */
+
+string Player::getName() const {
+    return name;
+}
+
+void Player::setName(string name) {
+    Player::name = name;
+}
+
+vec4 Player::getColor(){
+    return color;
+}
+
+void Player::setColor(vec4 color){
+    Player::color = color;
+}
+
+void Player::setNext(shared_ptr<Player> player) {
+    mNext.reset(player);
+}
+
+shared_ptr<Player> Player::getNext() {
+    return mNext;
+}

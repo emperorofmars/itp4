@@ -36,7 +36,7 @@ private:
 
     int timesDefended;
 
-    Player owner;
+    shared_ptr<Player> owner;
     int renderId;
 
 

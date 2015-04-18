@@ -13,7 +13,11 @@
 
 class GameLoop {
 public:
+    GameLoop(Game);
     Player run();
+
+private:
+    shared_ptr<Game> mGame;
 };
 
 

@@ -9,28 +9,28 @@
 
 void Game::initGame() {
 
-    players[0] = new Player("Player1");
-    players[1] = new Player("Player2");
+    mPlayers[0] = new Player("Player1");
+    mPlayers[1] = new Player("Player2");
 
-    players[0].setColor(vec4(1.0f,1.0f,0, 1.0f));
-    players[1].setColor(vec4(1.0f,0,1.0f, 1.0f));
+    mPlayers[0].setColor(vec4(1.0f,1.0f,0, 1.0f));
+    mPlayers[1].setColor(vec4(1.0f,0,1.0f, 1.0f));
 
+    mPlayers[0].setNext(mPlayers[1]);
+    mPlayers[1].setNext(mPlayers[0]);
 
     generatePlayingField();
 
 }
 
-void Game::start() {
-
-}
 
 void Game::generatePlayingField() {
+    std::vector< std::vector<Hexfield*> > field;
     int size = 24;
 
 
     for(int i = 0; i<size; ++i){
         for(int j = 0; j < size; ++j){
-            Hexfield *newField = new Hexfield();
+            shared_ptr<Hexfield> newField = newField.reset(new Hexfield());
 
             newField->position[0] = i*10;
             newField->position[1] = j*10;
@@ -45,7 +45,7 @@ void Game::generatePlayingField() {
 
     for(int i = 0; i<size; ++i){
         for(int j = 0; j<size; ++j){
-            Hexfield *hexfield = field[i][j];
+            shared_ptr<Hexfield> hexfield = field[i][j];
 
             if(i>0){
                 hexfield->linkedTo[0] = field[i-1][j];
@@ -75,8 +75,27 @@ void Game::generatePlayingField() {
         }
     }
 
+    firstField = field[0][0];
+
 }
 
 void Game::writeStatsToDb() {
 
 }
+
+
+/*
+ * Setter & Getter
+ */
+
+shared_ptr<Player> Game::getMPlayers(int i) {
+    shared_ptr<Player> player;
+
+    switch(i){
+        case 0: player.reset(mPlayer[0]); break;
+        case 1: player.reset(mPlayer[1]); break;
+        default: player.reset(NULL); break;
+    }
+    return player;
+}
+
