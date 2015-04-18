@@ -15,10 +15,9 @@ private:
 
     int position[2];
 
-    Hexfield *linkedTo[6];
+    std::shared_ptr<Hexfield> linkedTo[6];
 
     int renderId;
-
 
 
 };
