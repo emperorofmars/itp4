@@ -4,6 +4,7 @@
 
 #include "Player.h"
 
+using namespace std;
 
 Player::Player(std::string name) {
     this->name = name;
@@ -17,7 +18,7 @@ Player::Player(std::string name) {
  * Setter & Getter
  */
 
-string Player::getName() const {
+string Player::getName(){
     return name;
 }
 
@@ -25,18 +26,20 @@ void Player::setName(string name) {
     Player::name = name;
 }
 
-vec4 Player::getColor(){
-    return color;
-}
+//vec4 Player::getColor(){
+//    return color;
+//}
 
-void Player::setColor(vec4 color){
-    Player::color = color;
-}
+//void Player::setColor(vec4 color){
+//    Player::color = color;
+//}
 
 void Player::setNext(shared_ptr<Player> player) {
-    mNext.reset(player);
+    mNext.reset(&player);
 }
 
 shared_ptr<Player> Player::getNext() {
     return mNext;
 }
+
+

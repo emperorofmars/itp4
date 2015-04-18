@@ -10,6 +10,7 @@
 
 
 #include "../gameElements/Player.h"
+#include "../Game.h"
 
 class GameLoop {
 public:
@@ -17,7 +18,7 @@ public:
     Player run();
 
 private:
-    shared_ptr<Game> mGame;
+    std::shared_ptr<Game> mGame;
 };
 
 

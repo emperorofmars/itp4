@@ -6,15 +6,16 @@
 
 
 #include "GameLoop.h"
+#include "../Game.h"
 
 GameLoop::GameLoop(Game game) {
-    mGame.reset(game);
+    mGame.reset(&game);
 }
 
 Player GameLoop::run() {
     bool exit = false;
-    shared_ptr<int> input;
-    shared_ptr<Player> currentPlayer = mGame->getPlayer(0);
+    std::shared_ptr<int> input;
+    std::shared_ptr<Player> currentPlayer = mGame->getPlayer(0);
 
     while(!exit){
         if(input != NULL){

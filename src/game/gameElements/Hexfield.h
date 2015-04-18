@@ -8,14 +8,12 @@ class Hexfield{
 public:
     Hexfield();
     void setOccupation(Unit unit);
-
+    int mPosition[2];
+    std::shared_ptr<Hexfield> linkedTo[6];
 private:
     int terrain;
-    Unit isOccupied;
+    std::shared_ptr< Unit > isOccupied;
 
-    int position[2];
-
-    std::shared_ptr<Hexfield> linkedTo[6];
 
     int renderId;
 
@@ -24,3 +22,5 @@ private:
 
 
 #endif // HEXFIELD_H
+
+

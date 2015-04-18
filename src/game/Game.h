@@ -19,12 +19,12 @@ public:
     void start();
 
 
-    shared_ptr<Player> getMPlayer(int i);
+    std::shared_ptr<Player> getPlayer(int i);
     void setMPlayers(Player mPlayers[]);
 
 private:
-    Player mPlayers[];
-    shared_ptr<Player> mWinner;
+    std::shared_ptr<Player> mPlayers[];
+    std::shared_ptr<Player> mWinner;
 
 
     int mRounds;
@@ -32,7 +32,7 @@ private:
     time_t mStarted;
     time_t mEnded;
 
-    shared_ptr<Hexfield> mFirstField;
+    std::shared_ptr<Hexfield> mFirstField;
 
     GameLoop mLoop;
 

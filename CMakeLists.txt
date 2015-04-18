@@ -10,6 +10,7 @@ set(SOURCE_FILES
     src/game/menu/Menu.h
     src/mgf/mgf_opengl.h
     src/tests/test.cpp
+    src/libs/mlog.h
     src/tbs.cpp
     src/tbs.h)
 

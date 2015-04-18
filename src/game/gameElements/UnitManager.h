@@ -9,13 +9,14 @@
 #define ITP4_UNITMANAGER_H
 
 #include <vector>
+#include "Unit.h"
 
 class UnitManager {
 public:
     UnitManager getInstace();
     void readConfig();
     void loadProtoypes();
-    std::vector getList();
+    std::vector< Unit > getList();
 
 
 private:

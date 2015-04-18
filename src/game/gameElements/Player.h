@@ -8,22 +8,23 @@
 
 #include <iostream>
 #include <vector>
+#include <bits/shared_ptr.h>
 
 class Player {
 public:
-    Player();
-    shared_ptr<Player> mNext;
+    Player(std::string name);
+    std::shared_ptr<Player> mNext;
 
     void setName(std::string name);
     std::string getName();
-    void setColor(vec4 color);
-    glm::vec4 getColor();
-    void setNext(shared_ptr<Player> player);
-    shared_ptr<Player> getNext();
+    //void setColor(vec4 color);
+    //glm::vec4 getColor();
+    void setNext(std::shared_ptr<Player> player);
+    std::shared_ptr<Player> getNext();
 
 private:
     std::string name;
-    glm::vec4 color;
+    //glm::vec4 color;
 
 
 };
