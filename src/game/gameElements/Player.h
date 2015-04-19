@@ -8,7 +8,8 @@
 
 #include <iostream>
 #include <vector>
-#include <bits/shared_ptr.h>
+//#include <bits/shared_ptr.h>
+#include <memory>
 
 class Player {
 public:

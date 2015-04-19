@@ -2,17 +2,19 @@
 #define HEXFIELD_H
 
 #include <vector>
-#include "Unit.h"
+#include <memory>
 
 class Hexfield{
 public:
     Hexfield();
-    void setOccupation(Unit unit);
-    int mPosition[2];
+    //void setOccupation(Unit unit);
+    float mPosition[2];
     std::shared_ptr<Hexfield> linkedTo[6];
+
+    std::string printPos();
 private:
-    int terrain;
-    std::shared_ptr< Unit > isOccupied;
+    int mTerrain;
+    //std::shared_ptr< Unit > isOccupied;
 
 
     int renderId;

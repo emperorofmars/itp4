@@ -5,26 +5,26 @@
 */
 
 
-#ifndef ITP4_GAME_H
-#define ITP4_GAME_H
+#ifndef GAME_H
+#define GAME_H
 
 
 #include "gameElements/Player.h"
-#include "gameLoop/GameLoop.h"
 #include "gameElements/Hexfield.h"
+#include "gameElements/UnitManager.h"
 
 class Game {
 public:
     void initGame();
-    void start();
 
 
     std::shared_ptr<Player> getPlayer(int i);
     void setMPlayers(Player mPlayers[]);
 
 private:
-    std::shared_ptr<Player> mPlayers[];
+    std::shared_ptr<Player> mPlayers[2];
     std::shared_ptr<Player> mWinner;
+    UnitManager* mUnitManager;
 
 
     int mRounds;
@@ -33,8 +33,6 @@ private:
     time_t mEnded;
 
     std::shared_ptr<Hexfield> mFirstField;
-
-    GameLoop mLoop;
 
     void generatePlayingField();
     void writeStatsToDb();

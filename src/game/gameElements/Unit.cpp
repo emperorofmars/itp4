@@ -4,10 +4,129 @@
 
 #include "Unit.h"
 
+Unit::Unit(){
+
+}
+
+Unit::Unit(const Unit &original) {
+    type = original.type;
+    name = original.name;
+
+    maxHP = original.maxHP;
+    dmg = original.dmg;
+    range = original.range;
+    hitChance = original.hitChance;
+    movement = original.movement;
+    sightRadius = original.sightRadius;
+    manaCost = original.manaCost;
+
+    //setting variable values to Max
+    curHP = maxHP;
+    timesDefended = 0;
+    remainingMovement = movement;
+}
+
 Hexfield Unit::moveTo(Hexfield field) {
     return Hexfield();
 }
 
-Unit Unit::copy() {
-    return Unit();
+
+// Getter & Setter
+
+std::string Unit::getType() {
+    return type;
 }
+
+std::string Unit::getName() {
+    return name;
+}
+
+int Unit::getMaxHP() {
+    return maxHP;
+}
+
+int Unit::getCurHp() {
+    return curHP;
+}
+
+int Unit::getDmg() {
+    return dmg;
+}
+
+int Unit::getRange() {
+    return range;
+}
+
+int Unit::getHitChance() {
+    return hitChance;
+}
+
+int Unit::getMovement() {
+    return movement;
+}
+
+int Unit::getRemainingMovement() {
+    return remainingMovement;
+}
+
+int Unit::getSightRadius() {
+    return sightRadius;
+}
+
+int Unit::getManaCost() {
+    return manaCost;
+}
+
+int Unit::getTimesDefended() {
+    return timesDefended;
+}
+
+
+void Unit::setType(std::string string) {
+    type = string;
+}
+
+void Unit::setName(std::string string) {
+    name = string;
+}
+
+void Unit::setMaxHP(int i) {
+    maxHP = i;
+}
+
+void Unit::setCurHP(int i) {
+    curHP = i;
+}
+
+void Unit::setDmg(int i) {
+    dmg = i;
+}
+
+void Unit::setRange(int i) {
+    range = i;
+}
+
+void Unit::setHitChance(int i) {
+    hitChance = i;
+}
+
+void Unit::setMovement(int i) {
+    movement = i;
+}
+
+void Unit::setRemainingMovement(int i) {
+    remainingMovement = i;
+}
+
+void Unit::setSightRadius(int i) {
+    sightRadius = i;
+}
+
+void Unit::setManaCost(int i) {
+    manaCost = i;
+}
+
+void Unit::setTimesDefended(int i) {
+    timesDefended = i;
+}
+

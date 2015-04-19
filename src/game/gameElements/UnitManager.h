@@ -13,19 +13,22 @@
 
 class UnitManager {
 public:
-    UnitManager getInstace();
-    void readConfig();
+    static UnitManager* getInstance();
     void loadProtoypes();
     std::vector< Unit > getList();
 
 
 private:
     UnitManager();
-    static UnitManager instance;
-    std::vector prototypes;
 
+    static UnitManager* mInstance;
+
+    std::vector< std::shared_ptr<Unit> > mPrototypes;
+
+    std::shared_ptr<Unit> parseLine(std::string);
 
 };
+
 
 
 #endif //ITP4_UNITMANAGER_H

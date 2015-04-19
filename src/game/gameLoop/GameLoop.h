@@ -14,7 +14,7 @@
 
 class GameLoop {
 public:
-    GameLoop(Game);
+    GameLoop(std::shared_ptr< Game >);
     Player run();
 
 private:

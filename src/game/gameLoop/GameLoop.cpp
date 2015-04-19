@@ -8,8 +8,8 @@
 #include "GameLoop.h"
 #include "../Game.h"
 
-GameLoop::GameLoop(Game game) {
-    mGame.reset(&game);
+GameLoop::GameLoop(std::shared_ptr<Game> game) {
+    mGame = game;
 }
 
 Player GameLoop::run() {

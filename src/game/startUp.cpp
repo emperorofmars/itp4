@@ -3,14 +3,24 @@
 //
 
 #include "startUp.h"
+#include "Game.h"
+#include "gameLoop/GameLoop.h"
+
+using namespace std;
 
 int startUp(){
-    shared_ptr<Game> game = game.reset(new Game());
+    cout << "creating new Game" << endl;
+    std::shared_ptr<Game> game(new Game());
+
 
     game->initGame();
 
+    cout << "first player: " << game->getPlayer(0)->getName() << endl;
+    cout << "second player: " << game->getPlayer(1)->getName() << endl;
 
-    shared_ptr<GameLoop> loop = loop.reset(new GameLoop(game));
+
+    cout << "creating Game Loop element" << endl;
+    std::shared_ptr<GameLoop> loop(new GameLoop(game));
 
 
 

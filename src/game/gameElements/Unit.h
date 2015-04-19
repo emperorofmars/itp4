@@ -15,31 +15,58 @@ class Unit {
 public:
     Hexfield moveTo(Hexfield field);
 
-    Unit copy();
+    Unit();
+    Unit(const Unit& original);
 
 private:
-    std::string type;
-    std::string name;
-
-    int maxHP;
-    int curHP;
-
-    int dmg;
-    int range;
-    int hitChance;
-
-    int movement;
-    int remainingMovement;
-
-    int sightRadius;
-    int manaCost;
-
-    int timesDefended;
-
     std::shared_ptr<Player> owner;
     int renderId;
 
+    //FINAL VALUES
+    std::string type;
+    std::string name;
+    int maxHP;
+    int dmg;
+    int range;
+    int hitChance;
+    int movement;
+    int sightRadius;
+    int manaCost;
 
+    //VARIABLE VALUES
+    int curHP;
+    int remainingMovement;
+    int timesDefended;
+
+
+
+
+public:
+    std::string getType();
+    std::string getName();
+    int getMaxHP();
+    int getCurHp();
+    int getDmg();
+    int getRange();
+    int getHitChance();
+    int getMovement();
+    int getRemainingMovement();
+    int getSightRadius();
+    int getManaCost();
+    int getTimesDefended();
+
+    void setType(std::string);
+    void setName(std::string);
+    void setMaxHP(int);
+    void setCurHP(int);
+    void setDmg(int);
+    void setRange(int);
+    void setHitChance(int);
+    void setMovement(int);
+    void setRemainingMovement(int);
+    void setSightRadius(int);
+    void setManaCost(int);
+    void setTimesDefended(int);
 
 
 };

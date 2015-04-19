@@ -35,7 +35,7 @@ void Player::setName(string name) {
 //}
 
 void Player::setNext(shared_ptr<Player> player) {
-    mNext.reset(&player);
+    mNext = player;
 }
 
 shared_ptr<Player> Player::getNext() {
