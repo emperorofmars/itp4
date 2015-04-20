@@ -12,7 +12,7 @@ GameLoop::GameLoop(std::shared_ptr<Game> game) {
     mGame = game;
 }
 
-Player GameLoop::run() {
+int GameLoop::run() {
     bool exit = false;
     std::shared_ptr<int> input;
     std::shared_ptr<Player> currentPlayer = mGame->getPlayer(0);
@@ -27,4 +27,7 @@ Player GameLoop::run() {
 
     }
 
+
+
+    return 0;
 }

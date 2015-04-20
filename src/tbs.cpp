@@ -13,7 +13,8 @@ int main(){
 //    LOG_F_ERROR(GAME_LOG_PATH, "log test error");
 
 
-    cout << "hello world" << endl;
+    cout << "Starting up Clash of Mages" << endl;
+    cout << endl;
 
     startUp();
 

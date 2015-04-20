@@ -33,6 +33,8 @@ void Game::initGame() {
     cout << "loading prototypes" << endl;
     mUnitManager->loadProtoypes();
 
+    mUnitManager->printPrototypesToCout();
+
 }
 
 
@@ -57,9 +59,9 @@ void Game::generatePlayingField() {
             }
 
             field[i].push_back(newField);
-            cout << field[i][j]->mPosition[0] << "/" << field[i][j]->mPosition[1] << " ";
+//            cout << field[i][j]->mPosition[0] << "/" << field[i][j]->mPosition[1] << " ";
         }
-        cout << endl;
+//        cout << endl;
     }
 
     cout << "field initialized" << endl;
@@ -73,21 +75,21 @@ void Game::generatePlayingField() {
             //link to left
             if(j > 0){
                 hexfield->linkedTo[5] = field[i][j-1];
-                cout << "linking "
-                << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
-                << " to " << field[i][j-1]->printPos() << endl;
+//                cout << "linking "
+//                << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
+//                << " to " << field[i][j-1]->printPos() << endl;
             }else{
-                cout << "not linking left" << endl;
+//                cout << "not linking left" << endl;
             }
 
             //link to right
             if(j<size-1){
                 hexfield->linkedTo[2] = field[i][j+1];
-                cout << "linking "
-                << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
-                << " to " << field[i][j+1]->printPos() << endl;
+//                cout << "linking "
+//                << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
+//                << " to " << field[i][j+1]->printPos() << endl;
             }else{
-                cout << "not linking right" << endl;
+//                cout << "not linking right" << endl;
             }
 
             //decide if the line is even oder not
@@ -97,41 +99,41 @@ void Game::generatePlayingField() {
                 //link to top-left
                 if(i>0 && j > 0){
                     hexfield->linkedTo[0] = field[i-1][j-1];
-                    cout << "linking "
-                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
-                    << " to " << field[i-1][j-1]->printPos() << endl;
+//                    cout << "linking "
+//                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
+//                    << " to " << field[i-1][j-1]->printPos() << endl;
                 }else{
-                    cout << "not linking top-left" << endl;
+//                    cout << "not linking top-left" << endl;
                 }
 
                 //link to top-right
                 if(i>0){
                     hexfield->linkedTo[1] = field[i-1][j];
-                    cout << "linking "
-                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
-                    << " to " << field[i-1][j]->printPos() << endl;
+//                    cout << "linking "
+//                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
+//                    << " to " << field[i-1][j]->printPos() << endl;
                 }else{
-                    cout << "not linking top-right" << endl;
+//                    cout << "not linking top-right" << endl;
                 }
 
                 //link to bottom-right
                 if(i < size-1){
                     hexfield->linkedTo[3] = field[i+1][j];
-                    cout << "linking "
-                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
-                    << " to " << field[i+1][j]->printPos() << endl;
+//                    cout << "linking "
+//                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
+//                    << " to " << field[i+1][j]->printPos() << endl;
                 }else{
-                    cout << "not linking bot-right" << endl;
+//                    cout << "not linking bot-right" << endl;
                 }
 
                 //link to bottom-left
                 if(i < size-1 && j > 0){
                     hexfield->linkedTo[4] = field[i+1][j-1];
-                    cout << "linking "
-                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
-                    << " to " <<  field[i+1][j-1]->printPos() << endl;
+//                    cout << "linking "
+//                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
+//                    << " to " <<  field[i+1][j-1]->printPos() << endl;
                 }else{
-                    cout << "not linking bot left" << endl;
+//                    cout << "not linking bot left" << endl;
                 }
 
             }else{
@@ -140,51 +142,52 @@ void Game::generatePlayingField() {
                 //link to top-left
                 if(i>0){
                     hexfield->linkedTo[0] = field[i-1][j];
-                    cout << "linking "
-                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
-                    << " to " << field[i-1][j]->printPos() << endl;
+//                    cout << "linking "
+//                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
+//                    << " to " << field[i-1][j]->printPos() << endl;
                 }else{
-                    cout << "not linking top-left" << endl;
+//                    cout << "not linking top-left" << endl;
                 }
 
                 //link to top-right
                 if(i>0 && j<size-1){
                     hexfield->linkedTo[1] = field[i-1][j+1];
-                    cout << "linking "
-                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
-                    << " to " << field[i-1][j+1]->printPos() << endl;
+//                    cout << "linking "
+//                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
+//                    << " to " << field[i-1][j+1]->printPos() << endl;
                 }else{
-                    cout << "not linking top-right" << endl;
+//                    cout << "not linking top-right" << endl;
                 }
 
                 //link to bottom-right
                 if(i < size-1 && j < size-1){
                     hexfield->linkedTo[3] = field[i+1][j+1];
-                    cout << "linking "
-                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
-                    << " to " << field[i+1][j+1]->printPos() << endl;
+//                    cout << "linking "
+//                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
+//                    << " to " << field[i+1][j+1]->printPos() << endl;
                 }else{
-                    cout << "not linking bot-right" << endl;
+//                    cout << "not linking bot-right" << endl;
                 }
 
                 //link to bottom-left
                 if(i < size-1){
                     hexfield->linkedTo[4] = field[i+1][j];
-                    cout << "linking "
-                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
-                    << " to " <<  field[i+1][j]->printPos() << endl;
+//                    cout << "linking "
+//                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
+//                    << " to " <<  field[i+1][j]->printPos() << endl;
                 }else{
-                    cout << "not linking bot-left" << endl;
+//                    cout << "not linking bot-left" << endl;
                 }
             }
 
 
 
 
-            cout << endl;
+//            cout << endl;
         }
     }
-
+    cout << "linking complete" << endl;
+    cout << endl;
 
     mFirstField = field[0][0];
     cout << "first field is " << mFirstField->mPosition[0] << " / " << mFirstField->mPosition[1] << endl;

@@ -26,7 +26,7 @@ UnitManager* UnitManager::getInstance() {
 void UnitManager::loadProtoypes(){
     std::ifstream configFile;
     std::cout << "opening config file " << std::endl;
-    configFile.open("D:\\Repos\\itp4\\src\\units.txt");
+    configFile.open(pathToConfig);
 
 
     if(configFile.is_open()){
@@ -43,6 +43,8 @@ void UnitManager::loadProtoypes(){
         std::cout << "could not open units.txt, check if the file exists and you have permission to read" << std::endl;
         exit(1);
     }
+
+    std::cout << "Units successfully loaded" << std::endl << std::endl;
 
 }
 
@@ -81,6 +83,20 @@ std::shared_ptr<Unit> UnitManager::parseLine(std::string lineString){
 }
 
 
-std::vector<Unit> UnitManager::getList() {
-    return std::vector<Unit>();
+std::vector< std::shared_ptr< Unit > >  UnitManager::getList() {
+    return mPrototypes;
+}
+
+
+void UnitManager::printPrototypesToCout() {
+    for(auto &prototype : mPrototypes){
+        std::cout << prototype->getType() <<
+        std::endl << prototype->getName() <<
+        std::endl << prototype->getMaxHP() <<
+        std::endl << prototype->getDmg() <<
+        std::endl << prototype->getHitChance() <<
+        std::endl << prototype->getRange() <<
+        std::endl << prototype->getMovement() <<
+        std::endl << std::endl;
+    }
 }

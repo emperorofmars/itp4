@@ -8,12 +8,16 @@
 
 using namespace std;
 
+
+
+
 int startUp(){
     cout << "creating new Game" << endl;
     std::shared_ptr<Game> game(new Game());
 
 
     game->initGame();
+
 
     cout << "first player: " << game->getPlayer(0)->getName() << endl;
     cout << "second player: " << game->getPlayer(1)->getName() << endl;
@@ -22,6 +26,6 @@ int startUp(){
     cout << "creating Game Loop element" << endl;
     std::shared_ptr<GameLoop> loop(new GameLoop(game));
 
-
+    return 0;
 
 }
