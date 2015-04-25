@@ -15,6 +15,9 @@ void Game::initGame() {
     mPlayers[0].reset(new Player("Player1"));
     mPlayers[1].reset(new Player("Player2"));
 
+    mPlayers[0]->setUnits(mUnitHolder1);
+    mPlayers[1]->setUnits(mUnitHolder2);
+
     //mPlayers[0].setColor(vec4(1.0f,1.0f,0, 1.0f));
     //mPlayers[1].setColor(vec4(1.0f,0,1.0f, 1.0f));
 
@@ -34,6 +37,12 @@ void Game::initGame() {
     mUnitManager->loadProtoypes();
 
     mUnitManager->printPrototypesToCout();
+
+
+    mRounds = 1;
+    mCurrentPlayer = getPlayer(0);
+    mStarted = time(0);
+
 
 }
 
@@ -194,6 +203,21 @@ void Game::generatePlayingField() {
 
 }
 
+
+void Game::nextTurn() {
+    mRounds++;
+    mCurrentPlayer = mCurrentPlayer->mNext;
+
+    std::shared_ptr<std::vector> unitHolder = mCurrentPlayer->mUnits;
+
+    for(std::shared_ptr< Unit > unit : *unitHolder){
+        unit->setRemainingMovement(unit->getMovement());
+        unit->setTimesDefended(0);
+    }
+
+
+}
+
 void Game::writeStatsToDb() {
     // TODO Write game stats to some persistent storage
 }
@@ -214,3 +238,25 @@ shared_ptr<Player> Game::getPlayer(int i) {
     return player;
 }
 
+
+Game::state_t Game::do_state_default(std::shared_ptr<int> clicked) {
+    if(clicked == RIGHTCLICK){
+        return STATE_DEFAULT;
+    }
+
+    if(clicked == LEFTCLICK){
+
+    }
+
+
+    return STATE_SELECTED;
+}
+
+Game::state_t Game::do_state_selected(std::shared_ptr<int> clicked) {
+    if(clicked == RIGHTCLICK){
+        return STATE_DEFAULT;
+    }
+
+
+    return STATE_SELECTED;
+}

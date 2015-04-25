@@ -9,6 +9,11 @@
 #define GAME_H
 
 
+#define LEFTCLICK 1
+#define RIGHTCLICK 2
+#define MIDDLECLICK 3
+
+
 #include "gameElements/Player.h"
 #include "gameElements/Hexfield.h"
 #include "gameElements/UnitManager.h"
@@ -25,7 +30,10 @@ private:
     std::shared_ptr<Player> mPlayers[2];
     std::shared_ptr<Player> mWinner;
     UnitManager* mUnitManager;
+    std::shared_ptr<Player> mCurrentPlayer;
 
+    std::shared_ptr< std::vector < std::shared_ptr< Unit > > > mUnitHolder1;
+    std::shared_ptr< std::vector < std::shared_ptr< Unit > > > mUnitHolder2;
 
     int mRounds;
 
@@ -36,7 +44,31 @@ private:
 
     void generatePlayingField();
     void writeStatsToDb();
+
+    void nextTurn();
+
+    //TODO research what kind of event data is given from engine
+    std::shared_ptr<int> clicked;
+
+    typedef enum { STATE_DEFAULT, STATE_SELECTED, NUM_STATES } state_t;
+
+    typedef state_t state_func_t( std::shared_ptr<int> clicked );
+
+    state_t do_state_default(std::shared_ptr<int> clicked);
+    state_t do_state_selected(std::shared_ptr<int> clicked);
+
+    state_func_t* const state_table[ NUM_STATES ] = {
+            do_state_default, do_state_selected
+    };
+
+    state_t run_state( state_t cur_state, std::shared_ptr<int> clicked ) {
+        return state_table[ cur_state ]( clicked );
+    };
+
 };
 
 
+
+
 #endif //ITP4_GAME_H
+
