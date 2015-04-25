@@ -8,14 +8,17 @@
 
 #include <iostream>
 #include <vector>
-//#include <bits/shared_ptr.h>
+
 #include <memory>
+#include "Unit.h"
+
+class Unit;
 
 class Player {
 public:
     Player(std::string name);
     std::shared_ptr<Player> mNext;
-    std::shared_ptr<std::vector> mUnits;
+    std::shared_ptr< std::vector < std::shared_ptr<Unit> > > mUnits;
 
     void setName(std::string name);
     std::string getName();
@@ -24,8 +27,8 @@ public:
     void setNext(std::shared_ptr<Player> player);
     std::shared_ptr<Player> getNext();
 
-    std::shared_ptr<std::vector> getUnits();
-    void setUnits(std::shared_ptr<std::vector>);
+    std::shared_ptr<std::vector < std::shared_ptr<Unit>>> getUnits();
+    void setUnits(std::shared_ptr<std::vector< std::shared_ptr<Unit> > >);
 
 private:
     std::string name;

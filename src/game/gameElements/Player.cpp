@@ -11,9 +11,6 @@ Player::Player(std::string name) {
 }
 
 
-
-
-
 /*
  * Setter & Getter
  */
@@ -43,10 +40,10 @@ shared_ptr<Player> Player::getNext() {
 }
 
 
-std::shared_ptr<std::vector> Player::getUnits() {
+std::shared_ptr<std::vector< std::shared_ptr<Unit>>> Player::getUnits() {
     return mUnits;
 }
 
-void Player::setUnits(std::shared_ptr<vector> units) {
+void Player::setUnits(std::shared_ptr<vector<std::shared_ptr<Unit>>> units) {
     this->mUnits = units;
 }

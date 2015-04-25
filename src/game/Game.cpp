@@ -208,7 +208,7 @@ void Game::nextTurn() {
     mRounds++;
     mCurrentPlayer = mCurrentPlayer->mNext;
 
-    std::shared_ptr<std::vector> unitHolder = mCurrentPlayer->mUnits;
+    std::shared_ptr<std::vector<std::shared_ptr<Unit>>> unitHolder = mCurrentPlayer->mUnits;
 
     for(std::shared_ptr< Unit > unit : *unitHolder){
         unit->setRemainingMovement(unit->getMovement());
@@ -239,24 +239,24 @@ shared_ptr<Player> Game::getPlayer(int i) {
 }
 
 
-Game::state_t Game::do_state_default(std::shared_ptr<int> clicked) {
-    if(clicked == RIGHTCLICK){
-        return STATE_DEFAULT;
-    }
-
-    if(clicked == LEFTCLICK){
-
-    }
-
-
-    return STATE_SELECTED;
-}
-
-Game::state_t Game::do_state_selected(std::shared_ptr<int> clicked) {
-    if(clicked == RIGHTCLICK){
-        return STATE_DEFAULT;
-    }
-
-
-    return STATE_SELECTED;
-}
+//Game::state_t Game::do_state_default(std::shared_ptr<int> clicked) {
+//    if(clicked == RIGHTCLICK){
+//        return STATE_DEFAULT;
+//    }
+//
+//    if(clicked == LEFTCLICK){
+//
+//    }
+//
+//
+//    return STATE_SELECTED;
+//}
+//
+//Game::state_t Game::do_state_selected(std::shared_ptr<int> clicked) {
+//    if(clicked == RIGHTCLICK){
+//        return STATE_DEFAULT;
+//    }
+//
+//
+//    return STATE_SELECTED;
+//}

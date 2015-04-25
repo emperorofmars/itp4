@@ -47,23 +47,23 @@ private:
 
     void nextTurn();
 
-    //TODO research what kind of event data is given from engine
-    std::shared_ptr<int> clicked;
-
-    typedef enum { STATE_DEFAULT, STATE_SELECTED, NUM_STATES } state_t;
-
-    typedef state_t state_func_t( std::shared_ptr<int> clicked );
-
-    state_t do_state_default(std::shared_ptr<int> clicked);
-    state_t do_state_selected(std::shared_ptr<int> clicked);
-
-    state_func_t* const state_table[ NUM_STATES ] = {
-            do_state_default, do_state_selected
-    };
-
-    state_t run_state( state_t cur_state, std::shared_ptr<int> clicked ) {
-        return state_table[ cur_state ]( clicked );
-    };
+//    //TODO research what kind of event data is given from engine
+//    std::shared_ptr<int> clicked;
+//
+//    typedef enum { STATE_DEFAULT, STATE_SELECTED, NUM_STATES } state_t;
+//
+//    typedef state_t state_func_t( std::shared_ptr<int> clicked );
+//
+//    state_t do_state_default(std::shared_ptr<int> clicked);
+//    state_t do_state_selected(std::shared_ptr<int> clicked);
+//
+//    state_func_t* const state_table[ NUM_STATES ] = {
+//            do_state_default, do_state_selected
+//    };
+//
+//    state_t run_state( state_t cur_state, std::shared_ptr<int> clicked ) {
+//        return state_table[ cur_state ]( clicked );
+//    };
 
 };
 

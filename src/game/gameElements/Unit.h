@@ -11,6 +11,9 @@
 #include "Player.h"
 #include "Hexfield.h"
 
+class Hexfield;
+class Player;
+
 class Unit {
 public:
     Hexfield moveTo(Hexfield field);

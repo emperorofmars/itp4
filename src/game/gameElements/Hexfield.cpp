@@ -23,3 +23,11 @@ std::string Hexfield::printPos() {
     pos = pos + std::string(ss1.str());
     return pos;
 }
+
+/**
+ * Setter & Getter
+ */
+
+void Hexfield::setOccupation(std::shared_ptr<Unit> unit) {
+    isOccupied = unit;
+}
