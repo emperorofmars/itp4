@@ -15,6 +15,7 @@ class Player {
 public:
     Player(std::string name);
     std::shared_ptr<Player> mNext;
+    std::shared_ptr<std::vector> mUnits;
 
     void setName(std::string name);
     std::string getName();
@@ -22,6 +23,9 @@ public:
     //glm::vec4 getColor();
     void setNext(std::shared_ptr<Player> player);
     std::shared_ptr<Player> getNext();
+
+    std::shared_ptr<std::vector> getUnits();
+    void setUnits(std::shared_ptr<std::vector>);
 
 private:
     std::string name;

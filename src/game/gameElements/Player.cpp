@@ -43,3 +43,10 @@ shared_ptr<Player> Player::getNext() {
 }
 
 
+std::shared_ptr<std::vector> Player::getUnits() {
+    return mUnits;
+}
+
+void Player::setUnits(std::shared_ptr<vector> units) {
+    this->mUnits = units;
+}

@@ -14,14 +14,12 @@ GameLoop::GameLoop(std::shared_ptr<Game> game) {
 
 int GameLoop::run() {
     bool exit = false;
-    std::shared_ptr<int> input;
-    std::shared_ptr<Player> currentPlayer = mGame->getPlayer(0);
+
 
     while(!exit){
-        if(input != NULL){
 
+        int lastAction = input.front();
 
-        }
 
 
 

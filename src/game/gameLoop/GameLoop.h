@@ -9,12 +9,14 @@
 #define ITP4_GAMELOOP_H
 
 
+#include <deque>
 #include "../gameElements/Player.h"
 #include "../Game.h"
 
 class GameLoop {
 public:
     GameLoop(std::shared_ptr< Game >);
+    std::deque<int> input;
     int run();
 
 private:
