@@ -31,8 +31,9 @@ private:
 
 //Lukas Windows: D:\Repos\itp4\src\units.txt
 //Lukas Mac: /Users/Luke/Projects/itp4/src/units.txt
+//Lukas Arch: /home/lukas/repos/itp4/src/units.txt
 
-#define pathToConfig "/Users/Luke/Projects/itp4/src/units.txt"
+#define pathToConfig "/home/lukas/repos/itp4/src/units.txt"
 
 
 #endif //ITP4_UNITMANAGER_H
