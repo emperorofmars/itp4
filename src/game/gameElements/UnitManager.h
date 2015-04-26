@@ -17,6 +17,7 @@ public:
     void loadProtoypes();
     std::vector< std::shared_ptr<Unit> > getList();
     void printPrototypesToCout();
+    std::shared_ptr<Unit> getChild(std::string name);
 
 private:
     UnitManager();
@@ -29,6 +30,7 @@ private:
 
 };
 
+//TODO
 //Lukas Windows: D:\Repos\itp4\src\units.txt
 //Lukas Mac: /Users/Luke/Projects/itp4/src/units.txt
 //Lukas Arch: /home/lukas/repos/itp4/src/units.txt

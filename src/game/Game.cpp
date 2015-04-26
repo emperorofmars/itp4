@@ -26,8 +26,6 @@ void Game::initGame() {
     mPlayers[0]->setNext(mPlayers[1]);
     mPlayers[1]->setNext(mPlayers[0]);
 
-    generatePlayingField();
-
 
     cout << "getting instance of UnitManager" << endl;
 
@@ -39,8 +37,15 @@ void Game::initGame() {
     mUnitManager->printPrototypesToCout();
 
 
+
+    generatePlayingField();
+
+
+
+
+
     mRounds = 1;
-    mCurrentPlayer = getPlayer(0);
+    mCurrentPlayer = 1;
     mStarted = time(0);
 
 
@@ -53,6 +58,7 @@ void Game::generatePlayingField() {
 
     std::vector< std::vector< shared_ptr<Hexfield> > > field;
     int size = 24;
+    float SCALING = 2;
 
     field.resize(size);
 
@@ -60,12 +66,14 @@ void Game::generatePlayingField() {
         for(int j = 0; j < size; ++j){
             shared_ptr< Hexfield > newField(new Hexfield());
 
-            newField->mPosition[0] = j;
-            newField->mPosition[1] = i;
+            newField->mPosition[0] = j*SCALING;
+            newField->mPosition[1] = i*SCALING;
 
             if(i%2){
-                newField->mPosition[0] += 0.5;
+                newField->mPosition[0] += 0.5*SCALING;
             }
+
+            newField->mPositionVector = glm::vec3(newField->mPosition[0], -10.f, newField->mPosition[1]);
 
             field[i].push_back(newField);
 //            cout << field[i][j]->mPosition[0] << "/" << field[i][j]->mPosition[1] << " ";
@@ -199,16 +207,60 @@ void Game::generatePlayingField() {
     cout << endl;
 
     mFirstField = field[0][0];
-    cout << "first field is " << mFirstField->mPosition[0] << " / " << mFirstField->mPosition[1] << endl;
+
+
+    //Sets Position of Magetowers
+    field[4][4]->setOccupation(std::shared_ptr<Unit>(mUnitManager->getChild("Magierturm")->clone()));
+    field[19][19]->setOccupation(std::shared_ptr<Unit>(mUnitManager->getChild("Magierturm")->clone()));
+
+
+}
+
+int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node> actualScene,
+                     std::shared_ptr<Hexfield> hexfield){
+
+    cout << "setting up field nodes" << endl;
+
+    std::shared_ptr<mgf::Node> newNode = root->getChild("hex.obj")->getChild("Hex")->clone();
+    actualScene->add(newNode);
+    newNode->translate(hexfield->mPositionVector);
+    hexfield->setEngineObjectRef(newNode);
+
+    hexfield->mIsRendered = 1;
+
+    /**
+     * This Loop will recursively call this method in every Hexfield
+     */
+    for(std::shared_ptr<Hexfield> field : hexfield->linkedTo){
+        if(field && !field->mIsRendered){
+            setupField(root, actualScene, field);
+        }
+
+    }
+
+
+    if(std::shared_ptr<Unit> unit = hexfield->getOccupation()){
+        if(unit->getName() == "Magierturm"){
+            std::shared_ptr<mgf::Node> unitNode = root->getChild("scene.obj")->getChild("Cube")->clone();
+            actualScene->add(unitNode);
+            unitNode->translate(hexfield->mPositionVector);
+            unitNode->rotate(90, glm::vec3(0.f, 1.f, 0.f));
+            unitNode->scale(glm::vec3(0.3f, 3.f, 0.3f));
+
+        }
+
+    }
+
 
 }
 
 
 void Game::nextTurn() {
     mRounds++;
-    mCurrentPlayer = mCurrentPlayer->mNext;
+    //TODO if player > player size reset
+    mCurrentPlayer++;
 
-    std::shared_ptr<std::vector<std::shared_ptr<Unit>>> unitHolder = mCurrentPlayer->mUnits;
+    std::shared_ptr<std::vector<std::shared_ptr<Unit>>> unitHolder = mPlayers[mCurrentPlayer]->mUnits;
 
     for(std::shared_ptr< Unit > unit : *unitHolder){
         unit->setRemainingMovement(unit->getMovement());
@@ -236,6 +288,10 @@ shared_ptr<Player> Game::getPlayer(int i) {
         default: player.reset(); break;
     }
     return player;
+}
+
+shared_ptr<Hexfield> Game::getFirstField() {
+    return mFirstField;
 }
 
 

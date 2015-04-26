@@ -19,7 +19,8 @@ public:
     Hexfield moveTo(Hexfield field);
 
     Unit();
-    Unit(const Unit& original);
+    Unit(std::shared_ptr<Unit> original);
+    std::shared_ptr<Unit> clone();
 
 private:
     std::shared_ptr<Player> owner;

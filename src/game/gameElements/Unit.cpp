@@ -8,23 +8,46 @@ Unit::Unit(){
 
 }
 
-Unit::Unit(const Unit &original) {
-    type = original.type;
-    name = original.name;
+Unit::Unit(std::shared_ptr<Unit> original) {
+    type = original->type;
+    name = original->name;
 
-    maxHP = original.maxHP;
-    dmg = original.dmg;
-    range = original.range;
-    hitChance = original.hitChance;
-    movement = original.movement;
-    sightRadius = original.sightRadius;
-    manaCost = original.manaCost;
+    maxHP = original->maxHP;
+    dmg = original->dmg;
+    range = original->range;
+    hitChance = original->hitChance;
+    movement = original->movement;
+    sightRadius = original->sightRadius;
+    manaCost = original->manaCost;
 
     //setting variable values to Max
     curHP = maxHP;
     timesDefended = 0;
     remainingMovement = movement;
 }
+
+std::shared_ptr<Unit> Unit::clone(){
+    std::shared_ptr<Unit> unit(new Unit);
+
+    unit->type = type;
+    unit->name = name;
+
+    unit->maxHP = maxHP;
+    unit->dmg = dmg;
+    unit->range = range;
+    unit->hitChance = hitChance;
+    unit->movement = movement;
+    unit->sightRadius = sightRadius;
+    unit->manaCost = manaCost;
+
+    //setting variable values to Max
+    curHP = maxHP;
+    timesDefended = 0;
+    remainingMovement = movement;
+
+    return unit;
+}
+
 
 Hexfield Unit::moveTo(Hexfield field) {
     return Hexfield();

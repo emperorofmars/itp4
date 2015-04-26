@@ -100,3 +100,12 @@ void UnitManager::printPrototypesToCout() {
         std::endl << std::endl;
     }
 }
+
+std::shared_ptr<Unit> UnitManager::getChild(std::string name) {
+    for(std::shared_ptr<Unit> unit : mPrototypes){
+        if(unit->getName() == name){
+            return unit;
+        }
+    }
+    return NULL;
+}

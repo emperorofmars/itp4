@@ -26,11 +26,18 @@ public:
     std::shared_ptr<Player> getPlayer(int i);
     void setMPlayers(Player mPlayers[]);
 
+    int setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node> actualScene,
+                   std::shared_ptr<Hexfield> hexfield);
+
+
+    std::shared_ptr<Hexfield> getFirstField();
+
+
 private:
     std::shared_ptr<Player> mPlayers[2];
     std::shared_ptr<Player> mWinner;
     UnitManager* mUnitManager;
-    std::shared_ptr<Player> mCurrentPlayer;
+    int mCurrentPlayer;
 
     std::shared_ptr< std::vector < std::shared_ptr< Unit > > > mUnitHolder1;
     std::shared_ptr< std::vector < std::shared_ptr< Unit > > > mUnitHolder2;
@@ -46,6 +53,7 @@ private:
     void writeStatsToDb();
 
     void nextTurn();
+
 
 //    //TODO research what kind of event data is given from engine
 //    std::shared_ptr<int> clicked;

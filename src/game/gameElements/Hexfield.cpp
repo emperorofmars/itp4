@@ -31,3 +31,11 @@ std::string Hexfield::printPos() {
 void Hexfield::setOccupation(std::shared_ptr<Unit> unit) {
     isOccupied = unit;
 }
+
+std::shared_ptr<Unit> Hexfield::getOccupation() {
+    return isOccupied;
+}
+
+void Hexfield::setEngineObjectRef(std::shared_ptr<mgf::Node> EngineObjectRef) {
+    this->mEngineObjectRef = EngineObjectRef;
+}
