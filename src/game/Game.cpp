@@ -6,8 +6,14 @@
 
 
 #include "Game.h"
+#include "../tbs.h"
 
 using namespace std;
+
+Game::Game(){
+    mUnitHolder1.reset(new std::vector<std::shared_ptr<Unit>>);
+    mUnitHolder2.reset(new std::vector<std::shared_ptr<Unit>>);
+}
 
 void Game::initGame() {
 
@@ -213,6 +219,13 @@ void Game::generatePlayingField() {
     field[4][4]->setOccupation(std::shared_ptr<Unit>(mUnitManager->getChild("Magierturm")->clone()));
     field[19][19]->setOccupation(std::shared_ptr<Unit>(mUnitManager->getChild("Magierturm")->clone()));
 
+    LOG_F_TRACE(GAME_LOG_PATH, "TEST trace");
+    std::shared_ptr<Unit> unit = mUnitManager->getChild("Infanterie")->clone();
+    LOG_F_TRACE(GAME_LOG_PATH, "unit:", unit->getName());
+
+    mUnitHolder1->push_back(std::shared_ptr<Unit>(unit));
+    field[17][17]->setOccupation(mUnitHolder1->at(0));
+
 
 }
 
@@ -247,6 +260,11 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
             unitNode->rotate(90, glm::vec3(0.f, 1.f, 0.f));
             unitNode->scale(glm::vec3(0.3f, 3.f, 0.3f));
 
+        }else if(unit->getName() == "Infanterie"){
+            std::shared_ptr<mgf::Node> unitNode = root->getChild("scene.obj")->getChild("Cube")->clone();
+            actualScene->add(unitNode);
+            unitNode->translate(hexfield->mPositionVector);
+            unitNode->scale(glm::vec3(.5f, .5f, .5f));
         }
 
     }
@@ -270,9 +288,27 @@ void Game::nextTurn() {
 
 }
 
+int Game::unitMovementWrapper(std::shared_ptr<Unit> unit,
+                              std::shared_ptr<Hexfield> destination) {
+    std::shared_ptr<Hexfield> startField = unit->getCurrentHexfield();
+
+    std::shared_ptr<Hexfield> finishedField = unit->moveTo(destination);
+
+    if(finishedField){
+        unit->getUnitNode()->translate(glm::vec3(finishedField->mPositionVector));
+
+    }
+
+}
+
+
+
 void Game::writeStatsToDb() {
     // TODO Write game stats to some persistent storage
 }
+
+
+
 
 
 /*
@@ -316,3 +352,20 @@ shared_ptr<Hexfield> Game::getFirstField() {
 //
 //    return STATE_SELECTED;
 //}
+
+
+std::shared_ptr<Hexfield> Game::getHexAt(std::shared_ptr<Hexfield> start, float x, float y) {
+    if(start->mPosition[1] == x && start->mPosition[0] == y){
+        return start;
+    }
+    for(std::shared_ptr<Hexfield> hex : start->linkedTo){
+        if(hex){
+            start = getHexAt(hex, x, y);
+            if(start != NULL){
+                return start;
+            }
+        }
+
+    }
+    return NULL;
+}

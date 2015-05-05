@@ -16,7 +16,7 @@ class Player;
 
 class Unit {
 public:
-    Hexfield moveTo(Hexfield field);
+    std::shared_ptr<Hexfield> moveTo(std::shared_ptr<Hexfield> field);
 
     Unit();
     Unit(std::shared_ptr<Unit> original);
@@ -24,7 +24,8 @@ public:
 
 private:
     std::shared_ptr<Player> owner;
-    int renderId;
+    std::shared_ptr<Hexfield> mCurrentHexfield;
+    std::shared_ptr<mgf::Node> mUnitNode;
 
     //FINAL VALUES
     std::string type;
@@ -71,6 +72,11 @@ public:
     void setSightRadius(int);
     void setManaCost(int);
     void setTimesDefended(int);
+    void setCurrentHexfield(std::shared_ptr<Hexfield> hexfield);
+    std::shared_ptr<Hexfield> getCurrentHexfield();
+
+    void setUnitNode(std::shared_ptr<mgf::Node> node);
+    std::shared_ptr<mgf::Node> getUnitNode();
 
 
 };

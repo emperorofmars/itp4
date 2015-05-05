@@ -8,6 +8,7 @@
 #include "GameLoop.h"
 #include "../Game.h"
 #include "../EngineHelper.h"
+#include "../../tbs.h"
 
 GameLoop::GameLoop(std::shared_ptr<Game> game) {
     mGame = game;
@@ -17,6 +18,7 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
 //###############################################  Gameloop
     float current = 0, last = 0, frametime = 0;
     bool quit = false;
+    bool moveTest = true;
     while(quit != true){
 //###############################################  Update
         engine->input->update();
@@ -31,6 +33,17 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
         engine->actualScene->render(engine->renderer); //rendering on gpu happens here
 
         engine->w->swap(); //display the rendered image on screen
+
+//############ Movement Test
+        if(moveTest){
+            LOG_F_TRACE(GAME_LOG_PATH, "trying to move unit");
+            //std::shared_ptr<Hexfield> dest = mGame->getHexAt(mGame->getFirstField(), 17.5, 18);
+            //mGame->unitMovementWrapper(mGame->mUnitHolder1->at(0), dest);
+
+            moveTest = false;
+        }
+
+
 //###############################################  Calculate fps
         current = SDL_GetTicks();
         frametime = current - last;

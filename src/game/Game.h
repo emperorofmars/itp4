@@ -20,6 +20,7 @@
 
 class Game {
 public:
+    Game();
     void initGame();
 
 
@@ -29,18 +30,20 @@ public:
     int setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node> actualScene,
                    std::shared_ptr<Hexfield> hexfield);
 
+    int unitMovementWrapper(std::shared_ptr<Unit> unit, std::shared_ptr<Hexfield> destination);
 
     std::shared_ptr<Hexfield> getFirstField();
+    std::shared_ptr<Hexfield> getHexAt(std::shared_ptr<Hexfield> start, float x, float y);
 
-
+    std::shared_ptr< std::vector < std::shared_ptr< Unit > > > mUnitHolder1;
+    std::shared_ptr< std::vector < std::shared_ptr< Unit > > > mUnitHolder2;
 private:
     std::shared_ptr<Player> mPlayers[2];
     std::shared_ptr<Player> mWinner;
     UnitManager* mUnitManager;
     int mCurrentPlayer;
 
-    std::shared_ptr< std::vector < std::shared_ptr< Unit > > > mUnitHolder1;
-    std::shared_ptr< std::vector < std::shared_ptr< Unit > > > mUnitHolder2;
+
 
     int mRounds;
 

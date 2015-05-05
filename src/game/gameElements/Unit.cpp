@@ -49,8 +49,39 @@ std::shared_ptr<Unit> Unit::clone(){
 }
 
 
-Hexfield Unit::moveTo(Hexfield field) {
-    return Hexfield();
+std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> field) {
+    float destinationXPos = field->mPosition[1];
+    float destinationYPos = field->mPosition[0];
+
+    std::shared_ptr<Hexfield> nearestHex;
+    float minDist = INFINITY;
+    float curDist = INFINITY;
+
+    for(std::shared_ptr<Hexfield> hex : mCurrentHexfield->linkedTo){
+        float xPos = hex->mPosition[1];
+        float yPos = hex->mPosition[0];
+
+        curDist = std::abs(destinationXPos - xPos);
+        curDist += std::abs(destinationYPos - yPos);
+
+        if(curDist < minDist){
+            minDist = curDist;
+            nearestHex = hex;
+        }
+
+    }
+
+    mCurrentHexfield->setEmtpy();
+    nearestHex->setOccupation(std::shared_ptr<Unit>(this));
+    remainingMovement--;
+
+    if(curDist == 0 || remainingMovement == 0){
+        return mCurrentHexfield;
+    }
+
+    moveTo(field);
+
+    return false;
 }
 
 
@@ -153,3 +184,16 @@ void Unit::setTimesDefended(int i) {
     timesDefended = i;
 }
 
+void Unit::setCurrentHexfield(std::shared_ptr<Hexfield> hexfield) {
+    mCurrentHexfield = hexfield;
+}
+
+std::shared_ptr<Hexfield> Unit::getCurrentHexfield() {
+    return mCurrentHexfield;
+}
+
+void Unit::setUnitNode(std::shared_ptr<mgf::Node> node) {
+    mUnitNode = node;
+}
+
+std::shared_ptr<mgf::Node> Unit::getUnitNode() { return mUnitNode; }

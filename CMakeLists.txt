@@ -25,7 +25,7 @@ set(SOURCE_FILES
     src/game/gameLoop/GameLoop.cpp
     src/game/menu/Menu.h
     src/tests/test.cpp
-    #src/libs/mlog.h
+    src/libs/mlog.h
     src/tbs.cpp
     src/tbs.h)
 

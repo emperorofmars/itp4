@@ -30,6 +30,7 @@ std::string Hexfield::printPos() {
 
 void Hexfield::setOccupation(std::shared_ptr<Unit> unit) {
     isOccupied = unit;
+    unit->setCurrentHexfield(std::shared_ptr<Hexfield>(this));
 }
 
 std::shared_ptr<Unit> Hexfield::getOccupation() {
@@ -38,4 +39,8 @@ std::shared_ptr<Unit> Hexfield::getOccupation() {
 
 void Hexfield::setEngineObjectRef(std::shared_ptr<mgf::Node> EngineObjectRef) {
     this->mEngineObjectRef = EngineObjectRef;
+}
+
+void Hexfield::setEmtpy() {
+    isOccupied.reset();
 }

@@ -13,10 +13,11 @@ public:
     Hexfield();
     void setOccupation(std::shared_ptr<Unit> unit);
     std::shared_ptr<Unit> getOccupation();
-
+    void setEmtpy();
+    //TODO write getter for position
     float mPosition[2];
     glm::vec3 mPositionVector;
-
+    //TODO write getter for linked to
     std::shared_ptr<Hexfield> linkedTo[6];
 
     int mIsRendered = 0;
