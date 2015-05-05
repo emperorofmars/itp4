@@ -24,7 +24,6 @@ set(SOURCE_FILES
     src/game/gameLoop/GameLoop.h
     src/game/gameLoop/GameLoop.cpp
     src/game/menu/Menu.h
-    src/mgf/mgf_opengl.h
     src/tests/test.cpp
     #src/libs/mlog.h
     src/tbs.cpp
@@ -51,4 +50,4 @@ PKG_SEARCH_MODULE(ASSIMP REQUIRED assimp)
 INCLUDE_DIRECTORIES(${ASSIMP_INCLUDE_DIRS})
 TARGET_LINK_LIBRARIES(itp4 ${ASSIMP_LIBRARIES})
 
-target_link_libraries(itp4 "/home/lukas/.clion10/system/cmake/generated/eab71f22/eab71f22/Debug/libmgf.a")
+target_link_libraries(itp4 "/home/lukas/.clion10/system/cmake/generated/eab71f22/eab71f22/Debug/libmgf_lib.a")

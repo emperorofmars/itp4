@@ -3,9 +3,7 @@
 //
 
 #include <src/util/Window.h>
-#include <src/util/Input.h>
 #include <src/util/ShaderProgram.h>
-#include <src/util/Camera.h>
 #include <src/renderer/Renderer.h>
 #include <src/scene/Loader.h>
 #include "startUp.h"

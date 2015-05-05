@@ -7,14 +7,14 @@
 
 
 #include <src/scene/Loader.h>
-#include <src/util/Input.h>
+#include <src/input/IInput.h>
 
 class EngineHelper {
 public:
     std::shared_ptr<mgf::Window> w;
-    std::shared_ptr<mgf::Input> input;
+    std::shared_ptr<mgf::IInput> input;
     std::shared_ptr<mgf::ShaderProgram> p;
-    std::shared_ptr<mgf::Camera> cam;
+    std::shared_ptr<mgf::ICamera> cam;
     std::shared_ptr<mgf::Renderer> renderer;
     mgf::Loader l;
 

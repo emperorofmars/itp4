@@ -21,7 +21,7 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
 //###############################################  Update
         engine->input->update();
         quit = engine->input->getQuit();
-        engine->cam->update(engine->input->getPos(), engine->input->getRot());
+        engine->cam->update(engine->input->getPosition(), engine->input->getMouseRelative());
 
 
 //###############################################  Rendering
