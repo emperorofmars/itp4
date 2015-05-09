@@ -10,6 +10,7 @@
 #include "Game.h"
 #include "gameLoop/GameLoop.h"
 #include "EngineHelper.h"
+#include "../tbs.h"
 
 using namespace std;
 
@@ -18,7 +19,9 @@ using namespace std;
 
 int startUp(){
 
+    LOG_INIT("log/log_tbs.txt", true);
 
+    LOG_F_TRACE(GAME_LOG_PATH, "Starting up ... ");
 
 
 
@@ -40,7 +43,6 @@ int startUp(){
 
 
 
-    LOG_INIT("log/log_tbs.txt", true);
 
     std::shared_ptr<EngineHelper> engine(new EngineHelper);
 

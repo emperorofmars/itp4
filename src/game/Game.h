@@ -33,7 +33,7 @@ public:
     int unitMovementWrapper(std::shared_ptr<Unit> unit, std::shared_ptr<Hexfield> destination);
 
     std::shared_ptr<Hexfield> getFirstField();
-    std::shared_ptr<Hexfield> getHexAt(std::shared_ptr<Hexfield> start, float x, float y);
+    std::shared_ptr<Hexfield> getHexAt(std::shared_ptr<Hexfield> current, float x, float y);
 
     std::shared_ptr< std::vector < std::shared_ptr< Unit > > > mUnitHolder1;
     std::shared_ptr< std::vector < std::shared_ptr< Unit > > > mUnitHolder2;

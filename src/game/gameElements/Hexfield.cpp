@@ -4,6 +4,7 @@
 
 #include <sstream>
 #include "Hexfield.h"
+#include "../../tbs.h"
 
 Hexfield::Hexfield() {
     mTerrain = 0;
@@ -30,7 +31,6 @@ std::string Hexfield::printPos() {
 
 void Hexfield::setOccupation(std::shared_ptr<Unit> unit) {
     isOccupied = unit;
-    unit->setCurrentHexfield(std::shared_ptr<Hexfield>(this));
 }
 
 std::shared_ptr<Unit> Hexfield::getOccupation() {

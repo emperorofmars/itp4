@@ -37,8 +37,10 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
 //############ Movement Test
         if(moveTest){
             LOG_F_TRACE(GAME_LOG_PATH, "trying to move unit");
-            //std::shared_ptr<Hexfield> dest = mGame->getHexAt(mGame->getFirstField(), 17.5, 18);
-            //mGame->unitMovementWrapper(mGame->mUnitHolder1->at(0), dest);
+            std::shared_ptr<Hexfield> dest = mGame->getHexAt(mGame->getFirstField(), 17.5, 18);
+            LOG_F_TRACE(GAME_LOG_PATH, "pos: ", dest->mPosition[1], " / ", dest->mPosition[0]);
+            mGame->mUnitHolder1->at(0)->printStats();
+            mGame->unitMovementWrapper(mGame->mUnitHolder1->at(0), dest);
 
             moveTest = false;
         }

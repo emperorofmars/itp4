@@ -3,6 +3,7 @@
 //
 
 #include "Unit.h"
+#include "../../tbs.h"
 
 Unit::Unit(){
 
@@ -41,47 +42,68 @@ std::shared_ptr<Unit> Unit::clone(){
     unit->manaCost = manaCost;
 
     //setting variable values to Max
-    curHP = maxHP;
-    timesDefended = 0;
-    remainingMovement = movement;
+    unit->curHP = maxHP;
+    unit->timesDefended = 0;
+    unit->remainingMovement = movement;
 
     return unit;
 }
 
 
-std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> field) {
-    float destinationXPos = field->mPosition[1];
-    float destinationYPos = field->mPosition[0];
+std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> destination, std::shared_ptr<Unit> self) {
+    float destinationXPos = destination->mPosition[1];
+    float destinationYPos = destination->mPosition[0];
+
+    LOG_F_TRACE(GAME_LOG_PATH, "POS: ", mCurrentHexfield->mPosition[1], "/", mCurrentHexfield->mPosition[0]);
+    LOG_F_TRACE(GAME_LOG_PATH, "moving.. (dest: ", destination->mPosition[1], "/", destination->mPosition[0], ")");
 
     std::shared_ptr<Hexfield> nearestHex;
-    float minDist = INFINITY;
+    float minDist;
     float curDist = INFINITY;
 
-    for(std::shared_ptr<Hexfield> hex : mCurrentHexfield->linkedTo){
-        float xPos = hex->mPosition[1];
-        float yPos = hex->mPosition[0];
+    minDist = std::abs(destinationXPos - mCurrentHexfield->mPosition[1])
+              + std::abs(destinationYPos - mCurrentHexfield->mPosition[0]);
 
-        curDist = std::abs(destinationXPos - xPos);
-        curDist += std::abs(destinationYPos - yPos);
+    nearestHex = mCurrentHexfield;
+
+    for(std::shared_ptr<Hexfield> neighbor : mCurrentHexfield->linkedTo){
+        if(neighbor == NULL) continue;
+
+        float xPos = neighbor->mPosition[1];
+        float yPos = neighbor->mPosition[0];
+
+        curDist = std::abs(destinationXPos - xPos)
+                  + std::abs(destinationYPos - yPos);
 
         if(curDist < minDist){
+            LOG_F_TRACE(GAME_LOG_PATH, "new low at ", neighbor->mPosition[1], "/", neighbor->mPosition[0]);
             minDist = curDist;
-            nearestHex = hex;
+            nearestHex = neighbor;
         }
 
     }
 
-    mCurrentHexfield->setEmtpy();
-    nearestHex->setOccupation(std::shared_ptr<Unit>(this));
-    remainingMovement--;
+    LOG_F_TRACE(GAME_LOG_PATH, "finished look up loop");
 
-    if(curDist == 0 || remainingMovement == 0){
+
+    if(nearestHex == mCurrentHexfield){
+        LOG_F_TRACE(GAME_LOG_PATH, "final destination reached");
         return mCurrentHexfield;
     }
 
-    moveTo(field);
+    mCurrentHexfield->setEmtpy();
+    LOG_F_TRACE(GAME_LOG_PATH, "nearest hex is ", nearestHex->mPosition[1], "/", nearestHex->mPosition[0]);
+    nearestHex->setOccupation(self);
+    self->setCurrentHexfield(nearestHex);
+    remainingMovement--;
 
-    return false;
+    LOG_F_TRACE(GAME_LOG_PATH, "rem move ", remainingMovement);
+    if(remainingMovement == 0){
+        return mCurrentHexfield;
+    }
+    nearestHex = moveTo(destination, self);
+
+    return nearestHex;
 }
 
 
@@ -185,6 +207,8 @@ void Unit::setTimesDefended(int i) {
 }
 
 void Unit::setCurrentHexfield(std::shared_ptr<Hexfield> hexfield) {
+    mCurrentHexfield.reset();
+    LOG_F_TRACE(GAME_LOG_PATH, hexfield->mPosition[1], "/", hexfield->mPosition[0]);
     mCurrentHexfield = hexfield;
 }
 
@@ -197,3 +221,16 @@ void Unit::setUnitNode(std::shared_ptr<mgf::Node> node) {
 }
 
 std::shared_ptr<mgf::Node> Unit::getUnitNode() { return mUnitNode; }
+
+void Unit::printStats() {
+    std::cout << type << std::endl
+    << name << std::endl
+    << curHP << "/" << maxHP << std::endl
+    << dmg << std::endl
+    << range << std::endl
+    << hitChance << std::endl
+    << remainingMovement << "/" << movement << std::endl
+    << sightRadius << std::endl
+    << manaCost << std::endl;
+
+}

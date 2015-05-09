@@ -79,7 +79,7 @@ void Game::generatePlayingField() {
                 newField->mPosition[0] += 0.5*SCALING;
             }
 
-            newField->mPositionVector = glm::vec3(newField->mPosition[0], -10.f, newField->mPosition[1]);
+            newField->mPositionVector = glm::vec3(newField->mPosition[0], 0.f, newField->mPosition[1]);
 
             field[i].push_back(newField);
 //            cout << field[i][j]->mPosition[0] << "/" << field[i][j]->mPosition[1] << " ";
@@ -219,13 +219,15 @@ void Game::generatePlayingField() {
     field[4][4]->setOccupation(std::shared_ptr<Unit>(mUnitManager->getChild("Magierturm")->clone()));
     field[19][19]->setOccupation(std::shared_ptr<Unit>(mUnitManager->getChild("Magierturm")->clone()));
 
+
+
     LOG_F_TRACE(GAME_LOG_PATH, "TEST trace");
     std::shared_ptr<Unit> unit = mUnitManager->getChild("Infanterie")->clone();
     LOG_F_TRACE(GAME_LOG_PATH, "unit:", unit->getName());
 
     mUnitHolder1->push_back(std::shared_ptr<Unit>(unit));
     field[17][17]->setOccupation(mUnitHolder1->at(0));
-
+    mUnitHolder1->at(0)->setCurrentHexfield(field[17][17]);
 
 }
 
@@ -255,6 +257,7 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
     if(std::shared_ptr<Unit> unit = hexfield->getOccupation()){
         if(unit->getName() == "Magierturm"){
             std::shared_ptr<mgf::Node> unitNode = root->getChild("scene.obj")->getChild("Cube")->clone();
+            unit->setUnitNode(unitNode);
             actualScene->add(unitNode);
             unitNode->translate(hexfield->mPositionVector);
             unitNode->rotate(90, glm::vec3(0.f, 1.f, 0.f));
@@ -262,6 +265,7 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
 
         }else if(unit->getName() == "Infanterie"){
             std::shared_ptr<mgf::Node> unitNode = root->getChild("scene.obj")->getChild("Cube")->clone();
+            unit->setUnitNode(unitNode);
             actualScene->add(unitNode);
             unitNode->translate(hexfield->mPositionVector);
             unitNode->scale(glm::vec3(.5f, .5f, .5f));
@@ -290,12 +294,22 @@ void Game::nextTurn() {
 
 int Game::unitMovementWrapper(std::shared_ptr<Unit> unit,
                               std::shared_ptr<Hexfield> destination) {
+    LOG_F_TRACE(GAME_LOG_PATH, "Starting unit movement ", unit->getName(), " to ",
+                destination->mPosition[1], "/" , destination->mPosition[0]);
+
     std::shared_ptr<Hexfield> startField = unit->getCurrentHexfield();
 
-    std::shared_ptr<Hexfield> finishedField = unit->moveTo(destination);
 
+    std::shared_ptr<Hexfield> finishedField = unit->moveTo(destination, unit);
+
+    LOG_F_TRACE(GAME_LOG_PATH, "translating unit to endpoint");
     if(finishedField){
-        unit->getUnitNode()->translate(glm::vec3(finishedField->mPositionVector));
+        //LOG_F_TRACE(GAME_LOG_PATH, finishedField->mPositionVector);
+        std::shared_ptr<mgf::Node> node = unit->getUnitNode();
+        finishedField->mPositionVector;
+        LOG_F_TRACE(GAME_LOG_PATH, finishedField->mPosition[1], "/", finishedField->mPosition[0]);
+
+        unit->getUnitNode()->setTranslation(finishedField->mPositionVector);
 
     }
 
@@ -354,18 +368,35 @@ shared_ptr<Hexfield> Game::getFirstField() {
 //}
 
 
-std::shared_ptr<Hexfield> Game::getHexAt(std::shared_ptr<Hexfield> start, float x, float y) {
-    if(start->mPosition[1] == x && start->mPosition[0] == y){
-        return start;
-    }
-    for(std::shared_ptr<Hexfield> hex : start->linkedTo){
-        if(hex){
-            start = getHexAt(hex, x, y);
-            if(start != NULL){
-                return start;
-            }
+std::shared_ptr<Hexfield> Game::getHexAt(std::shared_ptr<Hexfield> current, float x, float y) {
+    float minDist;
+    float curDist;
+    std::shared_ptr<Hexfield> nearest(current);
+
+    LOG_F_TRACE(GAME_LOG_PATH, "in field: ", current->mPosition[1], "/", current->mPosition[0]);
+
+
+    minDist = abs(x - current->mPosition[1])
+              + abs(y - current->mPosition[0]);
+
+    for(std::shared_ptr<Hexfield> neighbor : current->linkedTo){
+        if(neighbor == NULL) continue;
+
+        curDist = abs(x - neighbor->mPosition[1]) + abs(y - neighbor->mPosition[0]);
+        if(curDist < minDist){
+            minDist = curDist;
+            nearest = neighbor;
         }
 
     }
-    return NULL;
+
+
+    if(nearest == current){
+        LOG_F_TRACE(GAME_LOG_PATH, "Found nearest at ", current->mPosition[1], "/", current->mPosition[0]);
+        return current;
+    }else{
+        nearest = getHexAt(nearest, x, y);
+    }
+
+    return nearest;
 }

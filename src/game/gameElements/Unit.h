@@ -16,11 +16,13 @@ class Player;
 
 class Unit {
 public:
-    std::shared_ptr<Hexfield> moveTo(std::shared_ptr<Hexfield> field);
+    std::shared_ptr<Hexfield> moveTo(std::shared_ptr<Hexfield> destination, std::shared_ptr<Unit> self);
 
     Unit();
     Unit(std::shared_ptr<Unit> original);
     std::shared_ptr<Unit> clone();
+
+    void printStats();
 
 private:
     std::shared_ptr<Player> owner;
@@ -42,7 +44,6 @@ private:
     int curHP;
     int remainingMovement;
     int timesDefended;
-
 
 
 
