@@ -35,6 +35,12 @@ public:
     std::shared_ptr<Hexfield> getFirstField();
     std::shared_ptr<Hexfield> getHexAt(std::shared_ptr<Hexfield> current, float x, float y);
 
+    bool getSelectedState();
+    void setSelectedState(bool selectedState);
+
+    std::shared_ptr<Unit> getSelectedUnit();
+    void setSelectedUnit(std::shared_ptr<Unit>);
+
     std::shared_ptr< std::vector < std::shared_ptr< Unit > > > mUnitHolder1;
     std::shared_ptr< std::vector < std::shared_ptr< Unit > > > mUnitHolder2;
 private:
@@ -43,6 +49,8 @@ private:
     UnitManager* mUnitManager;
     int mCurrentPlayer;
 
+    bool SELECTED_STATE;
+    std::shared_ptr<Unit> mselectedUnit;
 
 
     int mRounds;

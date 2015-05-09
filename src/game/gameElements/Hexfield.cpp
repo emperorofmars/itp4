@@ -10,6 +10,7 @@ Hexfield::Hexfield() {
     mTerrain = 0;
     mPosition[0] = 0;
     mPosition[1] = 0;
+    isOccupied = false;
 }
 
 
@@ -30,11 +31,12 @@ std::string Hexfield::printPos() {
  */
 
 void Hexfield::setOccupation(std::shared_ptr<Unit> unit) {
-    isOccupied = unit;
+    occupation = unit;
+    isOccupied = true;
 }
 
 std::shared_ptr<Unit> Hexfield::getOccupation() {
-    return isOccupied;
+    return occupation;
 }
 
 void Hexfield::setEngineObjectRef(std::shared_ptr<mgf::Node> EngineObjectRef) {
@@ -42,5 +44,10 @@ void Hexfield::setEngineObjectRef(std::shared_ptr<mgf::Node> EngineObjectRef) {
 }
 
 void Hexfield::setEmtpy() {
-    isOccupied.reset();
+    occupation.reset();
+    isOccupied = false;
+}
+
+bool Hexfield::getIsOccupied() {
+    return isOccupied;
 }

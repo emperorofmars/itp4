@@ -13,6 +13,7 @@ using namespace std;
 Game::Game(){
     mUnitHolder1.reset(new std::vector<std::shared_ptr<Unit>>);
     mUnitHolder2.reset(new std::vector<std::shared_ptr<Unit>>);
+    SELECTED_STATE = false;
 }
 
 void Game::initGame() {
@@ -399,4 +400,21 @@ std::shared_ptr<Hexfield> Game::getHexAt(std::shared_ptr<Hexfield> current, floa
     }
 
     return nearest;
+}
+
+
+bool Game::getSelectedState() {
+    return SELECTED_STATE;
+}
+
+void Game::setSelectedState(bool selectedState) {
+    SELECTED_STATE = selectedState;
+}
+
+std::shared_ptr<Unit> Game::getSelectedUnit() {
+    return mselectedUnit;
+}
+
+void Game::setSelectedUnit(shared_ptr<Unit> ptr) {
+    mselectedUnit = ptr;
 }

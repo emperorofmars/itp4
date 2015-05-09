@@ -13,6 +13,8 @@ public:
     Hexfield();
     void setOccupation(std::shared_ptr<Unit> unit);
     std::shared_ptr<Unit> getOccupation();
+    bool getIsOccupied();
+
     void setEmtpy();
     //TODO write getter for position
     float mPosition[2];
@@ -27,7 +29,8 @@ public:
     void setEngineObjectRef(std::shared_ptr<mgf::Node> EngineObjectRef);
 private:
     int mTerrain;
-    std::shared_ptr< Unit > isOccupied;
+    std::shared_ptr< Unit > occupation;
+    bool isOccupied;
 
 //TODO change signature to shared_ptr mgf::node
     std::shared_ptr<mgf::Node> mEngineObjectRef;
