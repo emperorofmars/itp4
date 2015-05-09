@@ -16,6 +16,7 @@ EngineHelper::EngineHelper() {
     p->createProgram();
 
     cam.reset(new mgf::CameraTopDown(90, w->getAspectRatio(), 1000.f, 0.1f));
+    cam->setPos(glm::vec3(25.f, 20.f, 35.f));
 
     renderer.reset(new mgf::Renderer(w, cam, p));
 
