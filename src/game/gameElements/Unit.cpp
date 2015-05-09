@@ -86,7 +86,7 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> destination, st
     LOG_F_TRACE(GAME_LOG_PATH, "finished look up loop");
 
 
-    if(nearestHex == mCurrentHexfield){
+    if(nearestHex == mCurrentHexfield || remainingMovement <= 0){
         LOG_F_TRACE(GAME_LOG_PATH, "final destination reached");
         return mCurrentHexfield;
     }
@@ -98,9 +98,7 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> destination, st
     remainingMovement--;
 
     LOG_F_TRACE(GAME_LOG_PATH, "rem move ", remainingMovement);
-    if(remainingMovement == 0){
-        return mCurrentHexfield;
-    }
+
     nearestHex = moveTo(destination, self);
 
     return nearestHex;
