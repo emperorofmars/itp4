@@ -5,6 +5,8 @@
 */
 
 
+#include <src/collision/MouseRay.h>
+#include <src/collision/RayPlane.h>
 #include "GameLoop.h"
 #include "../Game.h"
 #include "../EngineHelper.h"
@@ -24,7 +26,18 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
         engine->input->update();
         quit = engine->input->getQuit();
         engine->cam->update(engine->input->getPosition(), engine->input->getMouseRelative());
+        bool leftClick = engine->input->getMouseClick()[0];
+        if(leftClick){
+            glm::vec3 mray = mgf::calculateMouseRay(engine->cam->getP(), engine->cam->getV(), engine->input->getMouseAbsolute(), glm::vec2(1000, 800));
+            glm::vec3 mpoint = mgf::colLinePlane(engine->cam->getPos(), mray, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
 
+            LOG_F_TRACE(GAME_LOG_PATH, "trying to move unit");
+            std::shared_ptr<Hexfield> dest = mGame->getHexAt(mGame->getFirstField(), mpoint[2], mpoint[0]);
+            LOG_F_TRACE(GAME_LOG_PATH, "pos: ", dest->mPosition[1], " / ", dest->mPosition[0]);
+            mGame->mUnitHolder1->at(0)->printStats();
+            mGame->unitMovementWrapper(mGame->mUnitHolder1->at(0), dest);
+
+        }
 
 //###############################################  Rendering
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -34,16 +47,6 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
 
         engine->w->swap(); //display the rendered image on screen
 
-//############ Movement Test
-        if(moveTest){
-            LOG_F_TRACE(GAME_LOG_PATH, "trying to move unit");
-            std::shared_ptr<Hexfield> dest = mGame->getHexAt(mGame->getFirstField(), 17.5, 18);
-            LOG_F_TRACE(GAME_LOG_PATH, "pos: ", dest->mPosition[1], " / ", dest->mPosition[0]);
-            mGame->mUnitHolder1->at(0)->printStats();
-            mGame->unitMovementWrapper(mGame->mUnitHolder1->at(0), dest);
-
-            moveTest = false;
-        }
 
 
 //###############################################  Calculate fps
