@@ -217,9 +217,15 @@ void Game::generatePlayingField() {
 
 
     //Sets Position of Magetowers
-    field[4][4]->setOccupation(std::shared_ptr<Unit>(mUnitManager->getChild("Magierturm")->clone()));
-    field[19][19]->setOccupation(std::shared_ptr<Unit>(mUnitManager->getChild("Magierturm")->clone()));
+    std::shared_ptr<Unit> tower(mUnitManager->getChild("Magierturm")->clone());
+    field[4][4]->setOccupation(tower);
+    tower->setCurrentHexfield(field[4][4]);
 
+    tower.reset();
+
+    tower = mUnitManager->getChild("Magierturm")->clone();
+    field[19][19]->setOccupation(std::shared_ptr<Unit>(tower));
+    tower->setCurrentHexfield(field[19][19]);
 
 
     LOG_F_TRACE(GAME_LOG_PATH, "TEST trace");
@@ -270,6 +276,7 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
             actualScene->add(unitNode);
             unitNode->translate(hexfield->mPositionVector);
             unitNode->scale(glm::vec3(.5f, .5f, .5f));
+
         }
 
     }
@@ -283,7 +290,7 @@ void Game::nextTurn() {
     //TODO if player > player size reset
     mCurrentPlayer++;
 
-    std::shared_ptr<std::vector<std::shared_ptr<Unit>>> unitHolder = mPlayers[mCurrentPlayer]->mUnits;
+    std::shared_ptr<std::vector<std::shared_ptr<Unit>>> unitHolder = mPlayers[0]->mUnits;
 
     for(std::shared_ptr< Unit > unit : *unitHolder){
         unit->setRemainingMovement(unit->getMovement());

@@ -2,8 +2,10 @@
 // Created by Lukas Stanek on 12/04/15.
 //
 
+#include <unistd.h>
 #include "Unit.h"
 #include "../../tbs.h"
+#include "../EngineHelper.h"
 
 Unit::Unit(){
 
@@ -86,7 +88,8 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> destination, st
     LOG_F_TRACE(GAME_LOG_PATH, "finished look up loop");
 
 
-    if(nearestHex == mCurrentHexfield || remainingMovement <= 0){
+    //if(nearestHex == mCurrentHexfield || remainingMovement <= 0){
+    if(nearestHex == mCurrentHexfield){
         LOG_F_TRACE(GAME_LOG_PATH, "final destination reached");
         return mCurrentHexfield;
     }

@@ -10,6 +10,7 @@
 #include <string>
 #include "Player.h"
 #include "Hexfield.h"
+#include "../EngineHelper.h"
 
 class Hexfield;
 class Player;

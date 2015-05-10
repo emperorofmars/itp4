@@ -5,6 +5,7 @@
 #include <src/camera/CameraTopDown.h>
 #include <src/input/InputTopDown.h>
 #include "EngineHelper.h"
+#include "gameElements/Hexfield.h"
 
 EngineHelper::EngineHelper() {
     w.reset(new mgf::Window("Clash of Mages", 1000, 800, 0, 0));
@@ -29,3 +30,4 @@ EngineHelper::EngineHelper() {
     actualScene.reset(new mgf::Node("scene"));
 
 }
+

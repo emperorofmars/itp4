@@ -35,6 +35,9 @@ public:
     std::shared_ptr<Hexfield> getFirstField();
     std::shared_ptr<Hexfield> getHexAt(std::shared_ptr<Hexfield> current, float x, float y);
 
+    void nextTurn();
+
+
     bool getSelectedState();
     void setSelectedState(bool selectedState);
 
@@ -63,7 +66,6 @@ private:
     void generatePlayingField();
     void writeStatsToDb();
 
-    void nextTurn();
 
 
 //    //TODO research what kind of event data is given from engine

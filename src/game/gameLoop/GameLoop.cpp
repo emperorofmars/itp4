@@ -28,7 +28,11 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
         engine->cam->update(engine->input->getPosition(), engine->input->getMouseRelative());
         bool leftClick = engine->input->getMouseClick()[0];
         bool rightClick = engine->input->getMouseClick()[2];
+        bool middleClick = engine->input->getMouseClick()[1];
 
+        if(middleClick){
+            mGame->nextTurn();
+        }
         if(leftClick && mGame->getSelectedState()){
             mGame->setSelectedState(false);
         }

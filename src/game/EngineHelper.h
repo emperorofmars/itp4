@@ -8,6 +8,9 @@
 
 #include <src/scene/Loader.h>
 #include <src/input/IInput.h>
+#include "gameElements/Hexfield.h"
+
+class Hexfield;
 
 class EngineHelper {
 public:
