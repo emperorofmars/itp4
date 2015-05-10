@@ -31,7 +31,7 @@ private:
 };
 
 
-#define pathToConfig "src/conf/units.txt"
+#define pathToConfig "res/units.txt"
 
 
 #endif //ITP4_UNITMANAGER_H
