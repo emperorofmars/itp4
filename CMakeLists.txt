@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.1)
 project(itp4)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
+
 
 include_directories("/home/lukas/repos/mgf")
 
@@ -50,4 +52,4 @@ PKG_SEARCH_MODULE(ASSIMP REQUIRED assimp)
 INCLUDE_DIRECTORIES(${ASSIMP_INCLUDE_DIRS})
 TARGET_LINK_LIBRARIES(itp4 ${ASSIMP_LIBRARIES})
 
-target_link_libraries(itp4 "/home/lukas/.clion10/system/cmake/generated/eab71f22/eab71f22/Debug/libmgf_lib.a")
+target_link_libraries(itp4 "${CMAKE_SOURCE_DIR}/src/libs/libmgf_lib.a")
