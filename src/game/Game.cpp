@@ -117,7 +117,7 @@ void Game::generatePlayingField() {
             }
 
             //decide if the line is even oder not
-            if(!i%2){
+            if(i%2==0){
                 // EVEN ROW
 
                 //link to top-left

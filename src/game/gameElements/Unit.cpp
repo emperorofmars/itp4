@@ -67,7 +67,8 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> destination, st
               + std::abs(destinationYPos - mCurrentHexfield->mPosition[0]);
 
     nearestHex = mCurrentHexfield;
-
+    //DEBUG var
+    int i = 0;
     for(std::shared_ptr<Hexfield> neighbor : mCurrentHexfield->linkedTo){
         if(neighbor == NULL) continue;
 
@@ -78,18 +79,18 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> destination, st
                   + std::abs(destinationYPos - yPos);
 
         if(curDist < minDist){
-            LOG_F_TRACE(GAME_LOG_PATH, "new low at ", neighbor->mPosition[1], "/", neighbor->mPosition[0]);
+            LOG_F_TRACE(GAME_LOG_PATH, i, "new low at ", neighbor->mPosition[1], "/", neighbor->mPosition[0]);
             minDist = curDist;
             nearestHex = neighbor;
         }
-
+        ++i;
     }
 
     LOG_F_TRACE(GAME_LOG_PATH, "finished look up loop");
 
 
-    //if(nearestHex == mCurrentHexfield || remainingMovement <= 0){
-    if(nearestHex == mCurrentHexfield){
+    if(nearestHex == mCurrentHexfield || remainingMovement <= 0){
+    //if(nearestHex == mCurrentHexfield){
         LOG_F_TRACE(GAME_LOG_PATH, "final destination reached");
         return mCurrentHexfield;
     }
