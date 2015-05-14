@@ -110,6 +110,9 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> destination, st
 
 
 // Getter & Setter
+int Unit::getOwner(){
+    return owner;
+}
 
 std::string Unit::getType() {
     return type;
@@ -159,6 +162,9 @@ int Unit::getTimesDefended() {
     return timesDefended;
 }
 
+void Unit::setOwner(int id){
+    owner = id;
+}
 
 void Unit::setType(std::string string) {
     type = string;

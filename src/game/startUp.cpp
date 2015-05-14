@@ -46,7 +46,7 @@ int startUp(){
 
     std::shared_ptr<EngineHelper> engine(new EngineHelper);
 
-
+    game->setEngine(engine);
     game->setupField(engine->root, engine->actualScene, game->getFirstField());
 
 
@@ -59,6 +59,11 @@ int startUp(){
 
     engine->w->use();
     engine->p->use();
+
+    for(int i = 0; i < 4; ++i) {
+        game->produceUnit("Infanterie", 0);
+        //game->produceUnit("Infanterie", 1);
+    }
 
     loop->run(engine);
 

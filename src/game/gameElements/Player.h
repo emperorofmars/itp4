@@ -20,6 +20,8 @@ public:
     std::shared_ptr<Player> mNext;
     std::shared_ptr< std::vector < std::shared_ptr<Unit> > > mUnits;
 
+    int getId();
+    void setId(int id);
     void setName(std::string name);
     std::string getName();
     //void setColor(vec4 color);
@@ -30,8 +32,12 @@ public:
     std::shared_ptr<std::vector < std::shared_ptr<Unit>>> getUnits();
     void setUnits(std::shared_ptr<std::vector< std::shared_ptr<Unit> > >);
 
+    void setBase(std::shared_ptr<Unit> base);
+    std::shared_ptr<Unit> getBase();
 private:
+    int id;
     std::string name;
+    std::shared_ptr<Unit> baseTower;
     //glm::vec4 color;
 
 

@@ -26,7 +26,7 @@ public:
     void printStats();
 
 private:
-    std::shared_ptr<Player> owner;
+    int owner;
     std::shared_ptr<Hexfield> mCurrentHexfield;
     std::shared_ptr<mgf::Node> mUnitNode;
 
@@ -49,6 +49,7 @@ private:
 
 
 public:
+    int getOwner();
     std::string getType();
     std::string getName();
     int getMaxHP();
@@ -62,6 +63,7 @@ public:
     int getManaCost();
     int getTimesDefended();
 
+    void setOwner(int id);
     void setType(std::string);
     void setName(std::string);
     void setMaxHP(int);

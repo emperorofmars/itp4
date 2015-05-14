@@ -50,6 +50,8 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
         }
 
         if(rightClick && mGame->getSelectedState()){
+            //if(mGame->getSelectedUnit()->getOwner() != mGame->getCurrentPlayerId()) continue;
+
             glm::vec3 mray = mgf::calculateMouseRay(engine->cam->getP(), engine->cam->getV(), engine->input->getMouseAbsolute(), glm::vec2(1000, 800));
             glm::vec3 mpoint = mgf::colLinePlane(engine->cam->getPos(), mray, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
 
