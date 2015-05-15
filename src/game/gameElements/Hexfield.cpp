@@ -26,6 +26,28 @@ std::string Hexfield::printPos() {
     return pos;
 }
 
+float Hexfield::getDist(std::shared_ptr<Hexfield> target){
+    return (std::abs(target->mPosition[1] - mPosition[1])
+            + std::abs(target->mPosition[0] - mPosition[0]));
+}
+
+std::shared_ptr<Hexfield> Hexfield::getNearestNeighbor(std::shared_ptr<Hexfield> target) {
+    float minDist = INFINITY;
+    std::shared_ptr<Hexfield> nearestNeighbor;
+
+    for(std::shared_ptr<Hexfield> neighbor : linkedTo){
+        if(neighbor == NULL) continue;
+
+        float curDist = neighbor->getDist(target);
+        if(curDist < minDist){
+            nearestNeighbor = neighbor;
+            minDist = curDist;
+        }
+
+    }
+    return nearestNeighbor;
+}
+
 /**
  * Setter & Getter
  */

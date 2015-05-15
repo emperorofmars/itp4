@@ -21,11 +21,15 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
     float current = 0, last = 0, frametime = 0;
     bool quit = false;
     bool mouseMidDown = false;
+    bool mouseLeftDown = false;
+    bool mouseRightDown = false;
     while(quit != true){
 //###############################################  Update
         engine->input->update();
         quit = engine->input->getQuit();
         engine->cam->update(engine->input->getPosition(), engine->input->getMouseRelative());
+
+//###############################################  Controls
         bool leftClick = engine->input->getMouseClick()[0];
         bool rightClick = engine->input->getMouseClick()[2];
         bool middleClick = engine->input->getMouseClick()[1];
@@ -33,16 +37,25 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
         if(middleClick){
             mouseMidDown = true;
         }
+        if(leftClick){
+            mouseLeftDown = true;
+        }
+        if(rightClick){
+            mouseRightDown = true;
+        }
+
         if(mouseMidDown && !middleClick){
             mGame->nextTurn();
             mouseMidDown = false;
         }
 
-        if(leftClick && mGame->getSelectedState()){
+        if(mGame->getSelectedState() && !leftClick && mouseLeftDown){
             mGame->setSelectedState(false);
+            mouseLeftDown = false;
         }
 
-        if(leftClick && !mGame->getSelectedState()){
+
+        if(!mGame->getSelectedState() && !leftClick && mouseLeftDown){
             glm::vec3 mray = mgf::calculateMouseRay(engine->cam->getP(), engine->cam->getV(), engine->input->getMouseAbsolute(), glm::vec2(1000, 800));
             glm::vec3 mpoint = mgf::colLinePlane(engine->cam->getPos(), mray, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
             std::shared_ptr<Hexfield> clickedHex = mGame->getHexAt(mGame->getFirstField(), mpoint[2], mpoint[0]);
@@ -52,20 +65,35 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
             }else{
                 LOG_F_TRACE(GAME_LOG_PATH, "nothing on that field");
             }
+            mouseLeftDown = false;
         }
 
-        if(rightClick && mGame->getSelectedState()){
-            if(mGame->getSelectedUnit()->getOwner() != mGame->getCurrentPlayerId()) continue;
+        if(mGame->getSelectedState() && !rightClick && mouseRightDown){
+            std::shared_ptr<Unit> selectedUnit = mGame->getSelectedUnit();
+            if(selectedUnit->getOwner() != mGame->getCurrentPlayerId()) continue;
 
-            glm::vec3 mray = mgf::calculateMouseRay(engine->cam->getP(), engine->cam->getV(), engine->input->getMouseAbsolute(), glm::vec2(1000, 800));
-            glm::vec3 mpoint = mgf::colLinePlane(engine->cam->getPos(), mray, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
+            mouseRightDown = false;
+            LOG_F_TRACE(GAME_LOG_PATH, "locating clicked hex");
 
-            LOG_F_TRACE(GAME_LOG_PATH, "trying to move unit");
+            glm::vec3 mpoint = engine->getMousePos();
             std::shared_ptr<Hexfield> dest = mGame->getHexAt(mGame->getFirstField(), mpoint[2], mpoint[0]);
+
             LOG_F_TRACE(GAME_LOG_PATH, "pos: ", dest->mPosition[1], " / ", dest->mPosition[0]);
-            mGame->getSelectedUnit()->printStats();
-            mGame->unitMovementWrapper(mGame->getSelectedUnit(), dest);
-            mGame->setSelectedState(false);
+
+
+            if(dest->getIsOccupied()){
+                if(selectedUnit->isInRange(dest) && dest->getOccupation()->getOwner() != mGame->getCurrentPlayerId()){
+                    LOG_F_TRACE(GAME_LOG_PATH, "Target is enemy and in range");
+                    selectedUnit->attack(dest->getOccupation());
+                    continue;
+                }else{
+                    LOG_F_TRACE(GAME_LOG_PATH, "Target NOT in Range or friendly!");
+                }
+            }
+
+            mGame->unitMovementWrapper(selectedUnit, dest);
+
+
         }
 
 //###############################################  Rendering

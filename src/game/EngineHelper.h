@@ -25,6 +25,7 @@ public:
     std::shared_ptr<mgf::Node> actualScene;
 
     EngineHelper();
+    glm::vec3 getMousePos();
 };
 
 

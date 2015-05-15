@@ -63,22 +63,17 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> destination, st
     float minDist;
     float curDist = INFINITY;
 
-    minDist = std::abs(destinationXPos - mCurrentHexfield->mPosition[1])
-              + std::abs(destinationYPos - mCurrentHexfield->mPosition[0]);
-
+    minDist = mCurrentHexfield->getDist(destination);
     nearestHex = mCurrentHexfield;
+
     //DEBUG var
     int i = 0;
     for(std::shared_ptr<Hexfield> neighbor : mCurrentHexfield->linkedTo){
         if(neighbor == NULL) continue;
 
-        float xPos = neighbor->mPosition[1];
-        float yPos = neighbor->mPosition[0];
+        curDist = neighbor->getDist(destination);
 
-        curDist = std::abs(destinationXPos - xPos)
-                  + std::abs(destinationYPos - yPos);
-
-        if(curDist < minDist){
+        if(curDist < minDist && !neighbor->getIsOccupied()){
             LOG_F_TRACE(GAME_LOG_PATH, i, "new low at ", neighbor->mPosition[1], "/", neighbor->mPosition[0]);
             minDist = curDist;
             nearestHex = neighbor;
@@ -108,14 +103,56 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> destination, st
     return nearestHex;
 }
 
+bool Unit::isInRange(std::shared_ptr<Hexfield> target){
+    if(mCurrentHexfield == target) return false;
+
+    std::shared_ptr<Hexfield> targetableHex = mCurrentHexfield;
+
+    for(int i = 0; i < range; ++i){
+        targetableHex = checkRange(targetableHex, target);
+
+        if(targetableHex == target){
+            return true;
+        }
+    }
+    return false;
+
+}
+
+//TODO rename this method
+std::shared_ptr<Hexfield> Unit::checkRange(std::shared_ptr<Hexfield> start,
+                                           std::shared_ptr<Hexfield> target) {
+    return start->getNearestNeighbor(target);
+}
+
 void Unit::attack(std::shared_ptr<Unit> target) {
+    LOG_F_TRACE(GAME_LOG_PATH, "attacking..");
+
+    bool hit = false;
+    //TODO generate random number
+
+
+    //for testing 100% hitchance
+    printStats();
+    hit = true;
+    if(hit){
+        LOG_F_TRACE(GAME_LOG_PATH, "successfully hit target");
+        target->getHit(this->dmg);
+    }
 
 }
 
 void Unit::getHit(int dmg){
+    LOG_F_TRACE(GAME_LOG_PATH, "current hP: ", curHP, " getting dmg: ", dmg);
+    printStats();
     curHP -= dmg;
+    LOG_F_TRACE(GAME_LOG_PATH, "HP: ", curHP, " remaining");
     if(curHP <= 0){
         //TODO KILL UNIT
+        LOG_F_TRACE(GAME_LOG_PATH, "unit died");
+        mUnitNode->setVisible(false);
+        mCurrentHexfield->setEmtpy();
+        mCurrentHexfield.reset();
     }
 }
 

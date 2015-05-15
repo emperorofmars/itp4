@@ -18,6 +18,9 @@ class Player;
 class Unit {
 public:
     std::shared_ptr<Hexfield> moveTo(std::shared_ptr<Hexfield> destination, std::shared_ptr<Unit> self);
+    bool isInRange(std::shared_ptr<Hexfield> target);
+    std::shared_ptr<Hexfield> checkRange(std::shared_ptr<Hexfield> start, std::shared_ptr<Hexfield> target);
+
     void attack(std::shared_ptr<Unit> target);
     void getHit(int dmg);
 
