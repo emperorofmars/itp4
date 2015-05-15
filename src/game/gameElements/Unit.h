@@ -18,6 +18,8 @@ class Player;
 class Unit {
 public:
     std::shared_ptr<Hexfield> moveTo(std::shared_ptr<Hexfield> destination, std::shared_ptr<Unit> self);
+    void attack(std::shared_ptr<Unit> target);
+    void getHit(int dmg);
 
     Unit();
     Unit(std::shared_ptr<Unit> original);

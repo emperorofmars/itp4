@@ -20,7 +20,7 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
 //###############################################  Gameloop
     float current = 0, last = 0, frametime = 0;
     bool quit = false;
-    bool moveTest = true;
+    bool mouseMidDown = false;
     while(quit != true){
 //###############################################  Update
         engine->input->update();
@@ -31,8 +31,13 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
         bool middleClick = engine->input->getMouseClick()[1];
 
         if(middleClick){
-            mGame->nextTurn();
+            mouseMidDown = true;
         }
+        if(mouseMidDown && !middleClick){
+            mGame->nextTurn();
+            mouseMidDown = false;
+        }
+
         if(leftClick && mGame->getSelectedState()){
             mGame->setSelectedState(false);
         }
@@ -50,7 +55,7 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
         }
 
         if(rightClick && mGame->getSelectedState()){
-            //if(mGame->getSelectedUnit()->getOwner() != mGame->getCurrentPlayerId()) continue;
+            if(mGame->getSelectedUnit()->getOwner() != mGame->getCurrentPlayerId()) continue;
 
             glm::vec3 mray = mgf::calculateMouseRay(engine->cam->getP(), engine->cam->getV(), engine->input->getMouseAbsolute(), glm::vec2(1000, 800));
             glm::vec3 mpoint = mgf::colLinePlane(engine->cam->getPos(), mray, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));

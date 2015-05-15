@@ -53,7 +53,7 @@ void Game::initGame() {
 
 
     mRounds = 1;
-    mCurrentPlayerId = 1;
+    mCurrentPlayerId = 0;
     mStarted = time(0);
 
 
@@ -233,15 +233,6 @@ void Game::generatePlayingField() {
     LOG_F_TRACE(GAME_LOG_PATH, "player 1 base : ", mPlayers[0]->getBase()->getCurrentHexfield()->printPos());
     LOG_F_TRACE(GAME_LOG_PATH, "player 2 base: ", mPlayers[1]->getBase()->getCurrentHexfield()->printPos());
 
-    LOG_F_TRACE(GAME_LOG_PATH, "TEST trace");
-    std::shared_ptr<Unit> unit = mUnitManager->getChild("Infanterie")->clone();
-    LOG_F_TRACE(GAME_LOG_PATH, "unit:", unit->getName());
-
-    mUnitHolder1->push_back(std::shared_ptr<Unit>(unit));
-    unit->setOwner(0);
-    field[17][17]->setOccupation(mUnitHolder1->at(0));
-    mUnitHolder1->at(0)->setCurrentHexfield(field[17][17]);
-
 }
 
 int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node> actualScene,
@@ -332,6 +323,8 @@ void Game::produceUnit(std::string unitName, int playerId){
     newUnit->setUnitNode(unitNode);
     newUnit->setCurrentHexfield(destinedField);
     destinedField->setOccupation(newUnit);
+    getPlayer(playerId)->getUnits()->push_back(newUnit);
+
 
     engine->actualScene->add(unitNode);
     unitNode->scale(glm::vec3(.5f, .5f, .5f));

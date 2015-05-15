@@ -108,6 +108,16 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> destination, st
     return nearestHex;
 }
 
+void Unit::attack(std::shared_ptr<Unit> target) {
+
+}
+
+void Unit::getHit(int dmg){
+    curHP -= dmg;
+    if(curHP <= 0){
+        //TODO KILL UNIT
+    }
+}
 
 // Getter & Setter
 int Unit::getOwner(){
@@ -242,3 +252,5 @@ void Unit::printStats() {
     << manaCost << std::endl;
 
 }
+
+
