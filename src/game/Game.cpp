@@ -223,13 +223,15 @@ void Game::generatePlayingField() {
     field[4][4]->setOccupation(tower);
     tower->setCurrentHexfield(field[4][4]);
 
-    std::shared_ptr<Unit> tower2;
 
-    tower2 = mUnitManager->getChild("Magierturm")->clone();
+
+    std::shared_ptr<Unit> tower2(mUnitManager->getChild("Magierturm")->clone());
     mPlayers[1]->setBase(tower2);
-    field[19][19]->setOccupation(std::shared_ptr<Unit>(tower2));
+    field[19][19]->setOccupation(tower2);
     tower2->setCurrentHexfield(field[19][19]);
 
+    LOG_F_TRACE(GAME_LOG_PATH, "player 1 base : ", mPlayers[0]->getBase()->getCurrentHexfield()->printPos());
+    LOG_F_TRACE(GAME_LOG_PATH, "player 2 base: ", mPlayers[1]->getBase()->getCurrentHexfield()->printPos());
 
     LOG_F_TRACE(GAME_LOG_PATH, "TEST trace");
     std::shared_ptr<Unit> unit = mUnitManager->getChild("Infanterie")->clone();
@@ -245,7 +247,7 @@ void Game::generatePlayingField() {
 int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node> actualScene,
                      std::shared_ptr<Hexfield> hexfield){
 
-    cout << "setting up field nodes" << endl;
+    //cout << "setting up field nodes" << endl;
 
     std::shared_ptr<mgf::Node> newNode = root->getChild("hex.obj")->getChild("Hex")->clone();
     actualScene->add(newNode);
@@ -318,7 +320,7 @@ void Game::produceUnit(std::string unitName, int playerId){
     }
     newUnit->setOwner(playerId);
 
-    std::shared_ptr<Unit> mageTower = getPlayer(mCurrentPlayerId)->getBase();
+    std::shared_ptr<Unit> mageTower = getPlayer(playerId)->getBase();
     std::shared_ptr<Hexfield> currentField = mageTower->getCurrentHexfield();
 
     std::shared_ptr<Hexfield> destinedField = getNextFreeField(currentField);
