@@ -62,7 +62,7 @@ int startUp(){
 
     for(int i = 0; i < 4; ++i) {
         game->produceUnit("Infanterie", 0);
-        //game->produceUnit("Infanterie", 1);
+        game->produceUnit("Infanterie", 1);
     }
 
     loop->run(engine);

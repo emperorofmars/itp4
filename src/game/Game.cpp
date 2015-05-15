@@ -223,12 +223,12 @@ void Game::generatePlayingField() {
     field[4][4]->setOccupation(tower);
     tower->setCurrentHexfield(field[4][4]);
 
-    tower.reset();
+    std::shared_ptr<Unit> tower2;
 
-    tower = mUnitManager->getChild("Magierturm")->clone();
-    mPlayers[1]->setBase(tower);
-    field[19][19]->setOccupation(std::shared_ptr<Unit>(tower));
-    tower->setCurrentHexfield(field[19][19]);
+    tower2 = mUnitManager->getChild("Magierturm")->clone();
+    mPlayers[1]->setBase(tower2);
+    field[19][19]->setOccupation(std::shared_ptr<Unit>(tower2));
+    tower2->setCurrentHexfield(field[19][19]);
 
 
     LOG_F_TRACE(GAME_LOG_PATH, "TEST trace");
@@ -324,6 +324,7 @@ void Game::produceUnit(std::string unitName, int playerId){
     std::shared_ptr<Hexfield> destinedField = getNextFreeField(currentField);
     if(destinedField == NULL) return;
 
+    LOG_F_TRACE(GAME_LOG_PATH, "target Player: ", playerId, " base hex found at: ", currentField->mPosition[1], "/", currentField->mPosition[0]);
     //TODO insert correct unit model
     std::shared_ptr<mgf::Node> unitNode = engine->root->getChild("scene.obj")->getChild("Cube")->clone();
     newUnit->setUnitNode(unitNode);
