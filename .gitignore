@@ -3,4 +3,6 @@ obj
 tbs.layout
 tbs.depend
 .idea/
-
+log_game.txt
+log_mgf.txt
+src/log/
