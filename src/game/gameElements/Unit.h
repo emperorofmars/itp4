@@ -9,6 +9,7 @@
 #include <iosfwd>
 #include <string>
 #include "Player.h"
+#include "../../libs/mlog.h"
 #include "Hexfield.h"
 #include "../EngineHelper.h"
 
