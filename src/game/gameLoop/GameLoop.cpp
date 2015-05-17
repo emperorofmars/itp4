@@ -49,22 +49,20 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
             mouseMidDown = false;
         }
 
-        if(mGame->getSelectedState() && !leftClick && mouseLeftDown){
-            mGame->setSelectedState(false);
-            mouseLeftDown = false;
-        }
 
+        if(!leftClick && mouseLeftDown){
+            glm::vec3 mpoint = engine->getMousePos();
 
-        if(!mGame->getSelectedState() && !leftClick && mouseLeftDown){
-            glm::vec3 mray = mgf::calculateMouseRay(engine->cam->getP(), engine->cam->getV(), engine->input->getMouseAbsolute(), glm::vec2(1000, 800));
-            glm::vec3 mpoint = mgf::colLinePlane(engine->cam->getPos(), mray, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
             std::shared_ptr<Hexfield> clickedHex = mGame->getHexAt(mGame->getFirstField(), mpoint[2], mpoint[0]);
+
             if(clickedHex->getIsOccupied()){
                 mGame->setSelectedState(true);
                 mGame->setSelectedUnit(clickedHex->getOccupation());
             }else{
+                mGame->setSelectedState(false);
                 LOG_F_TRACE(GAME_LOG_PATH, "nothing on that field");
             }
+
             mouseLeftDown = false;
         }
 
