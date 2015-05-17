@@ -9,11 +9,19 @@
 #include <stdlib.h>
 #include <sstream>
 #include "UnitManager.h"
+#include "../../tbs.h"
 
 UnitManager* UnitManager::mInstance = 0;
 
 UnitManager::UnitManager() {
 
+}
+
+UnitManager::~UnitManager() {
+    for(int i = 0; i < mPrototypes.size(); ++i){
+        mPrototypes.at(i).reset();
+    }
+    LOG_F_TRACE(GAME_LOG_PATH, "destroying unitManager");
 }
 
 UnitManager* UnitManager::getInstance() {

@@ -25,6 +25,7 @@ public:
     void getHit(int dmg);
 
     Unit();
+    ~Unit();
     Unit(std::shared_ptr<Unit> original);
     std::shared_ptr<Unit> clone();
 

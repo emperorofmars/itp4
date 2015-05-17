@@ -14,6 +14,7 @@ Game::Game(){
     mUnitHolder1.reset(new std::vector<std::shared_ptr<Unit>>);
     mUnitHolder2.reset(new std::vector<std::shared_ptr<Unit>>);
     SELECTED_STATE = false;
+    mFieldSize = 24;
 }
 
 void Game::initGame() {
@@ -33,8 +34,8 @@ void Game::initGame() {
 
 
     cout << "linking players... " << endl;
-    mPlayers[0]->setNext(mPlayers[1]);
-    mPlayers[1]->setNext(mPlayers[0]);
+    //mPlayers[0]->setNext(mPlayers[1]);
+    //mPlayers[1]->setNext(mPlayers[0]);
 
 
     cout << "getting instance of UnitManager" << endl;
@@ -65,13 +66,12 @@ void Game::generatePlayingField() {
     cout << "generating playing field" << endl;
 
     std::vector< std::vector< shared_ptr<Hexfield> > > field;
-    int size = 24;
     float SCALING = 2;
 
-    field.resize(size);
+    field.resize(mFieldSize);
 
-    for(int i = 0; i<size; ++i){
-        for(int j = 0; j < size; ++j){
+    for(int i = 0; i< mFieldSize; ++i){
+        for(int j = 0; j < mFieldSize; ++j){
             shared_ptr< Hexfield > newField(new Hexfield());
 
             newField->mPosition[0] = j*SCALING;
@@ -93,8 +93,8 @@ void Game::generatePlayingField() {
 
     cout << "linking hexfields" << endl;
 
-    for(int i = 0; i<size; ++i){
-        for(int j = 0; j<size; ++j){
+    for(int i = 0; i< mFieldSize; ++i){
+        for(int j = 0; j< mFieldSize; ++j){
             shared_ptr<Hexfield> hexfield = field[i][j];
 
             //link to left
@@ -108,7 +108,7 @@ void Game::generatePlayingField() {
             }
 
             //link to right
-            if(j<size-1){
+            if(j< mFieldSize -1){
                 hexfield->linkedTo[2] = field[i][j+1];
 //                cout << "linking "
 //                << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
@@ -142,7 +142,7 @@ void Game::generatePlayingField() {
                 }
 
                 //link to bottom-right
-                if(i < size-1){
+                if(i < mFieldSize -1){
                     hexfield->linkedTo[3] = field[i+1][j];
 //                    cout << "linking "
 //                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
@@ -152,7 +152,7 @@ void Game::generatePlayingField() {
                 }
 
                 //link to bottom-left
-                if(i < size-1 && j > 0){
+                if(i < mFieldSize -1 && j > 0){
                     hexfield->linkedTo[4] = field[i+1][j-1];
 //                    cout << "linking "
 //                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
@@ -175,7 +175,7 @@ void Game::generatePlayingField() {
                 }
 
                 //link to top-right
-                if(i>0 && j<size-1){
+                if(i>0 && j< mFieldSize -1){
                     hexfield->linkedTo[1] = field[i-1][j+1];
 //                    cout << "linking "
 //                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
@@ -185,7 +185,7 @@ void Game::generatePlayingField() {
                 }
 
                 //link to bottom-right
-                if(i < size-1 && j < size-1){
+                if(i < mFieldSize -1 && j < mFieldSize -1){
                     hexfield->linkedTo[3] = field[i+1][j+1];
 //                    cout << "linking "
 //                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
@@ -195,7 +195,7 @@ void Game::generatePlayingField() {
                 }
 
                 //link to bottom-left
-                if(i < size-1){
+                if(i < mFieldSize -1){
                     hexfield->linkedTo[4] = field[i+1][j];
 //                    cout << "linking "
 //                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
@@ -222,7 +222,6 @@ void Game::generatePlayingField() {
     mPlayers[0]->setBase(tower);
     field[4][4]->setOccupation(tower);
     tower->setCurrentHexfield(field[4][4]);
-
 
 
     std::shared_ptr<Unit> tower2(mUnitManager->getChild("Magierturm")->clone());
@@ -370,6 +369,60 @@ int Game::unitMovementWrapper(std::shared_ptr<Unit> unit,
 }
 
 
+int Game::cleanUp() {
+    writeStatsToDb();
+
+    deleteUnits();
+
+    mPlayers[0].reset();
+
+    mPlayers[1].reset();
+
+    mWinner.reset();
+    mSelectedUnit.reset();
+
+    eraseField(mFirstField);
+    mFirstField.reset();
+
+    return 0;
+}
+
+int Game::deleteUnits(){
+
+    for(int i = 0; i < mUnitHolder1->size(); ++i){
+        std::shared_ptr<Unit> currentUnit = mUnitHolder1->at(i);
+        currentUnit->getCurrentHexfield()->setEmtpy();
+        mUnitHolder1->at(i).reset();
+        currentUnit.reset();
+    }
+
+    for(int i = 0; i < mUnitHolder2->size(); ++i){
+        std::shared_ptr<Unit> currentUnit = mUnitHolder2->at(i);
+        currentUnit->getCurrentHexfield()->setEmtpy();
+        mUnitHolder2->at(i).reset();
+        currentUnit.reset();
+    }
+
+    mUnitHolder1.reset();
+    mUnitHolder2.reset();
+}
+
+int Game::eraseField(std::shared_ptr<Hexfield> hex){
+
+    for(std::shared_ptr<Hexfield> hexfield : hex->linkedTo){
+        if(hexfield != NULL){
+            eraseField(hexfield);
+            hexfield.reset();
+        }
+    }
+}
+
+
+void Game::deleteAllLinks(std::shared_ptr<Hexfield> hex) {
+    for(std::shared_ptr<Hexfield> hexfield : hex->linkedTo){
+        hexfield.reset();
+    }
+}
 
 void Game::writeStatsToDb() {
     // TODO Write game stats to some persistent storage
@@ -441,11 +494,11 @@ void Game::setSelectedState(bool selectedState) {
 }
 
 std::shared_ptr<Unit> Game::getSelectedUnit() {
-    return mselectedUnit;
+    return mSelectedUnit;
 }
 
 void Game::setSelectedUnit(shared_ptr<Unit> ptr) {
-    mselectedUnit = ptr;
+    mSelectedUnit = ptr;
 }
 
 int Game::getCurrentPlayerId() {

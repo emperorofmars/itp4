@@ -3,6 +3,7 @@
 //
 
 #include "Player.h"
+#include "../../tbs.h"
 
 using namespace std;
 
@@ -64,4 +65,13 @@ std::shared_ptr<Unit> Player::getBase() {
 
 void Player::setBase(std::shared_ptr<Unit> base) {
     this->baseTower = base;
+}
+
+Player::~Player() {
+    mNext.reset();
+    baseTower->getCurrentHexfield()->setEmtpy();
+    baseTower.reset();
+    mUnits.reset();
+
+    LOG_F_TRACE(GAME_LOG_PATH, "player destroyed");
 }

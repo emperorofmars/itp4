@@ -17,6 +17,7 @@ class Unit;
 class Player {
 public:
     Player(std::string name);
+    ~Player();
     std::shared_ptr<Player> mNext;
     std::shared_ptr< std::vector < std::shared_ptr<Unit> > > mUnits;
 

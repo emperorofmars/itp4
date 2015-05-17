@@ -31,6 +31,11 @@ public:
     void nextTurn();
     void produceUnit(std::string unitName, int playerId);
 
+    int cleanUp();
+    int eraseField(std::shared_ptr<Hexfield> hex);
+    int deleteUnits();
+    void deleteAllLinks(std::shared_ptr<Hexfield> hex);
+
     std::shared_ptr<Player> getPlayer(int i);
     void setMPlayers(Player mPlayers[]);
 
@@ -58,9 +63,10 @@ private:
     std::shared_ptr<EngineHelper> engine;
 
     bool SELECTED_STATE;
-    std::shared_ptr<Unit> mselectedUnit;
+    std::shared_ptr<Unit> mSelectedUnit;
 
     int mRounds;
+    int mFieldSize;
 
     time_t mStarted;
     time_t mEnded;

@@ -11,6 +11,7 @@ class Unit;
 class Hexfield{
 public:
     Hexfield();
+    ~Hexfield();
 
     float getDist(std::shared_ptr<Hexfield> target);
     std::shared_ptr<Hexfield> getNearestNeighbor(std::shared_ptr<Hexfield> target);

@@ -13,6 +13,12 @@ Hexfield::Hexfield() {
     isOccupied = false;
 }
 
+Hexfield::~Hexfield() {
+    occupation.reset();
+
+    LOG_F_TRACE(GAME_LOG_PATH, "destroying Hex");
+}
+
 
 std::string Hexfield::printPos() {
     std::ostringstream ss;
@@ -73,3 +79,4 @@ void Hexfield::setEmtpy() {
 bool Hexfield::getIsOccupied() {
     return isOccupied;
 }
+

@@ -291,3 +291,8 @@ void Unit::printStats() {
 }
 
 
+Unit::~Unit() {
+    mCurrentHexfield.reset();
+    mUnitNode.reset();
+    LOG_F_TRACE(GAME_LOG_PATH, "Unit destroyed");
+}

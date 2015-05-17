@@ -14,6 +14,8 @@
 class UnitManager {
 public:
     static UnitManager* getInstance();
+
+
     void loadProtoypes();
     std::vector< std::shared_ptr<Unit> > getList();
     void printPrototypesToCout();
@@ -21,6 +23,7 @@ public:
 
 private:
     UnitManager();
+    ~UnitManager();
 
     static UnitManager* mInstance;
 
