@@ -383,6 +383,7 @@ int Game::cleanUp() {
 
     eraseField(mFirstField);
     mFirstField.reset();
+    engine.reset();
 
     return 0;
 }
@@ -409,18 +410,29 @@ int Game::deleteUnits(){
 
 int Game::eraseField(std::shared_ptr<Hexfield> hex){
 
-    for(std::shared_ptr<Hexfield> hexfield : hex->linkedTo){
-        if(hexfield != NULL){
-            eraseField(hexfield);
-            hexfield.reset();
+
+    for(int i = 0; i < mFieldSize; ++i){
+        deleteRow(hex);
+        if(i % 2 == 0){
+            hex = hex->linkedTo[3];
+        }else{
+            hex = hex->linkedTo[4];
         }
+    }
+
+}
+
+void Game::deleteRow(std::shared_ptr<Hexfield> firstField) {
+    if(firstField->linkedTo[2] != NULL){
+        deleteRow(firstField->linkedTo[2]);
+        deleteAllLinks(firstField->linkedTo[2]);
     }
 }
 
 
 void Game::deleteAllLinks(std::shared_ptr<Hexfield> hex) {
-    for(std::shared_ptr<Hexfield> hexfield : hex->linkedTo){
-        hexfield.reset();
+    for(int i = 0; i < 6; ++i){
+        hex->linkedTo[i].reset();
     }
 }
 

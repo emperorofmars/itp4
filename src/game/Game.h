@@ -34,6 +34,7 @@ public:
     int cleanUp();
     int eraseField(std::shared_ptr<Hexfield> hex);
     int deleteUnits();
+    void deleteRow(std::shared_ptr<Hexfield> firstField);
     void deleteAllLinks(std::shared_ptr<Hexfield> hex);
 
     std::shared_ptr<Player> getPlayer(int i);
