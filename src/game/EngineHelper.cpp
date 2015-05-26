@@ -27,6 +27,7 @@ EngineHelper::EngineHelper() {
     root->add(l.load("res/models/cube/cube.obj"));
     root->add(l.load("res/models/hex/hex.obj"));
     root->add(l.load("res/models/scene/scene.obj"));
+    root->add(l.load("res/models/tower/tower.obj"));
     root->print();
 
     actualScene.reset(new mgf::Node("scene"));

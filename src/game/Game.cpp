@@ -259,12 +259,13 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
 
     if(std::shared_ptr<Unit> unit = hexfield->getOccupation()){
         if(unit->getName() == "Magierturm"){
-            std::shared_ptr<mgf::Node> unitNode = root->getChild("scene.obj")->getChild("Cube")->clone();
+            std::shared_ptr<mgf::Node> unitNode = root->getChild("tower.obj")->getChild("Tower_Circle")->clone();
+            //std::shared_ptr<mgf::Node> unitNode = root->getChild("scene.obj")->getChild("Cube")->clone();
             unit->setUnitNode(unitNode);
             actualScene->add(unitNode);
             unitNode->translate(hexfield->mPositionVector);
-            unitNode->rotate(90, glm::vec3(0.f, 1.f, 0.f));
-            unitNode->scale(glm::vec3(0.3f, 3.f, 0.3f));
+            //unitNode->rotate(90, glm::vec3(0.f, 1.f, 0.f));
+            unitNode->scale(glm::vec3(0.6f, 0.6f, 0.6f));
 
         }else if(unit->getName() == "Infanterie"){
             std::shared_ptr<mgf::Node> unitNode = root->getChild("scene.obj")->getChild("Cube")->clone();
