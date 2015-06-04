@@ -5,11 +5,36 @@
 */
 
 #include "IdleState.h"
+#include "../../tbs.h"
 
 
-void IdleState::handleEvent(GameLoop::inputEvent event) {
-    if(event == GameLoop::EVENT_LEFTCLICK){
-        //TODO do actual work
 
+void IdleState::handleEvent(InputEvent event) {
+    State::handleEvent(event);
+
+
+    if(event == InputEvent::EVENT_LEFTCLICK){
+        LOG_F_TRACE(GAME_LOG_PATH, "IDLE -- Leftclick processing");
+
+        handleLeftClick();
+    }
+
+
+}
+
+
+void IdleState::handleLeftClick() {
+
+    std::shared_ptr<Hexfield> clickedHex = mGame->getHexAtMousePos();
+
+    if(clickedHex->getIsOccupied()){
+        mGame->setSelectedUnit(clickedHex->getOccupation());
+        LOG_F_TRACE(GAME_LOG_PATH, "occupied");
+        //TODO highlight unit
+        mContext->setCurrentState(States::STATE_SELECTED);
+        LOG_F_TRACE(GAME_LOG_PATH, "SELECTED -- unit clicked");
+    }else{
+
+        LOG_F_TRACE(GAME_LOG_PATH, "IDLE -- empty field");
     }
 }

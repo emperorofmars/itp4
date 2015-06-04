@@ -521,3 +521,8 @@ int Game::getCurrentPlayerId() {
 void Game::setEngine(std::shared_ptr<EngineHelper> engine) {
     this->engine = engine;
 }
+
+std::shared_ptr<Hexfield> Game::getHexAtMousePos() {
+    glm::vec3 pos = engine->getMousePos();
+    return getHexAt(getFirstField(), pos[2], pos[0]);
+}

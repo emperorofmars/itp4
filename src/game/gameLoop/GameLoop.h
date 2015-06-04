@@ -14,6 +14,7 @@
 #include "../Game.h"
 #include "../EngineHelper.h"
 #include "../states/Context.h"
+class Context;
 
 class GameLoop {
 public:
@@ -21,7 +22,7 @@ public:
     std::deque<int> input;
     int run(std::shared_ptr<EngineHelper> engine);
 
-    static enum inputEvent {EVENT_LEFTCLICK, EVENT_RIGHTCLICK, EVENT_MIDDLECLICK};
+
 private:
     std::shared_ptr<Game> mGame;
     std::shared_ptr<Context> mStateContext;

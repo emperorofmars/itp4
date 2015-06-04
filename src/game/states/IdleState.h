@@ -13,7 +13,12 @@
 class IdleState : public State{
 
 public:
-    virtual void handleEvent(GameLoop::inputEvent event) override;
+    IdleState(const std::shared_ptr<Context> &ctx) : State(ctx) { }
+
+    virtual void handleEvent(InputEvent event) override;
+
+protected:
+    virtual void handleLeftClick() override;
 };
 
 

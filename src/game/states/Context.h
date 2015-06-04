@@ -8,24 +8,26 @@
 #define ITP4_CONTEXT_H
 
 
-#include <bits/shared_ptr.h>
-#include <bits/stl_vector.h>
-#include <bits/stringfwd.h>
-#include <bits/basic_string.h>
+#include <memory>
+#include <vector>
+#include <string>
 #include "State.h"
+#include "../constants.h"
+
+
+class State;
 
 class Context {
 public:
     static std::shared_ptr<Context> getInstance();
 
-    static enum states {STATE_IDLE, STATE_SELECTED, STATE_MOVING, STATE_FIGHT};
-
-    void setCurrentState(states);
+    void injectGameReference(std::shared_ptr<Game> game);
+    void setCurrentState(States s);
     std::shared_ptr<State> getCurrentState();
 
 private:
     //Singleton handling
-    Context(states);
+    Context();
     static std::shared_ptr<Context> instance;
 
     //actual implementation

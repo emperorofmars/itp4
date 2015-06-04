@@ -27,6 +27,8 @@ public:
     std::shared_ptr<Hexfield> hexfield);
 
     int unitMovementWrapper(std::shared_ptr<Unit> unit, std::shared_ptr<Hexfield> destination);
+    std::shared_ptr<Hexfield> getHexAtMousePos();
+
 
     void nextTurn();
     void produceUnit(std::string unitName, int playerId);

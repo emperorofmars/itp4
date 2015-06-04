@@ -29,9 +29,28 @@ set(SOURCE_FILES
     src/tests/test.cpp
     src/libs/mlog.h
     src/tbs.cpp
-    src/tbs.h)
+    src/tbs.h
+    src/game/EngineHelper.cpp
+    src/game/EngineHelper.h
+    src/game/states/State.cpp
+    src/game/states/State.h
+    src/game/states/State.cpp
+    src/game/states/State.h
+    src/game/states/Context.cpp
+    src/game/states/Context.h
+    src/game/states/State.cpp
+    src/game/states/State.h
+    src/game/states/IdleState.cpp
+    src/game/states/IdleState.h
+    src/game/states/SelectedState.cpp
+    src/game/states/SelectedState.h
+    src/game/states/MovingState.cpp
+    src/game/states/MovingState.h
+    src/game/states/FightState.cpp
+    src/game/states/FightState.h
+    src/game/constants.h)
 
-add_executable(itp4 ${SOURCE_FILES} src/game/EngineHelper.cpp src/game/EngineHelper.h src/game/states/State.cpp src/game/states/State.h src/game/states/State.cpp src/game/states/State.h src/game/states/Context.cpp src/game/states/Context.h src/game/states/State.cpp src/game/states/State.h src/game/states/IdleState.cpp src/game/states/IdleState.h)
+add_executable(itp4 ${SOURCE_FILES} )
 
 INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
