@@ -21,6 +21,10 @@ public:
 	virtual bool render(std::shared_ptr<Renderer> renderer);
 
 	virtual bool setText(const std::string &text);
+	virtual bool setFont(const std::string &font);
+	virtual bool setFont(TTF_Font *font);
+	virtual bool setColor(glm::vec3 color);
+	virtual bool setTextSize(float size);
 	virtual bool setBackground(const std::string &path);
 	virtual bool setBackground(std::shared_ptr<Texture> texture);
 
@@ -28,11 +32,16 @@ public:
 	virtual std::shared_ptr<Texture> getBackground();
 
 protected:
-	bool textToTexture(const std::string &text);
+	bool textToTexture();
+	unsigned int nextPow2(unsigned int num);
 
 	std::string mText;
-	std::shared_ptr<Texture> mTextImage;
-	std::shared_ptr<Texture> mBackground;
+	glm::vec3 mColor;
+	float mSize;
+	TTF_Font *mFont;
+
+	std::shared_ptr<OverlayNode> mTop;
+	std::shared_ptr<Material> mTopMat;
 };
 
 } // mgf

@@ -16,6 +16,9 @@ EngineHelper::EngineHelper() {
     p.reset(new mgf::ShaderProgram);
     p->addShader("res/shader/vertex_shader.glsl", GL_VERTEX_SHADER);
     p->addShader("res/shader/fragment_shader.glsl", GL_FRAGMENT_SHADER);
+    p->addShader("res/shader/geometry_shader.glsl", GL_GEOMETRY_SHADER);
+    p->addShader("res/shader/tesselationcontroll_shader.glsl", GL_TESS_CONTROL_SHADER);
+    p->addShader("res/shader/tesselationevaluation_shader.glsl", GL_TESS_EVALUATION_SHADER);
     p->createProgram();
 
     cam.reset(new mgf::CameraTopDown(90, w->getAspectRatio(), 1000.f, 0.1f));
@@ -32,6 +35,13 @@ EngineHelper::EngineHelper() {
 
     actualScene.reset(new mgf::Node("scene"));
 
+    std::shared_ptr<mgf::Light> light(new mgf::Light());
+    light->mColor = glm::vec3(0.f, 1.f, 0.f);
+    light->mPosition = glm::vec3(5.f, 15.f, 15.f);
+    renderer->addLight(light, glm::mat4(1));
+    light->mColor = glm::vec3(0.6f, 0.2f, 1.f);
+    light->mPosition = glm::vec3(0.f, 10.f, -5.f);
+    renderer->addLight(light, glm::mat4(1));
 }
 
 glm::vec3 EngineHelper::getMousePos() {

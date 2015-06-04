@@ -26,6 +26,7 @@ public:
 	int swap();
 	int blit(std::shared_ptr<SDL_Surface> image);
 	float getAspectRatio();
+	glm::vec2 getResolution();
 
 private:
 	int initSDL(int GLMajor, int GLMinor);

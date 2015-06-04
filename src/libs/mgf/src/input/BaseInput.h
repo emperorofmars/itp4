@@ -23,7 +23,9 @@ public:
 
 	virtual glm::vec3 getPosition();
 	virtual glm::vec2 getMouseRelative();
+	virtual glm::vec2 getMouseRelativeNDC(glm::vec2 screen);
 	virtual glm::vec2 getMouseAbsolute();
+	virtual glm::vec2 getMouseAbsoluteNDC(glm::vec2 screen);
 	virtual glm::bvec3 getMouseClick();
 	virtual float getMouseScroll();
 	virtual bool getQuit();

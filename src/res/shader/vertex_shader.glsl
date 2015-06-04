@@ -6,9 +6,13 @@ layout (location = 2) in vec3 uv;
 
 struct mMaterial{
 	vec4 color;
+	vec4 specular;
+	vec4 ambient;
+	vec4 emissive;
 	float alpha;
+	float shininess;
 	float has_texture;
-	float numlights;
+	float shadingType;
 };
 
 out VS_OUT{
@@ -20,15 +24,13 @@ out VS_OUT{
 
 uniform mat4 m_mat;
 uniform mat4 vp_mat;
+uniform mat4 norm_mat;
 uniform mMaterial material;
 
 void main(void){
-	//gl_Position = vp_mat * m_mat * pos;
 	vs_out.pos = m_mat * pos;
 	gl_Position = vp_mat * vs_out.pos;
-	vs_out.norm = (m_mat * vec4(norm, 0.0)).xyz;
+	vs_out.norm = (norm_mat * vec4(norm, 0.0)).xyz;
 	vs_out.uv = uv;
 	vs_out.material = material;
-	//vs_out.material.color *= dot(m_norm, normalize(vec4(2, 3, 1, 1) - m_mat * pos)) *
-	//					1 / length(vec4(2, 3, 1, 1) - m_mat * pos) * 10;
 }

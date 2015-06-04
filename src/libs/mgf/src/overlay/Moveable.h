@@ -34,8 +34,9 @@ public:
 	virtual int getLayer();
 	virtual glm::vec2 getScale();
 
-private:
+protected:
 	std::shared_ptr<OverlayNode> mBase;
+	std::shared_ptr<Material> mBaseMat;
 };
 
 } // mgf

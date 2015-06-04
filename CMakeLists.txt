@@ -31,7 +31,7 @@ set(SOURCE_FILES
     src/tbs.cpp
     src/tbs.h)
 
-add_executable(itp4 ${SOURCE_FILES} src/game/EngineHelper.cpp src/game/EngineHelper.h)
+add_executable(itp4 ${SOURCE_FILES} src/game/EngineHelper.cpp src/game/EngineHelper.h src/game/states/State.cpp src/game/states/State.h src/game/states/State.cpp src/game/states/State.h src/game/states/Context.cpp src/game/states/Context.h src/game/states/State.cpp src/game/states/State.h src/game/states/IdleState.cpp src/game/states/IdleState.h)
 
 INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
@@ -42,6 +42,9 @@ PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image)
 INCLUDE_DIRECTORIES(${SDL2IMAGE_INCLUDE_DIRS})
 TARGET_LINK_LIBRARIES(itp4 ${SDL2IMAGE_LIBRARIES})
 
+PKG_SEARCH_MODULE(SDL2TTF REQUIRED SDL2_ttf)
+INCLUDE_DIRECTORIES(${SDL2TTF_INCLUDE_DIRS})
+TARGET_LINK_LIBRARIES(itp4 ${SDL2TTF_LIBRARIES})
 
 PKG_SEARCH_MODULE(GLEW REQUIRED glew)
 INCLUDE_DIRECTORIES(${GLEW_INCLUDE_DIRS})

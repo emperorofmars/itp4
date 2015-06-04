@@ -7,6 +7,7 @@
 
 #include <src/collision/MouseRay.h>
 #include <src/collision/RayPlane.h>
+#include <bits/stl_queue.h>
 #include "GameLoop.h"
 #include "../Game.h"
 #include "../EngineHelper.h"
@@ -15,6 +16,7 @@
 
 GameLoop::GameLoop(std::shared_ptr<Game> game) {
     mGame = game;
+    mStateContext = Context::getInstance();
 }
 
 int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
@@ -24,6 +26,9 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
     bool mouseMidDown = false;
     bool mouseLeftDown = false;
     bool mouseRightDown = false;
+
+    std::queue<inputEvent> eventsQueue;
+
     while(quit != true){
 //###############################################  Update
         engine->input->update();
@@ -46,10 +51,32 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
         }
 
         if(mouseMidDown && !middleClick){
+            eventsQueue.push(EVENT_MIDDLECLICK);
+            mouseMidDown = false;
+
+        }
+
+        if(mouseLeftDown && !leftClick){
+            eventsQueue.push(EVENT_LEFTCLICK);
+            mouseLeftDown = false;
+        }
+
+        if(mouseRightDown && !rightClick){
+            eventsQueue.push(EVENT_RIGHTCLICK);
+            mouseRightDown = false;
+        }
+
+        if(!eventsQueue.empty()){
+            mStateContext->getCurrentState()->handleEvent(eventsQueue.front());
+            eventsQueue.pop();
+        }
+
+
+
+        if(mouseMidDown && !middleClick){
             mGame->nextTurn();
             mouseMidDown = false;
         }
-
 
         if(!leftClick && mouseLeftDown){
             glm::vec3 mpoint = engine->getMousePos();

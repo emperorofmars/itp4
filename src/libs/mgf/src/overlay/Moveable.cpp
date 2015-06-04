@@ -9,16 +9,17 @@
 namespace mgf{
 
 Moveable::Moveable(const std::string &name){
-	mBase.reset(new OverlayNode("Base"));
+	mBase.reset(new OverlayNode(name));
 	std::shared_ptr<Mesh> plane(createPlane());
-	plane->mMaterial->mEmissiveColor = glm::vec4(0.5, 0.5, 0.5, 1);
+	plane->mMaterial->mDiffuseColor = glm::vec4(0.5, 0.5, 0.5, 1);
 	plane->mMaterial->mShadingType = 0;
+	mBaseMat = plane->mMaterial;
 	mBase->addMesh(plane);
-	this->scale(glm::vec2(0.1f, 0.1f));
+	this->scale(glm::vec2(0.1f, -0.1f));
+	this->translate(glm::vec2(0.1f, 0.1f));
 }
 
 Moveable::~Moveable(){
-
 }
 
 bool Moveable::render(std::shared_ptr<Renderer> renderer){
@@ -33,13 +34,13 @@ bool Moveable::setName(const std::string &name){
 
 void Moveable::translate(glm::vec2 pos){
 	if(mBase)
-		mBase->translate(glm::vec3(pos[0], -pos[1], 0));
+		mBase->translate(glm::vec3(pos[0], pos[1], 0));
 	return;
 }
 
 void Moveable::setPos(glm::vec2 pos){
 	if(mBase)
-		mBase->setTranslation(glm::vec3(pos[0], -pos[1], mBase->getTranslation()[2]));
+		mBase->setTranslation(glm::vec3(pos[0], pos[1], mBase->getTranslation()[2]));
 	return;
 }
 
@@ -57,7 +58,7 @@ void Moveable::scale(glm::vec2 scale){
 
 void Moveable::setScale(glm::vec2 scale){
 	if(mBase)
-		mBase->setScale(glm::vec3(scale, 1));
+		mBase->setScale(glm::vec3(scale[0], -scale[1], 1));
 	return;
 }
 

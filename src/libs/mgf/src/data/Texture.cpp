@@ -15,6 +15,7 @@ Texture::Texture(){
 
 Texture::~Texture(){
 	if(mTextureBuffer > 0) glDeleteTextures(1, &mTextureBuffer);
+	mTextureBuffer = 0;
 	if(mImage != NULL) SDL_FreeSurface(mImage);
 	mImage = NULL;
 }

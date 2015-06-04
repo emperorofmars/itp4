@@ -8,22 +8,22 @@
 #define MGF_OVERLAY_H
 
 #include "../Include.h"
-#include "Moveable.h"
+#include "IOverlayElement.h"
 
 namespace mgf{
 
-class Overlay : public Moveable{
+class Overlay{
 public:
 	Overlay();
 	~Overlay();
 
-	virtual bool render();
+	bool render(std::shared_ptr<Renderer> renderer);
 
-	bool addElement(std::shared_ptr<IOverlayElement> element);
-	bool removeElement(std::shared_ptr<IOverlayElement> element);
-	bool removeElement(std::string name);
+	bool add(std::shared_ptr<IOverlayElement> element);
+	bool remove(std::shared_ptr<IOverlayElement> element);
+	bool remove(const std::string &name);
 
-	std::shared_ptr<IOverlayElement> getMouseOver(glm::vec2 ndcPos);
+	std::shared_ptr<IOverlayElement> getMouseOverNDC(glm::vec2 point);
 
 	std::shared_ptr<IOverlayElement> getElement(const std::string &name);
 

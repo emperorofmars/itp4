@@ -122,8 +122,16 @@ glm::vec2 BaseInput::getMouseRelative(){
 	return mMouseRelative;
 }
 
+glm::vec2 BaseInput::getMouseRelativeNDC(glm::vec2 screen){
+	return mMouseRelative / screen;
+}
+
 glm::vec2 BaseInput::getMouseAbsolute(){
 	return mMouseAbsolute;
+}
+
+glm::vec2 BaseInput::getMouseAbsoluteNDC(glm::vec2 screen){
+	return mMouseAbsolute / screen;
 }
 
 glm::bvec3 BaseInput::getMouseClick(){

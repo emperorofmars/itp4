@@ -131,7 +131,7 @@ bool Loader::loadData(const aiScene *scene){
 	}
 
 	for(unsigned int i = 0; i < scene->mNumMeshes; i++){
-		std::shared_ptr<Mesh> mesh(loadMesh(scene->mMeshes[i]));
+		std::shared_ptr<Mesh> mesh(loadMesh(scene->mMeshes[i], mLoadOnlyToGPU));
 		if(mesh){
 			mLoadedMeshes[i] = mesh;
 			mData->mMeshes.push_back(mesh);
@@ -162,11 +162,12 @@ std::shared_ptr<Mesh> Loader::loadMesh(aiMesh *mesh, bool loadToData){
 
 	ret->mRenderIndexed = mLoadIndexed;
 
-	if(loadToData){
+	if(!loadToData){
 		ret->mIndices.resize(mesh->mNumFaces * 3);
 		ret->mVertices.resize(mesh->mNumVertices);
 		ret->mNormals.resize(mesh->mNumVertices);
 		ret->mUV.resize(mesh->GetNumUVChannels());
+		ret->mNumUV.resize(mesh->GetNumUVChannels());
 
 		for(unsigned int i = 0; i < mesh->mNumFaces; i++){
 			ret->mIndices[i * 3] = mesh->mFaces[i].mIndices[0];
@@ -188,6 +189,7 @@ std::shared_ptr<Mesh> Loader::loadMesh(aiMesh *mesh, bool loadToData){
 
 		for(unsigned int i = 0; i < mesh->GetNumUVChannels(); i++){
 			ret->mUV[i].resize(mesh->mNumUVComponents[i]);
+			ret->mNumUV[i] = mesh->mNumUVComponents[i];
 			for(unsigned int j = 0; j < mesh->mNumUVComponents[i]; j++){
 				ret->mUV[i][j][0] = mesh->mTextureCoords[i][j][0];
 				ret->mUV[i][j][1] = mesh->mTextureCoords[i][j][1];
