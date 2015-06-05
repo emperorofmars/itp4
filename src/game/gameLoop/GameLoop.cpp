@@ -58,17 +58,14 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
         if(mouseMidDown && !middleClick){
             eventsQueue.push(InputEvent::EVENT_MIDDLECLICK);
             mouseMidDown = false;
-
-        }
-
-        if(mouseLeftDown && !leftClick){
+        }else if(mouseLeftDown && !leftClick){
             eventsQueue.push(InputEvent::EVENT_LEFTCLICK);
             mouseLeftDown = false;
-        }
-
-        if(mouseRightDown && !rightClick){
+        }else if(mouseRightDown && !rightClick){
             eventsQueue.push(InputEvent::EVENT_RIGHTCLICK);
             mouseRightDown = false;
+        }else{
+            eventsQueue.push(InputEvent::EVENT_NOEVENT);
         }
 
         if(!eventsQueue.empty()){

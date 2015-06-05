@@ -5,3 +5,11 @@
 */
 
 #include "MovingState.h"
+
+void MovingState::handleEvent(InputEvent event) {
+    std::shared_ptr<Unit> movingUnit = mGame->getSelectedUnit();
+
+
+
+
+}

@@ -15,7 +15,6 @@ void IdleState::handleEvent(InputEvent event) {
 
     if(event == InputEvent::EVENT_LEFTCLICK){
         LOG_F_TRACE(GAME_LOG_PATH, "IDLE -- Leftclick processing");
-
         handleLeftClick();
     }
 
@@ -32,7 +31,7 @@ void IdleState::handleLeftClick() {
         LOG_F_TRACE(GAME_LOG_PATH, "occupied");
         //TODO highlight unit
         mContext->setCurrentState(States::STATE_SELECTED);
-        LOG_F_TRACE(GAME_LOG_PATH, "SELECTED -- unit clicked");
+        LOG_F_TRACE(GAME_LOG_PATH, "SELECTED -- unit selected");
     }else{
 
         LOG_F_TRACE(GAME_LOG_PATH, "IDLE -- empty field");

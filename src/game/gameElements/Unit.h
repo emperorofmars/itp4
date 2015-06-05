@@ -8,6 +8,7 @@
 
 #include <iosfwd>
 #include <string>
+#include <bits/stl_queue.h>
 #include "Player.h"
 #include "../../libs/mlog.h"
 #include "Hexfield.h"
@@ -36,6 +37,7 @@ private:
     int owner;
     std::shared_ptr<Hexfield> mCurrentHexfield;
     std::shared_ptr<mgf::Node> mUnitNode;
+    glm::vec3 destination;
 
     //FINAL VALUES
     std::string type;

@@ -16,6 +16,8 @@ public:
     MovingState(const std::shared_ptr<Context> &ctx) : State(ctx) {
         mName = "MOVING";
     }
+
+    virtual void handleEvent(InputEvent event) override;
 };
 
 
