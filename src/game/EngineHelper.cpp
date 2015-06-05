@@ -36,10 +36,10 @@ EngineHelper::EngineHelper() {
     actualScene.reset(new mgf::Node("scene"));
 
     std::shared_ptr<mgf::Light> light(new mgf::Light());
-    light->mColor = glm::vec3(0.f, 1.f, 0.f);
+    light->mColor = glm::vec3(0.8f, 0.8f, 0.8f);
     light->mPosition = glm::vec3(5.f, 15.f, 15.f);
     renderer->addLight(light, glm::mat4(1));
-    light->mColor = glm::vec3(0.6f, 0.2f, 1.f);
+    light->mColor = glm::vec3(.8f, .8f, .8f);
     light->mPosition = glm::vec3(0.f, 10.f, -5.f);
     renderer->addLight(light, glm::mat4(1));
 }

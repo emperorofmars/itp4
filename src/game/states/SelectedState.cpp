@@ -57,8 +57,10 @@ void SelectedState::handleLeftClick() {
     if(clickedHex->getIsOccupied()){
         mGame->setSelectedUnit(clickedHex->getOccupation());
         //TODO highlight unit
+
     }else{
         mContext->setCurrentState(States::STATE_IDLE);
+        mGame->deselectUnit();
         LOG_F_TRACE(GAME_LOG_PATH, "IDLE -- deselection");
     }
 }

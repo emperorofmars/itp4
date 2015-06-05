@@ -74,56 +74,9 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
             eventsQueue.pop();
         }
 
-
-//
-//        if(mouseMidDown && !middleClick){
-//            mGame->nextTurn();
-//            mouseMidDown = false;
-//        }
-
-//        if(!leftClick && mouseLeftDown){
-//            glm::vec3 mpoint = engine->getMousePos();
-//
-//            std::shared_ptr<Hexfield> clickedHex = mGame->getHexAt(mGame->getFirstField(), mpoint[2], mpoint[0]);
-//
-//            if(clickedHex->getIsOccupied()){
-//                mGame->setSelectedState(true);
-//                mGame->setSelectedUnit(clickedHex->getOccupation());
-//            }else{
-//                mGame->setSelectedState(false);
-//                LOG_F_TRACE(GAME_LOG_PATH, "nothing on that field");
-//            }
-//
-//            mouseLeftDown = false;
-//        }
-
-//        if(mGame->getSelectedState() && !rightClick && mouseRightDown){
-//            std::shared_ptr<Unit> selectedUnit = mGame->getSelectedUnit();
-//            if(selectedUnit->getOwner() != mGame->getCurrentPlayerId()) continue;
-//
-//            mouseRightDown = false;
-//            LOG_F_TRACE(GAME_LOG_PATH, "locating clicked hex");
-//
-//            glm::vec3 mpoint = engine->getMousePos();
-//            std::shared_ptr<Hexfield> dest = mGame->getHexAt(mGame->getFirstField(), mpoint[2], mpoint[0]);
-//
-//            LOG_F_TRACE(GAME_LOG_PATH, "pos: ", dest->mPosition[1], " / ", dest->mPosition[0]);
-//
-//
-//            if(dest->getIsOccupied()){
-//                if(selectedUnit->isInRange(dest) && dest->getOccupation()->getOwner() != mGame->getCurrentPlayerId()){
-//                    LOG_F_TRACE(GAME_LOG_PATH, "Target is enemy and in range");
-//                    selectedUnit->attack(dest->getOccupation());
-//                    continue;
-//                }else{
-//                    LOG_F_TRACE(GAME_LOG_PATH, "Target NOT in Range or friendly!");
-//                }
-//            }
-//
-//            mGame->unitMovementWrapper(selectedUnit, dest);
-//
-//
-//        }
+        if(mGame->getSelectedUnit() != nullptr){
+            mGame->getSelectedUnit()->getUnitNode()->rotate(.1f, glm::vec3(.0f, 1.0f, 0.0f));
+        }
 
 //###############################################  Rendering
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

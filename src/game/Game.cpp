@@ -526,3 +526,7 @@ std::shared_ptr<Hexfield> Game::getHexAtMousePos() {
     glm::vec3 pos = engine->getMousePos();
     return getHexAt(getFirstField(), pos[2], pos[0]);
 }
+
+void Game::deselectUnit() {
+    mSelectedUnit.reset();
+}
