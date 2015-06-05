@@ -291,8 +291,10 @@ void Game::nextTurn() {
     mCurrentPlayerId++;
     if(mCurrentPlayerId == 2) mCurrentPlayerId = 0;
 
+
     LOG_F_TRACE(GAME_LOG_PATH, "current Player id : ", mCurrentPlayerId);
 
+    deselectUnit();
     //resetting units of Current Player
     std::shared_ptr<std::vector<std::shared_ptr<Unit>>> unitHolder = mPlayers[mCurrentPlayerId]->mUnits;
     for(std::shared_ptr< Unit > unit : *unitHolder){
