@@ -8,7 +8,7 @@
 
 #include <iosfwd>
 #include <string>
-#include <bits/stl_queue.h>
+#include <queue>
 #include "Player.h"
 #include "../../libs/mlog.h"
 #include "Hexfield.h"
@@ -19,7 +19,7 @@ class Player;
 
 class Unit {
 public:
-    std::shared_ptr<Hexfield> moveTo(std::shared_ptr<Hexfield> destination, std::shared_ptr<Unit> self);
+    std::shared_ptr<Hexfield> moveTo(std::shared_ptr<Unit> self);
     bool isInRange(std::shared_ptr<Hexfield> target);
     std::shared_ptr<Hexfield> checkRange(std::shared_ptr<Hexfield> start, std::shared_ptr<Hexfield> target);
 
@@ -33,11 +33,13 @@ public:
 
     void printStats();
 
+    void setDestination(std::shared_ptr<Hexfield> d);
+    std::shared_ptr<Hexfield> getDestination();
 private:
     int owner;
     std::shared_ptr<Hexfield> mCurrentHexfield;
     std::shared_ptr<mgf::Node> mUnitNode;
-    glm::vec3 destination;
+    std::shared_ptr<Hexfield> mDestination;
 
     //FINAL VALUES
     std::string type;

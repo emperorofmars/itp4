@@ -69,7 +69,7 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
         }
 
         if(!eventsQueue.empty()){
-            LOG_F_TRACE(GAME_LOG_PATH, "Event processing");
+            //LOG_F_TRACE(GAME_LOG_PATH, "Event processing");
             mStateContext->handle(eventsQueue.front());
             eventsQueue.pop();
         }

@@ -52,18 +52,19 @@ std::shared_ptr<Unit> Unit::clone(){
 }
 
 
-std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> destination, std::shared_ptr<Unit> self) {
-    float destinationXPos = destination->mPosition[1];
-    float destinationYPos = destination->mPosition[0];
+std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Unit> self) {
+    float destinationXPos = mDestination->mPosition[1];
+    float destinationYPos = mDestination->mPosition[0];
+
 
     LOG_F_TRACE(GAME_LOG_PATH, "POS: ", mCurrentHexfield->mPosition[1], "/", mCurrentHexfield->mPosition[0]);
-    LOG_F_TRACE(GAME_LOG_PATH, "moving.. (dest: ", destination->mPosition[1], "/", destination->mPosition[0], ")");
+    LOG_F_TRACE(GAME_LOG_PATH, "moving.. (dest: ", mDestination->mPosition[1], "/", mDestination->mPosition[0], ")");
 
     std::shared_ptr<Hexfield> nearestHex;
     float minDist;
     float curDist = INFINITY;
 
-    minDist = mCurrentHexfield->getDist(destination);
+    minDist = mCurrentHexfield->getDist(mDestination);
     nearestHex = mCurrentHexfield;
 
     //DEBUG var
@@ -71,7 +72,7 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> destination, st
     for(std::shared_ptr<Hexfield> neighbor : mCurrentHexfield->linkedTo){
         if(neighbor == NULL) continue;
 
-        curDist = neighbor->getDist(destination);
+        curDist = neighbor->getDist(mDestination);
 
         if(curDist < minDist && !neighbor->getIsOccupied()){
             LOG_F_TRACE(GAME_LOG_PATH, i, "new low at ", neighbor->mPosition[1], "/", neighbor->mPosition[0]);
@@ -83,10 +84,10 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> destination, st
 
     LOG_F_TRACE(GAME_LOG_PATH, "finished look up loop");
 
-
     if(nearestHex == mCurrentHexfield || remainingMovement <= 0){
     //if(nearestHex == mCurrentHexfield){
-        LOG_F_TRACE(GAME_LOG_PATH, "final destination reached");
+        LOG_F_TRACE(GAME_LOG_PATH, "final mDestination reached");
+        mDestination.reset();
         return mCurrentHexfield;
     }
 
@@ -98,7 +99,7 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Hexfield> destination, st
 
     LOG_F_TRACE(GAME_LOG_PATH, "rem move ", remainingMovement);
 
-    nearestHex = moveTo(destination, self);
+    //nearestHex = moveTo(mDestination, self);
 
     return nearestHex;
 }
@@ -295,4 +296,12 @@ Unit::~Unit() {
     mCurrentHexfield.reset();
     mUnitNode.reset();
     LOG_F_TRACE(GAME_LOG_PATH, "Unit destroyed");
+}
+
+void Unit::setDestination(std::shared_ptr<Hexfield> d) {
+    mDestination = d;
+}
+
+std::shared_ptr<Hexfield> Unit::getDestination() {
+    return mDestination;
 }

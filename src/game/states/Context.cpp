@@ -17,7 +17,7 @@ using namespace std;
 /*
  * Singleton Implementation
  */
-std::shared_ptr<Context> Context::instance;// = std::shared_ptr<Context>(new Context());
+std::shared_ptr<Context> Context::instance;
 
 std::shared_ptr<Context> Context::getInstance() {
 
@@ -39,8 +39,7 @@ Context::Context() {
 }
 
 void Context::setCurrentState(States s) {
-    LOG_F_TRACE(GAME_LOG_PATH, "setting state");
-    LOG_F_TRACE(GAME_LOG_PATH, "states size ", mStates.size());
+    LOG_F_TRACE(GAME_LOG_PATH, "New State ");
 
     switch(s){
         case States::STATE_IDLE: mCurrentState = mStates[0]; break;

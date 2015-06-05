@@ -44,7 +44,9 @@ void SelectedState::handleRightClick() {
         }
     }
 
-    mGame->unitMovementWrapper(selectedUnit, dest);
+    selectedUnit->setDestination(dest);
+    mContext->setCurrentState(States::STATE_MOVING);
+    //mGame->unitMovementWrapper(selectedUnit, dest);
 
 }
 

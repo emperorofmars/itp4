@@ -18,6 +18,12 @@ public:
     }
 
     virtual void handleEvent(InputEvent event) override;
+private:
+    float mStepSizeX = 0;
+    float mStepSizeY = 0;
+    glm::vec3 mFinalTranslation;
+    glm::vec3 mActualTranslationAdded;
+
 };
 
 

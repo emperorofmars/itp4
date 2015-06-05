@@ -14,7 +14,6 @@ void State::setGame(std::shared_ptr<Game> ptr) {
 State::State(std::shared_ptr<Context> ctx) {
     mContext = ctx;
     mName = "State";
-    LOG_F_TRACE(GAME_LOG_PATH, "context adress ", mContext.get());
 }
 
 void State::handleEvent(InputEvent event) {

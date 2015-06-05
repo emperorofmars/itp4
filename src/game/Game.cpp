@@ -354,7 +354,7 @@ int Game::unitMovementWrapper(std::shared_ptr<Unit> unit,
     std::shared_ptr<Hexfield> startField = unit->getCurrentHexfield();
 
 
-    std::shared_ptr<Hexfield> finishedField = unit->moveTo(destination, unit);
+    std::shared_ptr<Hexfield> finishedField = unit->moveTo(unit);
 
     LOG_F_TRACE(GAME_LOG_PATH, "translating unit to endpoint");
     if(finishedField){
