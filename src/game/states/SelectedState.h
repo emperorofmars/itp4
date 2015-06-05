@@ -16,7 +16,9 @@ class SelectedState : public State{
 public:
     virtual void handleEvent(InputEvent event) override;
 
-    SelectedState(const std::shared_ptr<Context> &ctx) : State(ctx) { }
+    SelectedState(const std::shared_ptr<Context> &ctx) : State(ctx) {
+        mName = "SELECTED";
+    }
 
 protected:
     virtual void handleRightClick() override;

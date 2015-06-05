@@ -13,7 +13,9 @@
 class MovingState : public State {
 
 public:
-    MovingState(const std::shared_ptr<Context> &ctx) : State(ctx) { }
+    MovingState(const std::shared_ptr<Context> &ctx) : State(ctx) {
+        mName = "MOVING";
+    }
 };
 
 

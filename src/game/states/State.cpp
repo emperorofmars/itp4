@@ -5,6 +5,7 @@
 */
 
 #include "State.h"
+#include "../../tbs.h"
 
 void State::setGame(std::shared_ptr<Game> ptr) {
     mGame = ptr;
@@ -12,7 +13,8 @@ void State::setGame(std::shared_ptr<Game> ptr) {
 
 State::State(std::shared_ptr<Context> ctx) {
     mContext = ctx;
-
+    mName = "State";
+    LOG_F_TRACE(GAME_LOG_PATH, "context adress ", mContext.get());
 }
 
 void State::handleEvent(InputEvent event) {
@@ -29,4 +31,12 @@ void State::handleLeftClick() {
 
 void State::handleRightClick() {
     //ignoring by default
+}
+
+std::string State::getName() {
+    return mName;
+}
+
+State::~State() {
+    LOG_F_TRACE(GAME_LOG_PATH, "Destroying State ", getName());
 }

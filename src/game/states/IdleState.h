@@ -13,7 +13,9 @@
 class IdleState : public State{
 
 public:
-    IdleState(const std::shared_ptr<Context> &ctx) : State(ctx) { }
+    IdleState(const std::shared_ptr<Context> &ctx) : State(ctx) {
+        mName = "IDLE";
+    }
 
     virtual void handleEvent(InputEvent event) override;
 

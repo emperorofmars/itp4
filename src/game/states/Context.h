@@ -24,7 +24,8 @@ public:
     void injectGameReference(std::shared_ptr<Game> game);
     void setCurrentState(States s);
     std::shared_ptr<State> getCurrentState();
-
+    void handle(InputEvent e);
+    void initialize();
 private:
     //Singleton handling
     Context();
@@ -33,8 +34,7 @@ private:
     //actual implementation
     std::shared_ptr<State> mCurrentState;
 
-    std::vector<std::shared_ptr<State>> mStates;
-
+    std::vector< std::shared_ptr<State> > mStates;
 
 
 };

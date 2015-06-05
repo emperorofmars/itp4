@@ -17,14 +17,15 @@ using namespace std;
 /*
  * Singleton Implementation
  */
-std::shared_ptr<Context> Context::instance(new Context());
+std::shared_ptr<Context> Context::instance;// = std::shared_ptr<Context>(new Context());
 
 std::shared_ptr<Context> Context::getInstance() {
 
-//    if(instance == nullptr){
-//        instance.reset(new Context());
-//    }
-
+    if(instance == nullptr){
+        instance = std::shared_ptr<Context>(new Context());
+        instance->initialize();
+    }
+    //static shared_ptr<Context> instance (new Context());
     return instance;
 }
 
@@ -34,23 +35,13 @@ std::shared_ptr<Context> Context::getInstance() {
  */
 
 Context::Context() {
-    std::shared_ptr<State> newState;
-    newState.reset(new IdleState(getInstance()));
-    mStates.push_back(newState);
-    newState.reset(new SelectedState(getInstance()));
-    mStates.push_back(newState);
-    newState.reset(new MovingState(getInstance()));
-    mStates.push_back(newState);
-    newState.reset(new FightState(getInstance()));
-    mStates.push_back(newState);
 
-    newState.reset();
-
-    mCurrentState = mStates[0];
 }
 
 void Context::setCurrentState(States s) {
-    LOG_F_TRACE(GAME_LOG_PATH, "state size ", mStates.size());
+    LOG_F_TRACE(GAME_LOG_PATH, "setting state");
+    LOG_F_TRACE(GAME_LOG_PATH, "states size ", mStates.size());
+
     switch(s){
         case States::STATE_IDLE: mCurrentState = mStates[0]; break;
         case States::STATE_SELECTED: mCurrentState = mStates[1]; break;
@@ -67,6 +58,26 @@ void Context::injectGameReference(std::shared_ptr<Game> game) {
 
     for(std::shared_ptr<State> state : mStates){
         state->setGame(game);
+    }
+
+}
+
+void Context::handle(InputEvent e) {
+    mCurrentState->handleEvent(e);
+}
+
+void Context::initialize() {
+    mStates.push_back(std::shared_ptr<State>(new IdleState(getInstance())));
+    mStates.push_back(std::shared_ptr<State>(new SelectedState(getInstance())));
+    mStates.push_back(std::shared_ptr<State>(new MovingState(getInstance())));
+    //newState.reset(new FightState(getInstance()));
+    //mStates.push_back(newState);
+
+    mCurrentState = mStates[0];
+
+    LOG_F_TRACE(GAME_LOG_PATH, "States loaded");
+    for(int i = 0; i < mStates.size(); ++i){
+        LOG_F_TRACE(GAME_LOG_PATH, mStates[i]->getName());
     }
 
 }

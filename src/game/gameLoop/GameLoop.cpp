@@ -18,6 +18,8 @@ GameLoop::GameLoop(std::shared_ptr<Game> game) {
     mGame = game;
     mStateContext = Context::getInstance();
     mStateContext->injectGameReference(mGame);
+    LOG_F_TRACE(GAME_LOG_PATH, "context adress ", mStateContext.get());
+
 }
 
 int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
@@ -71,7 +73,7 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
 
         if(!eventsQueue.empty()){
             LOG_F_TRACE(GAME_LOG_PATH, "Event processing");
-            mStateContext->getCurrentState()->handleEvent(eventsQueue.front());
+            mStateContext->handle(eventsQueue.front());
             eventsQueue.pop();
         }
 
