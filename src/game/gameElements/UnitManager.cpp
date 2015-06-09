@@ -65,12 +65,11 @@ std::shared_ptr<Unit> UnitManager::parseLine(std::string lineString){
     std::shared_ptr<Unit> unit(new Unit);
 
     int i = 0;
-    while(std::getline(line, attribute, ' ')){
+    while(std::getline(line, attribute, ';')){
         int unitStat = 0;
-        if(i>1){
+        if(i>1 && i < 9){
             unitStat = atoi(attribute.c_str());
         }
-
         switch (i){
             case 0: unit->setType(attribute); break;
             case 1: unit->setName(attribute); break;
@@ -81,6 +80,7 @@ std::shared_ptr<Unit> UnitManager::parseLine(std::string lineString){
             case 6: unit->setMovement(unitStat); break;
             case 7: unit->setSightRadius(unitStat); break;
             case 8: unit->setManaCost(unitStat); break;
+            case 9: unit->setModel(attribute); break;
             default: std::cout << "config file formatting error" << std::endl; exit(1);
         }
 

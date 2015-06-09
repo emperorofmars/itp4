@@ -17,7 +17,7 @@ EngineHelper::EngineHelper() {
     p->addShader("res/shader/vertex_shader.glsl", GL_VERTEX_SHADER);
     p->addShader("res/shader/fragment_shader.glsl", GL_FRAGMENT_SHADER);
     p->addShader("res/shader/geometry_shader.glsl", GL_GEOMETRY_SHADER);
-    p->addShader("res/shader/tesselationcontroll_shader.glsl", GL_TESS_CONTROL_SHADER);
+    p->addShader("res/shader/tesselationcontrol_shader.glsl", GL_TESS_CONTROL_SHADER);
     p->addShader("res/shader/tesselationevaluation_shader.glsl", GL_TESS_EVALUATION_SHADER);
     p->createProgram();
 
@@ -27,10 +27,11 @@ EngineHelper::EngineHelper() {
     renderer.reset(new mgf::Renderer(w, cam, p));
 
     root.reset(new mgf::Node("root"));
-    root->add(l.load("res/models/cube/cube.obj"));
-    root->add(l.load("res/models/hex/hex.obj"));
-    root->add(l.load("res/models/scene/scene.obj"));
-    root->add(l.load("res/models/tower/tower.obj"));
+    //root->add(l.load("res/models/cube/cube.obj"));
+    //root->add(l.load("res/models/hex/hex.obj"));
+    //root->add(l.load("res/models/scene/scene.obj"));
+    //root->add(l.load("res/models/tower/tower.obj"));
+    root->add(l.load("res/models/assets/Assets.obj"));
     root->print();
 
     actualScene.reset(new mgf::Node("scene"));

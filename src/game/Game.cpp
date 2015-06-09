@@ -47,8 +47,6 @@ void Game::initGame() {
 
     mUnitManager->printPrototypesToCout();
 
-
-
     generatePlayingField();
 
 
@@ -239,7 +237,7 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
 
     //cout << "setting up field nodes" << endl;
 
-    std::shared_ptr<mgf::Node> newNode = root->getChild("hex.obj")->getChild("Hex")->clone();
+    std::shared_ptr<mgf::Node> newNode = root->getChild("Assets.obj")->getChild("Hex")->clone();
     actualScene->add(newNode);
     newNode->translate(hexfield->mPositionVector);
     hexfield->setEngineObjectRef(newNode);
@@ -259,7 +257,7 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
 
     if(std::shared_ptr<Unit> unit = hexfield->getOccupation()){
         if(unit->getName() == "Magierturm"){
-            std::shared_ptr<mgf::Node> unitNode = root->getChild("tower.obj")->getChild("Tower_Circle")->clone();
+            std::shared_ptr<mgf::Node> unitNode = root->getChild("Assets.obj")->getChild("Tower")->clone();
             //std::shared_ptr<mgf::Node> unitNode = root->getChild("scene.obj")->getChild("Cube")->clone();
             unit->setUnitNode(unitNode);
             actualScene->add(unitNode);
@@ -268,7 +266,7 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
             unitNode->scale(glm::vec3(0.6f, 0.6f, 0.6f));
 
         }else if(unit->getName() == "Infanterie"){
-            std::shared_ptr<mgf::Node> unitNode = root->getChild("scene.obj")->getChild("Cube")->clone();
+            std::shared_ptr<mgf::Node> unitNode = root->getChild("Assets.obj")->getChild("Infantry")->clone();
             unit->setUnitNode(unitNode);
             actualScene->add(unitNode);
             unitNode->translate(hexfield->mPositionVector);
@@ -321,7 +319,8 @@ void Game::produceUnit(std::string unitName, int playerId){
 
     LOG_F_TRACE(GAME_LOG_PATH, "target Player: ", playerId, " base hex found at: ", currentField->mPosition[1], "/", currentField->mPosition[0]);
     //TODO insert correct unit model
-    std::shared_ptr<mgf::Node> unitNode = engine->root->getChild("scene.obj")->getChild("Cube")->clone();
+    LOG_F_TRACE(GAME_LOG_PATH, "Model to Use ", newUnit->getModel());
+    std::shared_ptr<mgf::Node> unitNode = engine->root->getChild("Assets.obj")->getChild(newUnit->getModel())->clone();
     newUnit->setUnitNode(unitNode);
     newUnit->setCurrentHexfield(destinedField);
     destinedField->setOccupation(newUnit);

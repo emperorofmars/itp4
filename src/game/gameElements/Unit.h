@@ -40,6 +40,7 @@ private:
     std::shared_ptr<Hexfield> mCurrentHexfield;
     std::shared_ptr<mgf::Node> mUnitNode;
     std::shared_ptr<Hexfield> mDestination;
+    std::string modelName;
 
     //FINAL VALUES
     std::string type;
@@ -93,7 +94,8 @@ public:
     void setUnitNode(std::shared_ptr<mgf::Node> node);
     std::shared_ptr<mgf::Node> getUnitNode();
 
-
+    void setModel(std::string);
+    std::string getModel();
 };
 
 

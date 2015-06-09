@@ -48,6 +48,7 @@ std::shared_ptr<Unit> Unit::clone(){
     unit->timesDefended = 0;
     unit->remainingMovement = movement;
 
+    unit->modelName = modelName;
     return unit;
 }
 
@@ -304,4 +305,12 @@ void Unit::setDestination(std::shared_ptr<Hexfield> d) {
 
 std::shared_ptr<Hexfield> Unit::getDestination() {
     return mDestination;
+}
+
+void Unit::setModel(std::string string) {
+    this->modelName = string;
+}
+
+std::string Unit::getModel() {
+    return modelName;
 }

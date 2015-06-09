@@ -46,6 +46,12 @@ int startUp(){
 
     std::shared_ptr<EngineHelper> engine(new EngineHelper);
 
+    std::shared_ptr<mgf::Node> groundNode = engine->root->getChild("Assets.obj")->getChild("Ground")->clone();
+    engine->actualScene->add(groundNode);
+
+    std::shared_ptr<mgf::Node> treeNode = engine->root->getChild("Assets.obj")->getChild("Tree")->clone();
+    engine->actualScene->add(treeNode);
+
     game->setEngine(engine);
     game->setupField(engine->root, engine->actualScene, game->getFirstField());
 
@@ -60,9 +66,13 @@ int startUp(){
     engine->w->use();
     engine->p->use();
 
-    for(int i = 0; i < 4; ++i) {
+    for(int i = 0; i < 2; ++i) {
         game->produceUnit("Infanterie", 0);
         game->produceUnit("Infanterie", 1);
+        game->produceUnit("Artillerie", 0);
+        game->produceUnit("Artillerie", 1);
+        game->produceUnit("Kavallerie", 0);
+        game->produceUnit("Kavallerie", 1);
     }
 
     loop->run(engine);
