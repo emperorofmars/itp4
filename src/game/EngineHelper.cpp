@@ -16,9 +16,6 @@ EngineHelper::EngineHelper() {
     p.reset(new mgf::ShaderProgram);
     p->addShader("res/shader/vertex_shader.glsl", GL_VERTEX_SHADER);
     p->addShader("res/shader/fragment_shader.glsl", GL_FRAGMENT_SHADER);
-    p->addShader("res/shader/geometry_shader.glsl", GL_GEOMETRY_SHADER);
-    p->addShader("res/shader/tesselationcontrol_shader.glsl", GL_TESS_CONTROL_SHADER);
-    p->addShader("res/shader/tesselationevaluation_shader.glsl", GL_TESS_EVALUATION_SHADER);
     p->createProgram();
 
     cam.reset(new mgf::CameraTopDown(90, w->getAspectRatio(), 1000.f, 0.1f));
