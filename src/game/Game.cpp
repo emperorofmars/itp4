@@ -535,3 +535,7 @@ void Game::deselectUnit() {
     mSelectedUnit.reset();
     SELECTED_STATE = false;
 }
+
+std::shared_ptr<mgf::IOverlayElement> Game::getOverlayInteraction() {
+    return engine->getOverlayOnPos();
+}

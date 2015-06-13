@@ -20,7 +20,8 @@ public:
     virtual void handleEvent(InputEvent event) override;
 
 protected:
-    virtual void handleLeftClick() override;
+    void handleLeftClick() override;
+
 };
 
 

@@ -40,6 +40,9 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
         quit = engine->input->getQuit();
         engine->cam->update(engine->input->getPosition(), engine->input->getMouseRelative());
 
+//###############################################  Pointer
+        engine->setPointer();
+
 //###############################################  Controls
         bool leftClick = engine->input->getMouseClick()[0];
         bool rightClick = engine->input->getMouseClick()[2];
@@ -74,19 +77,16 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
             eventsQueue.pop();
         }
 
-//        if(mGame->getSelectedUnit() != nullptr){
-//            mGame->getSelectedUnit()->getUnitNode()->rotate(.1f, glm::vec3(.0f, 1.0f, 0.0f));
-//        }
 
 //###############################################  Rendering
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearBufferfv(GL_COLOR, 0, glm::value_ptr(glm::vec4(0.3f, 0.3f, 0.3f, 1.0f)));
 
         engine->actualScene->render(engine->renderer); //rendering on gpu happens here
+        engine->overlay->render(engine->renderer);
+
 
         engine->w->swap(); //display the rendered image on screen
-
-
 
 //###############################################  Calculate fps
         current = SDL_GetTicks();

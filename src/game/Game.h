@@ -55,6 +55,8 @@ public:
     void selectUnit(std::shared_ptr<Unit>);
     void deselectUnit();
 
+    std::shared_ptr<mgf::IOverlayElement> getOverlayInteraction();
+
     void setEngine(std::shared_ptr<EngineHelper> engine);
 
     std::shared_ptr< std::vector < std::shared_ptr< Unit > > > mUnitHolder1;

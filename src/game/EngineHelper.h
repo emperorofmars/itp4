@@ -9,6 +9,9 @@
 #include "src/scene/Loader.h"
 #include "src/input/IInput.h"
 #include "gameElements/Hexfield.h"
+#include <src/overlay/Overlay.h>
+#include <src/overlay/Label.h>
+
 
 class Hexfield;
 
@@ -23,9 +26,13 @@ public:
 
     std::shared_ptr<mgf::Node> root;
     std::shared_ptr<mgf::Node> actualScene;
+    std::shared_ptr<mgf::Overlay> overlay;
+    std::shared_ptr<mgf::Label> pointer;
 
     EngineHelper();
     glm::vec3 getMousePos();
+    void setPointer();
+    std::shared_ptr<mgf::IOverlayElement> getOverlayOnPos();
 };
 
 

@@ -23,7 +23,7 @@ public:
 protected:
     virtual void handleRightClick() override;
 
-    virtual void handleLeftClick() override;
+    void handleLeftClick() override;
 };
 
 

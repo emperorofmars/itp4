@@ -2,6 +2,9 @@
 // Created by lukas on 26.04.15.
 //
 
+#include <src/overlay/Label.h>
+#include <src/overlay/Button.h>
+#include <src/overlay/Overlay.h>
 #include "src/camera/CameraTopDown.h"
 #include "src/input/InputTopDown.h"
 #include "src/collision/MouseRay.h"
@@ -24,14 +27,30 @@ EngineHelper::EngineHelper() {
     renderer.reset(new mgf::Renderer(w, cam, p));
 
     root.reset(new mgf::Node("root"));
-    //root->add(l.load("res/models/cube/cube.obj"));
-    //root->add(l.load("res/models/hex/hex.obj"));
-    //root->add(l.load("res/models/scene/scene.obj"));
-    //root->add(l.load("res/models/tower/tower.obj"));
+    actualScene.reset(new mgf::Node("scene"));
+
+
     root->add(l.load("res/models/assets/Assets.obj"));
+
     root->print();
 
-    actualScene.reset(new mgf::Node("scene"));
+//#### Overlay
+    overlay.reset(new mgf::Overlay());
+
+    std::shared_ptr<mgf::Button> endTurnBtn(new mgf::Button("endTurn"));
+    endTurnBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
+    endTurnBtn->setFont("res/fonts/main.ttf");
+    endTurnBtn->setText("End Turn");
+    endTurnBtn->setBackground("res/images/Button.png");
+
+    pointer.reset(new mgf::Label("mouse"));
+    pointer->setBackground("res/images/Mouse.png");
+    pointer->translate(glm::vec2(-10.f, -10.f));
+
+    overlay->add(endTurnBtn);
+    overlay->add(pointer);
+
+
 
     std::shared_ptr<mgf::Light> light(new mgf::Light());
     light->mColor = glm::vec3(0.7f, 0.8f, 1.f);
@@ -49,4 +68,15 @@ glm::vec3 EngineHelper::getMousePos() {
     glm::vec3 mpoint = mgf::colLinePlane(cam->getPos(), mray, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
 
     return mpoint;
+}
+
+void EngineHelper::setPointer() {
+    pointer->setPos(glm::vec2(input->getMouseAbsoluteNDC(w->getResolution())[0], input->getMouseAbsoluteNDC(w->getResolution())[1] / w->getAspectRatio()));
+
+}
+
+
+std::shared_ptr<mgf::IOverlayElement> EngineHelper::getOverlayOnPos() {
+    std::shared_ptr<mgf::IOverlayElement> element = overlay->getMouseOverNDC(input->getMouseAbsoluteNDC(w->getResolution()));
+    return element;
 }

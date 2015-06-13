@@ -39,3 +39,4 @@ void IdleState::handleLeftClick() {
         LOG_F_TRACE(GAME_LOG_PATH, "IDLE -- empty field");
     }
 }
+

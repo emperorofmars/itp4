@@ -27,9 +27,11 @@ protected:
     std::string mName;
 
     virtual void handleLeftClick();
-
     virtual void handleRightClick();
     void handleMiddleClick();
+    void reactToInterfaceInteraction(std::shared_ptr<mgf::IOverlayElement>);
+
+    void handleInterfaceClick();
 };
 
 
