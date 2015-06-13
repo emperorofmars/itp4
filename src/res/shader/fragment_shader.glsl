@@ -28,7 +28,10 @@ in VS_OUT{
 }fs_in;
 
 vec4 calculatePointLight(float diffuseStrength, float specularStrength,
-						vec4 lightColor, vec4 lightPos, vec4 lightDir);
+						vec4 lightColor, vec4 lightPos);
+
+vec4 calculateSunLight(float diffuseStrength, float specularStrength,
+						vec4 lightColor, vec4 lightDir);
 
 void main(void){
 	if(fs_in.material.shadingType < 0.5){	//No Shading
@@ -49,7 +52,10 @@ void main(void){
 			vec4 lightDir = texelFetch(lights, ivec2(3, i), 0);
 			
 			if(lightInfo.g < 1.5){	//Point Loght
-				FragColor += calculatePointLight(lightInfo.b, lightInfo.a, lightColor, lightPos, lightDir);
+				FragColor += calculatePointLight(lightInfo.b, lightInfo.a, lightColor, lightPos);
+			}
+			else if(lightInfo.g < 2.5){	//Sun Loght
+				FragColor += calculateSunLight(lightInfo.b, lightInfo.a, lightColor, lightDir);
 			}
 			else{
 				FragColor = vec4(0, 0, 0, 1);
@@ -64,7 +70,8 @@ void main(void){
 }
 
 vec4 calculatePointLight(float diffuseStrength, float specularStrength,
-						vec4 lightColor, vec4 lightPos, vec4 lightDir){
+						vec4 lightColor, vec4 lightPos)
+{
 	vec4 Ambient = fs_in.material.ambient;
 	
 	vec4 N = normalize(vec4(fs_in.norm, 0));
@@ -90,7 +97,33 @@ vec4 calculatePointLight(float diffuseStrength, float specularStrength,
 	return (Ambient + Diffuse * diffuseStrength + Specular * specularStrength) * MaterialColor;
 }
 
-
+vec4 calculateSunLight(float diffuseStrength, float specularStrength,
+						vec4 lightColor, vec4 lightDir)
+{
+	vec4 Ambient = fs_in.material.ambient;
+	
+	vec4 N = normalize(vec4(fs_in.norm, 0));
+	vec4 L = normalize(-lightDir);
+	float dotNL = max(dot(N, L), 0);
+	vec4 Diffuse = dotNL * lightColor * fs_in.material.color;
+	
+	vec4 V = normalize(cameraPos - fs_in.material.color);
+	vec4 H = normalize(L + V);
+	vec4 R = reflect(-L, N);
+	float dotRV = max(dot(R, V), 0);
+	float dotNH = max(dot(N, H), 0);
+	vec4 Specular = pow(dotRV, fs_in.material.shininess) * lightColor * fs_in.material.specular;
+	
+	vec4 MaterialColor;
+	if(fs_in.material.has_texture > 0.5){
+		MaterialColor = texture(tex, vec2(fs_in.uv.x, 1 - fs_in.uv.y));
+	}
+	else{
+		MaterialColor = fs_in.material.color;
+	}
+	
+	return (Ambient + Diffuse * diffuseStrength + Specular * specularStrength) * MaterialColor;
+}
 
 
 
