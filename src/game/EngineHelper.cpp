@@ -50,16 +50,16 @@ EngineHelper::EngineHelper() {
     overlay->add(endTurnBtn);
     overlay->add(pointer);
 
-
-
+//#### Setting up Sunlight
     std::shared_ptr<mgf::Light> light(new mgf::Light());
-    light->mColor = glm::vec3(0.7f, 0.8f, 1.f);
+    light->mColor = glm::vec3(0.8f, 1.f, 0.6f);
+    light->mStrengthDiffuse = 10;
     light->mPosition = glm::vec3(5.f, 15.f, 15.f);
     renderer->addLight(light, glm::mat4(1));
-    light->mColor = glm::vec3(0.7f, 0.8f, 1.f);
-    light->mPosition = glm::vec3(0.f, 10.f, -5.f);
+    light->mType = 2;
+    light->mColor = glm::vec3(0.4f, 0.4f, 0.4f);
+    light->mDirection = glm::vec3(0.f, -10.f, -5.f);
     renderer->addLight(light, glm::mat4(1));
-
 
 }
 
