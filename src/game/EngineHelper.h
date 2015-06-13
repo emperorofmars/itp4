@@ -6,8 +6,8 @@
 #define ITP4_ENGINEHELPER_H
 
 
-#include <src/scene/Loader.h>
-#include <src/input/IInput.h>
+#include "src/scene/Loader.h"
+#include "src/input/IInput.h"
 #include "gameElements/Hexfield.h"
 
 class Hexfield;

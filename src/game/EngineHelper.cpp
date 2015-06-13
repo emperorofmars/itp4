@@ -2,10 +2,10 @@
 // Created by lukas on 26.04.15.
 //
 
-#include <src/camera/CameraTopDown.h>
-#include <src/input/InputTopDown.h>
-#include <src/collision/MouseRay.h>
-#include <src/collision/RayPlane.h>
+#include "src/camera/CameraTopDown.h"
+#include "src/input/InputTopDown.h"
+#include "src/collision/MouseRay.h"
+#include "src/collision/RayPlane.h"
 #include "EngineHelper.h"
 #include "gameElements/Hexfield.h"
 

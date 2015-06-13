@@ -2,14 +2,13 @@
 // Created by Lukas on 12.04.2015.
 //
 
-#include <src/util/Window.h>
-#include <src/util/ShaderProgram.h>
-#include <src/renderer/Renderer.h>
-#include <src/scene/Loader.h>
+#include "src/util/Window.h"
+#include "src/util/ShaderProgram.h"
+#include "src/renderer/Renderer.h"
+#include "src/scene/Loader.h"
 #include "startUp.h"
 #include "Game.h"
 #include "gameLoop/GameLoop.h"
-#include "EngineHelper.h"
 #include "../tbs.h"
 
 using namespace std;
