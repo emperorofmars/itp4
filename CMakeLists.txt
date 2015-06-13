@@ -5,7 +5,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 
 include_directories("${CMAKE_SOURCE_DIR}/src/libs/mgf")
-
+add_subdirectory("${CMAKE_SOURCE_DIR}/src/libs/mgf")
 
 set(SOURCE_FILES
     src/game/gameElements/Hexfield.h
@@ -71,4 +71,4 @@ PKG_SEARCH_MODULE(ASSIMP REQUIRED assimp)
 INCLUDE_DIRECTORIES(${ASSIMP_INCLUDE_DIRS})
 TARGET_LINK_LIBRARIES(itp4 ${ASSIMP_LIBRARIES})
 
-target_link_libraries(itp4 "${CMAKE_SOURCE_DIR}/src/libs/libmgf_lib.a")
+target_link_libraries(itp4 mgf_lib)
