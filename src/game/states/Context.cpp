@@ -47,6 +47,8 @@ void Context::setCurrentState(States s) {
         case States::STATE_MOVING: mCurrentState = mStates[2]; break;
         case States::STATE_FIGHT: mCurrentState = mStates[3]; break;
     }
+    LOG_F_TRACE(GAME_LOG_PATH, mCurrentState->getName());
+
 }
 
 std::shared_ptr<State> Context::getCurrentState() {

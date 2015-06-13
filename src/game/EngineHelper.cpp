@@ -37,7 +37,7 @@ EngineHelper::EngineHelper() {
 //#### Overlay
     overlay.reset(new mgf::Overlay());
 
-    std::shared_ptr<mgf::Button> endTurnBtn(new mgf::Button("endTurn"));
+    std::shared_ptr<mgf::Button> endTurnBtn(new mgf::Button("endTurnBtn"));
     endTurnBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
     endTurnBtn->setFont("res/fonts/main.ttf");
     endTurnBtn->setText("End Turn");

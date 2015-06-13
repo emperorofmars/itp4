@@ -25,13 +25,14 @@ protected:
     std::shared_ptr<Context> mContext;
     std::shared_ptr<Game> mGame;
     std::string mName;
+    bool interfaceInt;
 
     virtual void handleLeftClick();
     virtual void handleRightClick();
     void handleMiddleClick();
-    void reactToInterfaceInteraction(std::shared_ptr<mgf::IOverlayElement>);
+    bool reactToInterfaceInteraction(std::shared_ptr<mgf::IOverlayElement>);
 
-    void handleInterfaceClick();
+    bool handleInterfaceClick();
 };
 
 

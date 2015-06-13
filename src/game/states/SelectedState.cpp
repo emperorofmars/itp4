@@ -10,10 +10,13 @@
 void SelectedState::handleEvent(InputEvent event) {
     State::handleEvent(event);
 
+    if(interfaceInt){
+        return;
+    }
+
     if(event == InputEvent::EVENT_RIGHTCLICK){
         handleRightClick();
     }
-
 
     if(event == InputEvent::EVENT_LEFTCLICK){
         handleLeftClick();

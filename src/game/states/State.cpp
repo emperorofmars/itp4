@@ -14,6 +14,7 @@ void State::setGame(std::shared_ptr<Game> ptr) {
 State::State(std::shared_ptr<Context> ctx) {
     mContext = ctx;
     mName = "State";
+    interfaceInt = false;
 }
 
 void State::handleEvent(InputEvent event) {
@@ -22,9 +23,11 @@ void State::handleEvent(InputEvent event) {
         handleMiddleClick();
     }else if(event == InputEvent::EVENT_LEFTCLICK){
         LOG_F_TRACE(GAME_LOG_PATH, "General State: handling left click event");
-        handleInterfaceClick();
+        interfaceInt = handleInterfaceClick();
+        return;
     }
 
+    interfaceInt = false;
 }
 
 void State::handleMiddleClick() {
@@ -36,13 +39,15 @@ void State::handleLeftClick() {
 
 }
 
-void State::handleInterfaceClick(){
+bool State::handleInterfaceClick(){
     LOG_F_TRACE(GAME_LOG_PATH, "handle left click");
     std::shared_ptr<mgf::IOverlayElement> element = mGame->getOverlayInteraction();
 
     if(element){
-        reactToInterfaceInteraction(element);
+        return reactToInterfaceInteraction(element);
     }
+
+    return false;
 }
 
 
@@ -59,9 +64,11 @@ State::~State() {
 }
 
 
-void State::reactToInterfaceInteraction(std::shared_ptr<mgf::IOverlayElement> element) {
+bool State::reactToInterfaceInteraction(std::shared_ptr<mgf::IOverlayElement> element) {
     if(element->getName() == "endTurn"){
         mGame->nextTurn();
+        return true;
     }
 
+    return false;
 }
