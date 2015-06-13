@@ -144,11 +144,21 @@ void Unit::attack(std::shared_ptr<Unit> target) {
 
 }
 
+
+void Unit::counterAttack(std::shared_ptr<Unit> attacker) {
+    if(timesDefended < 2){
+        LOG_F_TRACE(GAME_LOG_PATH, "Counter attacking!");
+        attack(attacker);
+        timesDefended++;
+    } else{
+        LOG_F_TRACE(GAME_LOG_PATH, "Defended to often");
+    }
+
+}
+
 void Unit::getHit(int dmg){
-    LOG_F_TRACE(GAME_LOG_PATH, "current hP: ", curHP, " getting dmg: ", dmg);
-    printStats();
+    //printStats();
     curHP -= dmg;
-    LOG_F_TRACE(GAME_LOG_PATH, "HP: ", curHP, " remaining");
     if(curHP <= 0){
         //TODO KILL UNIT
         LOG_F_TRACE(GAME_LOG_PATH, "unit died");
@@ -281,14 +291,15 @@ std::shared_ptr<mgf::Node> Unit::getUnitNode() { return mUnitNode; }
 
 void Unit::printStats() {
     std::cout << type << std::endl
-    << name << std::endl
-    << curHP << "/" << maxHP << std::endl
-    << dmg << std::endl
-    << range << std::endl
-    << hitChance << std::endl
-    << remainingMovement << "/" << movement << std::endl
-    << sightRadius << std::endl
-    << manaCost << std::endl;
+    << "Name: " << name << std::endl
+    << "Health: " << curHP << "/" << maxHP << std::endl
+    << "Dmg: " << dmg << std::endl
+    << "Range: " << range << std::endl
+    << "HitChange" << hitChance << std::endl
+    << "Movement: " << remainingMovement << "/" << movement << std::endl
+    << "SightRadius: "<< sightRadius << std::endl
+    << "ManaCost" << manaCost << std::endl
+    << "TimesDefended: " << timesDefended << std::endl;
 
 }
 

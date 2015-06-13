@@ -4,15 +4,12 @@ project(itp4)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 
-
-include_directories("src/libs/mgf")
+include_directories("${CMAKE_SOURCE_DIR}/src/libs/mgf")
 
 
 set(SOURCE_FILES
-    src/game/gameElements/Field.h
     src/game/gameElements/Hexfield.h
     src/game/gameElements/Hexfield.cpp
-    src/game/gameElements/Moveable.h
     src/game/gameElements/Player.h
     src/game/gameElements/Player.cpp
     src/game/gameElements/Unit.cpp

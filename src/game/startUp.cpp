@@ -48,8 +48,8 @@ int startUp(){
     std::shared_ptr<mgf::Node> groundNode = engine->root->getChild("Assets.obj")->getChild("Ground")->clone();
     engine->actualScene->add(groundNode);
 
-    std::shared_ptr<mgf::Node> treeNode = engine->root->getChild("Assets.obj")->getChild("Tree")->clone();
-    engine->actualScene->add(treeNode);
+//    std::shared_ptr<mgf::Node> treeNode = engine->root->getChild("Assets.obj")->getChild("Tree")->clone();
+//    engine->actualScene->add(treeNode);
 
     game->setEngine(engine);
     game->setupField(engine->root, engine->actualScene, game->getFirstField());

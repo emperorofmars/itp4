@@ -14,9 +14,6 @@ void SelectedState::handleEvent(InputEvent event) {
         handleRightClick();
     }
 
-    if(event == InputEvent::EVENT_MIDDLECLICK){
-        State::handleMiddleClick();
-    }
 
     if(event == InputEvent::EVENT_LEFTCLICK){
         handleLeftClick();
@@ -38,6 +35,9 @@ void SelectedState::handleRightClick() {
         if(selectedUnit->isInRange(dest) && dest->getOccupation()->getOwner() != mGame->getCurrentPlayerId()){
             LOG_F_TRACE(GAME_LOG_PATH, "Target is enemy and in range");
             selectedUnit->attack(dest->getOccupation());
+            if(dest->getIsOccupied()){
+                dest->getOccupation()->counterAttack(selectedUnit);
+            }
             return;
         }else{
             LOG_F_TRACE(GAME_LOG_PATH, "Target NOT in Range or friendly!");
@@ -46,7 +46,6 @@ void SelectedState::handleRightClick() {
 
     selectedUnit->setDestination(dest);
     mContext->setCurrentState(States::STATE_MOVING);
-    //mGame->unitMovementWrapper(selectedUnit, dest);
 
 }
 
@@ -55,7 +54,9 @@ void SelectedState::handleLeftClick() {
     std::shared_ptr<Hexfield> clickedHex = mGame->getHexAtMousePos();
 
     if(clickedHex->getIsOccupied()){
-        mGame->setSelectedUnit(clickedHex->getOccupation());
+        mGame->deselectUnit();
+        mGame->selectUnit(clickedHex->getOccupation());
+
         //TODO highlight unit
 
     }else{

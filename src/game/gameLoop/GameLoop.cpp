@@ -74,9 +74,9 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
             eventsQueue.pop();
         }
 
-        if(mGame->getSelectedUnit() != nullptr){
-            mGame->getSelectedUnit()->getUnitNode()->rotate(.1f, glm::vec3(.0f, 1.0f, 0.0f));
-        }
+//        if(mGame->getSelectedUnit() != nullptr){
+//            mGame->getSelectedUnit()->getUnitNode()->rotate(.1f, glm::vec3(.0f, 1.0f, 0.0f));
+//        }
 
 //###############################################  Rendering
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

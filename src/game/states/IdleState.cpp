@@ -19,6 +19,7 @@ void IdleState::handleEvent(InputEvent event) {
     }
 
 
+
 }
 
 
@@ -27,7 +28,8 @@ void IdleState::handleLeftClick() {
     std::shared_ptr<Hexfield> clickedHex = mGame->getHexAtMousePos();
 
     if(clickedHex->getIsOccupied()){
-        mGame->setSelectedUnit(clickedHex->getOccupation());
+        mGame->selectUnit(clickedHex->getOccupation());
+
         LOG_F_TRACE(GAME_LOG_PATH, "occupied");
         //TODO highlight unit
         mContext->setCurrentState(States::STATE_SELECTED);

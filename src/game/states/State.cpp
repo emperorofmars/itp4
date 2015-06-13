@@ -17,7 +17,9 @@ State::State(std::shared_ptr<Context> ctx) {
 }
 
 void State::handleEvent(InputEvent event) {
-
+    if(event == InputEvent::EVENT_MIDDLECLICK){
+        handleMiddleClick();
+    }
 }
 
 void State::handleMiddleClick() {

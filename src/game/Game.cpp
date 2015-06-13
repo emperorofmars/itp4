@@ -7,6 +7,7 @@
 
 #include "Game.h"
 #include "../tbs.h"
+#include "states/Context.h"
 
 using namespace std;
 
@@ -291,16 +292,17 @@ void Game::nextTurn() {
 
 
     LOG_F_TRACE(GAME_LOG_PATH, "current Player id : ", mCurrentPlayerId);
+    if(getSelectedState()){
+        deselectUnit();
+    }
+    Context::getInstance()->setCurrentState(States::STATE_IDLE);
 
-    deselectUnit();
     //resetting units of Current Player
     std::shared_ptr<std::vector<std::shared_ptr<Unit>>> unitHolder = mPlayers[mCurrentPlayerId]->mUnits;
     for(std::shared_ptr< Unit > unit : *unitHolder){
         unit->setRemainingMovement(unit->getMovement());
         unit->setTimesDefended(0);
     }
-
-
 
 }
 
@@ -444,8 +446,6 @@ void Game::writeStatsToDb() {
 
 
 
-
-
 /*
  * Setter & Getter
  */
@@ -466,7 +466,7 @@ std::shared_ptr<Hexfield> Game::getHexAt(std::shared_ptr<Hexfield> current, floa
     float curDist;
     std::shared_ptr<Hexfield> nearest(current);
 
-    LOG_F_TRACE(GAME_LOG_PATH, "in field: ", current->mPosition[1], "/", current->mPosition[0]);
+    //LOG_F_TRACE(GAME_LOG_PATH, "in field: ", current->mPosition[1], "/", current->mPosition[0]);
 
     minDist = abs(x - current->mPosition[1])
               + abs(y - current->mPosition[0]);
@@ -511,8 +511,10 @@ std::shared_ptr<Unit> Game::getSelectedUnit() {
     return mSelectedUnit;
 }
 
-void Game::setSelectedUnit(shared_ptr<Unit> ptr) {
+void Game::selectUnit(shared_ptr<Unit> ptr) {
     mSelectedUnit = ptr;
+    getSelectedUnit()->getUnitNode()->setScale(glm::vec3(1.f, 1.f, 1.f));
+    SELECTED_STATE = true;
 }
 
 int Game::getCurrentPlayerId() {
@@ -529,5 +531,7 @@ std::shared_ptr<Hexfield> Game::getHexAtMousePos() {
 }
 
 void Game::deselectUnit() {
+    getSelectedUnit()->getUnitNode()->setScale(glm::vec3(.5f, .5f, .5f));
     mSelectedUnit.reset();
+    SELECTED_STATE = false;
 }

@@ -52,7 +52,7 @@ public:
     void setSelectedState(bool selectedState);
 
     std::shared_ptr<Unit> getSelectedUnit();
-    void setSelectedUnit(std::shared_ptr<Unit>);
+    void selectUnit(std::shared_ptr<Unit>);
     void deselectUnit();
 
     void setEngine(std::shared_ptr<EngineHelper> engine);
