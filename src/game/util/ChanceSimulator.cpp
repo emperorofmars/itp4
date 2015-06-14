@@ -30,7 +30,7 @@ double ChanceSimulator::getRandomHit() {
 }
 
 float ChanceSimulator::getRandomCoord(){
-    std::uniform_real_distribution<float> distribution(-10.0f, 60.0f);
+    std::uniform_real_distribution<float> distribution(-30.0f, 80.0f);
     return distribution(generator);
 }
 

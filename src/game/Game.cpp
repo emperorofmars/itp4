@@ -557,7 +557,7 @@ bool Game::getQuit(){
 void Game::generateEnvironment(){
     std::shared_ptr<ChanceSimulator> randomGenerator = ChanceSimulator::getInstance();
 
-    for(int i = 0; i<300; ++i){
+    for(int i = 0; i<400; ++i){
         float x = randomGenerator->getRandomCoord();
         float y = randomGenerator->getRandomCoord();
 
