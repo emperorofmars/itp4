@@ -44,36 +44,42 @@ EngineHelper::EngineHelper() {
     endTurnBtn->setBackground("res/images/b.png");
     endTurnBtn->translate(glm::vec2(-0.05f, -0.05f));
 
-    std::shared_ptr<mgf::Button> createInfantry(new mgf::Button("infantryButton"));
+    std::shared_ptr<mgf::Button> quitBtn(new mgf::Button("quitBtn"));
+    quitBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
+    quitBtn->setFont("res/fonts/main.ttf");
+    quitBtn->setText("Quit");
+    quitBtn->setBackground("res/images/b.png");
+    quitBtn->translate(glm::vec2(0.8f, -0.05f));
+
+    std::shared_ptr<mgf::Button> createInfantry(new mgf::Button("infantryBtn"));
     createInfantry->setColor(glm::vec3(1.f, 0.5f, 0.5f));
     createInfantry->setFont("res/fonts/main.ttf");
     createInfantry->setText("Infantry");
     createInfantry->setBackground("res/images/b.png");
     createInfantry->translate(glm::vec2(-0.05f, 0.65f));
 
-    std::shared_ptr<mgf::Button> createCavalry(new mgf::Button("cavalryButton"));
+    std::shared_ptr<mgf::Button> createCavalry(new mgf::Button("cavalryBtn"));
     createCavalry->setColor(glm::vec3(1.f, 0.5f, 0.5f));
     createCavalry->setFont("res/fonts/main.ttf");
     createCavalry->setText("Cavalry");
     createCavalry->setBackground("res/images/b.png");
     createCavalry->translate(glm::vec2(0.05f, 0.65f));
 
-    std::shared_ptr<mgf::Button> createArtillery(new mgf::Button("artilleryButton"));
+    std::shared_ptr<mgf::Button> createArtillery(new mgf::Button("artilleryBtn"));
     createArtillery->setColor(glm::vec3(1.f, 0.5f, 0.5f));
     createArtillery->setFont("res/fonts/main.ttf");
     createArtillery->setText("Artillery");
     createArtillery->setBackground("res/images/b.png");
     createArtillery->translate(glm::vec2(0.15f, 0.65f));
 
-
     pointer.reset(new mgf::Label("mouse"));
     pointer->setBackground("res/images/Mouse.png");
     pointer->translate(glm::vec2(-10.f, -10.f));
 
+    overlay->add(quitBtn);
     overlay->add(createInfantry);
     overlay->add(createCavalry);
     overlay->add(createArtillery);
-
     overlay->add(endTurnBtn);
     overlay->add(pointer);
 
