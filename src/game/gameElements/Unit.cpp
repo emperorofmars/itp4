@@ -6,6 +6,7 @@
 #include "Unit.h"
 #include "../../tbs.h"
 #include "../EngineHelper.h"
+#include "../ChanceSimulator.h"
 
 Unit::Unit(){
 
@@ -134,12 +135,20 @@ void Unit::attack(std::shared_ptr<Unit> target) {
     //TODO generate random number
 
 
-    //for testing 100% hitchance
+    double chance = ChanceSimulator::getInstance()->getRandom();
+    LOG_F_TRACE(GAME_LOG_PATH, "randomNumber: ", chance);
+    if(chance <= hitChance){
+        hit = true;
+
+    }
+
     printStats();
-    hit = true;
+//    hit = true;
     if(hit){
-        LOG_F_TRACE(GAME_LOG_PATH, "successfully hit target");
+        LOG_F_TRACE(GAME_LOG_PATH, "HIT");
         target->getHit(this->dmg);
+    }else{
+        LOG_F_TRACE(GAME_LOG_PATH, "MISS");
     }
 
 }
