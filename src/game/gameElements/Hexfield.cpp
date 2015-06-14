@@ -16,7 +16,7 @@ Hexfield::Hexfield() {
 Hexfield::~Hexfield() {
     occupation.reset();
 
-    LOG_F_TRACE(GAME_LOG_PATH, "destroying Hex");
+    //LOG_F_TRACE(GAME_LOG_PATH, "destroying Hex");
 }
 
 

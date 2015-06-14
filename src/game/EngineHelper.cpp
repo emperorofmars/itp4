@@ -21,8 +21,8 @@ EngineHelper::EngineHelper() {
     p->addShader("res/shader/fragment_shader.glsl", GL_FRAGMENT_SHADER);
     p->createProgram();
 
-    cam.reset(new mgf::CameraTopDown(90, w->getAspectRatio(), 1000.f, 0.1f));
-    cam->setPos(glm::vec3(25.f, 20.f, 35.f));
+    cam.reset(new mgf::CameraTopDown(40, w->getAspectRatio(), 1000.f, 0.1f));
+    cam->setPos(glm::vec3(25.f, 40.f, 35.f));
 
     renderer.reset(new mgf::Renderer(w, cam, p));
 
@@ -30,7 +30,7 @@ EngineHelper::EngineHelper() {
     actualScene.reset(new mgf::Node("scene"));
 
 
-    root->add(l.load("res/models/assets/Assets.obj"));
+    root->add(l.load("res/models/assets/alt/Assets.obj"));
 
     root->print();
 
@@ -41,25 +41,30 @@ EngineHelper::EngineHelper() {
     endTurnBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
     endTurnBtn->setFont("res/fonts/main.ttf");
     endTurnBtn->setText("End Turn");
-    endTurnBtn->setBackground("res/images/Button.png");
+    endTurnBtn->setBackground("res/images/b.png");
+    endTurnBtn->translate(glm::vec2(-0.05f, -0.05f));
 
     std::shared_ptr<mgf::Button> createInfantry(new mgf::Button("infantryButton"));
-    endTurnBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
-    endTurnBtn->setFont("res/fonts/main.ttf");
-    endTurnBtn->setText("Infantry");
-    endTurnBtn->setBackground("res/images/Button.png");
+    createInfantry->setColor(glm::vec3(1.f, 0.5f, 0.5f));
+    createInfantry->setFont("res/fonts/main.ttf");
+    createInfantry->setText("Infantry");
+    createInfantry->setBackground("res/images/b.png");
+    createInfantry->translate(glm::vec2(-0.05f, 0.65f));
 
     std::shared_ptr<mgf::Button> createCavalry(new mgf::Button("cavalryButton"));
-    endTurnBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
-    endTurnBtn->setFont("res/fonts/main.ttf");
-    endTurnBtn->setText("Cavalry");
-    endTurnBtn->setBackground("res/images/Button.png");
+    createCavalry->setColor(glm::vec3(1.f, 0.5f, 0.5f));
+    createCavalry->setFont("res/fonts/main.ttf");
+    createCavalry->setText("Cavalry");
+    createCavalry->setBackground("res/images/b.png");
+    createCavalry->translate(glm::vec2(0.05f, 0.65f));
 
     std::shared_ptr<mgf::Button> createArtillery(new mgf::Button("artilleryButton"));
-    endTurnBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
-    endTurnBtn->setFont("res/fonts/main.ttf");
-    endTurnBtn->setText("Artillery");
-    endTurnBtn->setBackground("res/images/Button.png");
+    createArtillery->setColor(glm::vec3(1.f, 0.5f, 0.5f));
+    createArtillery->setFont("res/fonts/main.ttf");
+    createArtillery->setText("Artillery");
+    createArtillery->setBackground("res/images/b.png");
+    createArtillery->translate(glm::vec2(0.15f, 0.65f));
+
 
     pointer.reset(new mgf::Label("mouse"));
     pointer->setBackground("res/images/Mouse.png");
@@ -75,7 +80,7 @@ EngineHelper::EngineHelper() {
 //#### Setting up Sunlight
     std::shared_ptr<mgf::Light> light(new mgf::Light());
     light->mColor = glm::vec3(0.8f, 1.f, 0.6f);
-    light->mStrengthDiffuse = 10;
+    light->mStrengthDiffuse = 2;
     light->mPosition = glm::vec3(5.f, 15.f, 15.f);
     renderer->addLight(light, glm::mat4(1));
     light->mType = 2;

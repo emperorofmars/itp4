@@ -43,7 +43,16 @@ int startUp(){
 
 //#########################Setting Ground
     std::shared_ptr<mgf::Node> groundNode = engine->root->getChild("Assets.obj")->getChild("Ground")->clone();
+    groundNode->translate(glm::vec3(20.0f, 0.f, -7.0f));
+    groundNode->scale(glm::vec3(1.5f, 1.f, 1.5f));
     engine->actualScene->add(groundNode);
+
+    std::shared_ptr<mgf::Node> tree = engine->root->getChild("Assets.obj")->getChild("Tree")->clone();
+    tree->translate(glm::vec3(20.f, 0.f, 20.f));
+    tree->add(engine->root->getChild("Assets.obj")->getChild("defaultobject")->clone());
+
+    engine->actualScene->add(tree);
+
 
 
 //#########################Setting up Overlay

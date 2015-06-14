@@ -12,7 +12,7 @@ mgfID_t Node::mGlobalID = 0;
 std::mutex Node::mGlobalMutex;
 
 Node::Node(const std::string &name){
-	LOG_F_TRACE(MGF_LOG_FILE, "Creating Node: ", name);
+	//LOG_F_TRACE(MGF_LOG_FILE, "Creating Node: ", name);
 	mName = name;
 	mParentNode = NULL;
 	mVisible = true;
@@ -25,7 +25,7 @@ Node::Node(const std::string &name){
 }
 
 Node::~Node(){
-	LOG_F_TRACE(MGF_LOG_FILE, "Deleting Node: ", mName);
+	//LOG_F_TRACE(MGF_LOG_FILE, "Deleting Node: ", mName);
 }
 
 std::shared_ptr<Node> Node::clone(){

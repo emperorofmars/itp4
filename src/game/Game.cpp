@@ -264,7 +264,7 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
             actualScene->add(unitNode);
             unitNode->translate(hexfield->mPositionVector);
             //unitNode->rotate(90, glm::vec3(0.f, 1.f, 0.f));
-            unitNode->scale(glm::vec3(0.6f, 0.6f, 0.6f));
+            //unitNode->scale(glm::vec3(0.6f, 0.6f, 0.6f));
 
         }else if(unit->getName() == "Infanterie"){
             std::shared_ptr<mgf::Node> unitNode = root->getChild("Assets.obj")->getChild("Infantry")->clone();
@@ -329,7 +329,7 @@ void Game::produceUnit(std::string unitName, int playerId){
 
 
     engine->actualScene->add(unitNode);
-    unitNode->scale(glm::vec3(.5f, .5f, .5f));
+    //unitNode->scale(glm::vec3(.5f, .5f, .5f));
     unitNode->setTranslation(destinedField->mPositionVector);
     //TODO set COLOR / MATERIAL for unit -> owner specific
 
@@ -512,7 +512,13 @@ std::shared_ptr<Unit> Game::getSelectedUnit() {
 
 void Game::selectUnit(shared_ptr<Unit> ptr) {
     mSelectedUnit = ptr;
-    getSelectedUnit()->getUnitNode()->setScale(glm::vec3(1.f, 1.f, 1.f));
+
+    std::shared_ptr<mgf::Material> newmat(new mgf::Material);
+    newmat->mDiffuseColor = glm::vec4(1.f, 1.f, 1.f, 1.f);
+    getSelectedUnit()->getUnitNode()->setMaterial(newmat);
+    //actualScene->getChild("Cube")->resetMaterial();                                                                                                                                                                                                                         
+
+
     SELECTED_STATE = true;
 }
 
@@ -530,7 +536,7 @@ std::shared_ptr<Hexfield> Game::getHexAtMousePos() {
 }
 
 void Game::deselectUnit() {
-    getSelectedUnit()->getUnitNode()->setScale(glm::vec3(.5f, .5f, .5f));
+    getSelectedUnit()->getUnitNode()->resetMaterial();
     mSelectedUnit.reset();
     SELECTED_STATE = false;
 }

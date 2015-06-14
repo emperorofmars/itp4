@@ -1,4 +1,5 @@
 #version 330 core
+#extension GL_ARB_shading_language_420pack : enable
 
 uniform sampler2D lights;
 uniform sampler2D tex;
@@ -45,7 +46,7 @@ void main(void){
 		for(int i = 0; i < numlights; i++){
 			vec4 lightInfo = texelFetch(lights, ivec2(0, i), 0);
 			if(lightInfo.r < 0.5) continue;
-			
+
 			vec4 lightColor = texelFetch(lights, ivec2(1, i), 0);
 			vec4 lightPos = texelFetch(lights, ivec2(2, i), 0);
 			vec4 lightDir = texelFetch(lights, ivec2(3, i), 0);
@@ -53,15 +54,16 @@ void main(void){
 			if(lightInfo.g < 1.5){	//Point Loght
 				FragColor += calculatePointLight(lightInfo.b, lightInfo.a, lightColor, lightPos);
 			}
-			else if(lightInfo.g < 2.5){	//Sun Loght
+			else if(lightInfo.g < 2.5){	//Sun Light
 				FragColor += calculateSunLight(lightInfo.b, lightInfo.a, lightColor, lightDir);
 			}
 			else{
-				//continue;
+				FragColor = vec4(0, 1, 1, 1);
+				break;
 			}
 		}
 	}
-	
+
 	vec4 Emissive = fs_in.material.emissive;
 	FragColor += vec4(Emissive.rgb, 0);
 }
@@ -70,19 +72,19 @@ vec4 calculatePointLight(float diffuseStrength, float specularStrength,
 						vec4 lightColor, vec4 lightPos)
 {
 	vec4 Ambient = fs_in.material.ambient;
-	
+
 	vec4 N = normalize(vec4(fs_in.norm, 0));
 	vec4 L = normalize(lightPos - fs_in.pos);
 	float dotNL = max(dot(N, L), 0);
 	vec4 Diffuse = dotNL * lightColor * fs_in.material.color;
-	
+
 	vec4 V = normalize(cameraPos - fs_in.material.color);
 	vec4 H = normalize(L + V);
 	vec4 R = reflect(-L, N);
 	float dotRV = max(dot(R, V), 0);
 	float dotNH = max(dot(N, H), 0);
 	vec4 Specular = pow(dotRV, fs_in.material.shininess) * lightColor * fs_in.material.specular;
-	
+
 	vec4 MaterialColor;
 	if(fs_in.material.has_texture > 0.5){
 		MaterialColor = texture(tex, vec2(fs_in.uv.x, 1 - fs_in.uv.y));
@@ -90,7 +92,7 @@ vec4 calculatePointLight(float diffuseStrength, float specularStrength,
 	else{
 		MaterialColor = fs_in.material.color;
 	}
-	
+
 	return (Ambient + Diffuse * diffuseStrength + Specular * specularStrength) * MaterialColor;
 }
 
@@ -98,19 +100,19 @@ vec4 calculateSunLight(float diffuseStrength, float specularStrength,
 						vec4 lightColor, vec4 lightDir)
 {
 	vec4 Ambient = fs_in.material.ambient;
-	
+
 	vec4 N = normalize(vec4(fs_in.norm, 0));
 	vec4 L = normalize(-lightDir);
 	float dotNL = max(dot(N, L), 0);
 	vec4 Diffuse = dotNL * lightColor * fs_in.material.color;
-	
+
 	vec4 V = normalize(cameraPos - fs_in.material.color);
 	vec4 H = normalize(L + V);
 	vec4 R = reflect(-L, N);
 	float dotRV = max(dot(R, V), 0);
 	float dotNH = max(dot(N, H), 0);
 	vec4 Specular = pow(dotRV, fs_in.material.shininess) * lightColor * fs_in.material.specular;
-	
+
 	vec4 MaterialColor;
 	if(fs_in.material.has_texture > 0.5){
 		MaterialColor = texture(tex, vec2(fs_in.uv.x, 1 - fs_in.uv.y));
@@ -118,27 +120,8 @@ vec4 calculateSunLight(float diffuseStrength, float specularStrength,
 	else{
 		MaterialColor = fs_in.material.color;
 	}
-	
+
 	return (Ambient + Diffuse * diffuseStrength + Specular * specularStrength) * MaterialColor;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
