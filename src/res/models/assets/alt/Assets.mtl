@@ -9,6 +9,7 @@ Ks 0.130252 0.130252 0.130252
 Ni 1.000000
 d 1.000000
 illum 2
+map_Kd GroundTexture.png
 
 newmtl Hex
 Ns 96.078431

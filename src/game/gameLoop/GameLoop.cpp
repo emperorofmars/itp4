@@ -11,6 +11,7 @@
 #include "GameLoop.h"
 #include "../Game.h"
 #include "../EngineHelper.h"
+#include "src/helper/Helper.h"
 #include "../../tbs.h"
 
 
@@ -37,8 +38,12 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
     while(quit != true){
 //###############################################  Update
         engine->input->update();
-        quit = engine->input->getQuit();
-        engine->cam->update(engine->input->getPosition(), engine->input->getMouseRelative());
+        quit = (engine->input->getQuit() || mGame->getQuit());
+
+        //if(!checkOutOfBounds(engine->input->getPosition() + engine->cam->getPos())){
+            engine->cam->update(engine->input->getPosition(), engine->input->getMouseRelative());
+        //}
+
 
 //###############################################  Pointer
         engine->setPointer();
@@ -102,4 +107,18 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
     LOG_F_TRACE(GAME_LOG_PATH, "cleanup complete, exiting");
 
     return 0;
+}
+
+bool GameLoop::checkOutOfBounds(glm::vec3 position) {
+    LOG_F_TRACE(GAME_LOG_PATH, "pos: ", mgf::vec3_toStr(position));
+
+    if(position[0] < 0.f || position[0] > 48.f){
+        return true;
+    }else if(position[1] < 5.f || position[1] > 60.f){
+        return true;
+    }else if(position[2] < 20.f || position[2] > 70.f){
+        return true;
+    }
+
+    return false;
 }

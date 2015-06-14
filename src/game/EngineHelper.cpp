@@ -47,9 +47,9 @@ EngineHelper::EngineHelper() {
     std::shared_ptr<mgf::Button> quitBtn(new mgf::Button("quitBtn"));
     quitBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
     quitBtn->setFont("res/fonts/main.ttf");
-    quitBtn->setText("Quit");
+    quitBtn->setText("Quit Game");
     quitBtn->setBackground("res/images/b.png");
-    quitBtn->translate(glm::vec2(0.8f, -0.05f));
+    quitBtn->translate(glm::vec2(0.85f, -0.05f));
 
     std::shared_ptr<mgf::Button> createInfantry(new mgf::Button("infantryBtn"));
     createInfantry->setColor(glm::vec3(1.f, 0.5f, 0.5f));
@@ -76,16 +76,16 @@ EngineHelper::EngineHelper() {
     pointer->setBackground("res/images/Mouse.png");
     pointer->translate(glm::vec2(-10.f, -10.f));
 
-    overlay->add(quitBtn);
     overlay->add(createInfantry);
     overlay->add(createCavalry);
     overlay->add(createArtillery);
+    overlay->add(quitBtn);
     overlay->add(endTurnBtn);
     overlay->add(pointer);
 
 //#### Setting up Sunlight
     std::shared_ptr<mgf::Light> light(new mgf::Light());
-    light->mColor = glm::vec3(0.8f, 1.f, 0.6f);
+    light->mColor = glm::vec3(1.f, 1.f, 1.f);
     light->mStrengthDiffuse = 2;
     light->mPosition = glm::vec3(5.f, 15.f, 15.f);
     renderer->addLight(light, glm::mat4(1));
@@ -110,6 +110,7 @@ void EngineHelper::setPointer() {
 
 
 std::shared_ptr<mgf::IOverlayElement> EngineHelper::getOverlayOnPos() {
-    std::shared_ptr<mgf::IOverlayElement> element = overlay->getMouseOverNDC(input->getMouseAbsoluteNDC(w->getResolution()));
-    return element;
+    std::shared_ptr<mgf::IOverlayElement> elm = overlay->getMouseOverNDC
+            (input->getMouseAbsoluteNDC(w->getResolution()), w->getAspectRatio());
+    return elm;
 }

@@ -104,10 +104,7 @@ std::shared_ptr<Texture> loadTextureFromSDLSurface(SDL_Surface *image, unsigned 
 std::shared_ptr<Texture> loadTextureFromPath(const std::string &path, unsigned int index){
 	std::shared_ptr<Texture> texture(new Texture());
 	texture->mImage = IMG_Load(path.c_str());
-	if(!texture->mImage){
-		std::cerr << "FOOOOOOOOOOOOOOOOOOOOOOOOOOOOO  in loader  " << path << std::endl;
-		return NULL;
-	}
+	if(!texture->mImage) return NULL;
 
 	glActiveTexture(GL_TEXTURE0 + index);	//create opengl texture object
 	glGenTextures(1, &texture->mTextureBuffer);

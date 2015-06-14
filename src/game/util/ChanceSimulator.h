@@ -15,7 +15,9 @@ class ChanceSimulator {
 public:
     static std::shared_ptr<ChanceSimulator> getInstance();
 
-    double getRandom();
+    double getRandomHit();
+    float getRandomCoord();
+    float getRandomFloat(float min, float max);
 
 private:
     ChanceSimulator();

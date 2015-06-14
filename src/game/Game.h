@@ -32,6 +32,9 @@ public:
 
     void nextTurn();
     void produceUnit(std::string unitName, int playerId);
+    void quitGame();
+    bool getQuit();
+
 
     int cleanUp();
     int eraseField(std::shared_ptr<Hexfield> hex);
@@ -55,6 +58,9 @@ public:
     void selectUnit(std::shared_ptr<Unit>);
     void deselectUnit();
 
+    void generateEnvironment();
+
+
     std::shared_ptr<mgf::IOverlayElement> getOverlayInteraction();
 
     void setEngine(std::shared_ptr<EngineHelper> engine);
@@ -68,6 +74,7 @@ private:
     int mCurrentPlayerId;
     std::shared_ptr<EngineHelper> engine;
 
+    bool quit;
     bool SELECTED_STATE;
     std::shared_ptr<Unit> mSelectedUnit;
 

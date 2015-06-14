@@ -26,7 +26,7 @@ public:
 	virtual void scale(glm::vec2 scale) = 0;
 	virtual void setScale(glm::vec2 scale) = 0;
 
-	virtual bool checkIfInsideNDC(glm::vec2 point){return false;};
+	virtual bool checkIfInsideNDC(glm::vec2 point, float aspectRatio = 1.f){return false;};
 
 	virtual std::string getName() = 0;
 	virtual glm::vec2 getPos() = 0;

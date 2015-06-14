@@ -70,20 +70,24 @@ bool State::reactToInterfaceInteraction(std::shared_ptr<mgf::IOverlayElement> el
         LOG_F_TRACE(GAME_LOG_PATH, "NextTurn Button pushed");
         mGame->nextTurn();
         return true;
-    }else if(element->getName() == "infantryButton"){
+    }else if(element->getName() == "infantryBtn"){
         LOG_F_TRACE(GAME_LOG_PATH, "button: produce IN");
         mGame->produceUnit("Infanterie", mGame->getCurrentPlayerId());
 
         return true;
-    }else if(element->getName() == "cavalryButton") {
+    }else if(element->getName() == "cavalryBtn") {
         LOG_F_TRACE(GAME_LOG_PATH, "button: produce CA");
         mGame->produceUnit("Kavallerie", mGame->getCurrentPlayerId());
 
         return true;
-    }else if(element->getName() == "atilleryButton") {
+    }else if(element->getName() == "artilleryBtn") {
         LOG_F_TRACE(GAME_LOG_PATH, "button: produce AT");
         mGame->produceUnit("Artillerie", mGame->getCurrentPlayerId());
 
+        return true;
+    }else if(element->getName() == "quitBtn") {
+        LOG_F_TRACE(GAME_LOG_PATH, "button: Quit");
+        mGame->quitGame();
         return true;
     }
 

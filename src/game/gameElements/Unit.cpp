@@ -133,7 +133,7 @@ void Unit::attack(std::shared_ptr<Unit> target) {
 
     bool hit = false;
 
-    double chance = ChanceSimulator::getInstance()->getRandom();
+    double chance = ChanceSimulator::getInstance()->getRandomHit();
     LOG_F_TRACE(GAME_LOG_PATH, "randomNumber: ", chance);
     if(chance <= hitChance){
         hit = true;

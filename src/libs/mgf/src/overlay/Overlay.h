@@ -23,7 +23,7 @@ public:
 	bool remove(std::shared_ptr<IOverlayElement> element);
 	bool remove(const std::string &name);
 
-	std::shared_ptr<IOverlayElement> getMouseOverNDC(glm::vec2 point);
+	std::shared_ptr<IOverlayElement> getMouseOverNDC(glm::vec2 point, float aspectRatio = 1);
 
 	std::shared_ptr<IOverlayElement> getElement(const std::string &name);
 

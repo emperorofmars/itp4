@@ -8,6 +8,7 @@
 #include "Game.h"
 #include "../tbs.h"
 #include "states/Context.h"
+#include "util/ChanceSimulator.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ Game::Game(){
     mUnitHolder2.reset(new std::vector<std::shared_ptr<Unit>>);
     SELECTED_STATE = false;
     mFieldSize = 24;
+    quit = false;
 }
 
 void Game::initGame() {
@@ -49,7 +51,6 @@ void Game::initGame() {
     mUnitManager->printPrototypesToCout();
 
     generatePlayingField();
-
 
 
     mRounds = 1;
@@ -543,4 +544,38 @@ void Game::deselectUnit() {
 
 std::shared_ptr<mgf::IOverlayElement> Game::getOverlayInteraction() {
     return engine->getOverlayOnPos();
+}
+
+void Game::quitGame() {
+    quit = true;
+}
+
+bool Game::getQuit(){
+    return quit;
+}
+
+void Game::generateEnvironment(){
+    std::shared_ptr<ChanceSimulator> randomGenerator = ChanceSimulator::getInstance();
+
+    for(int i = 0; i<300; ++i){
+        float x = randomGenerator->getRandomCoord();
+        float y = randomGenerator->getRandomCoord();
+
+        if((x > 0 && x < 47) && (y > 0 && y < 47)){
+            continue;
+        }
+
+        float scalingVector = 1.f;
+
+        scalingVector = randomGenerator->getRandomFloat(0.5f, 1.5f);
+
+        std::shared_ptr<mgf::Node> tree = engine->root->getChild("Assets.obj")->getChild("Tree")->clone();
+        tree->scale(glm::vec3(scalingVector, scalingVector,scalingVector));
+        tree->translate(glm::vec3(x, 0.f, y));
+        tree->add(engine->root->getChild("Assets.obj")->getChild("defaultobject")->clone());
+
+        engine->actualScene->add(tree);
+
+    }
+
 }

@@ -45,9 +45,9 @@ bool Overlay::remove(const std::string &name){
 	return true;
 }
 
-std::shared_ptr<IOverlayElement> Overlay::getMouseOverNDC(glm::vec2 point){
+std::shared_ptr<IOverlayElement> Overlay::getMouseOverNDC(glm::vec2 point, float aspectRatio){
 	for(unsigned int i = 0; i < mElements.size(); i++){
-		if(mElements[i]->checkIfInsideNDC(point)) return mElements[i];
+		if(mElements[i]->checkIfInsideNDC(point, aspectRatio)) return mElements[i];
 	}
 	return NULL;
 }
