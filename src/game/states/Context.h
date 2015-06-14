@@ -12,7 +12,7 @@
 #include <vector>
 #include <string>
 #include "State.h"
-#include "../constants.h"
+#include "../util/constants.h"
 
 
 class State;

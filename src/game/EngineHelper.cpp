@@ -43,9 +43,31 @@ EngineHelper::EngineHelper() {
     endTurnBtn->setText("End Turn");
     endTurnBtn->setBackground("res/images/Button.png");
 
+    std::shared_ptr<mgf::Button> createInfantry(new mgf::Button("infantryButton"));
+    endTurnBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
+    endTurnBtn->setFont("res/fonts/main.ttf");
+    endTurnBtn->setText("Infantry");
+    endTurnBtn->setBackground("res/images/Button.png");
+
+    std::shared_ptr<mgf::Button> createCavalry(new mgf::Button("cavalryButton"));
+    endTurnBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
+    endTurnBtn->setFont("res/fonts/main.ttf");
+    endTurnBtn->setText("Cavalry");
+    endTurnBtn->setBackground("res/images/Button.png");
+
+    std::shared_ptr<mgf::Button> createArtillery(new mgf::Button("artilleryButton"));
+    endTurnBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
+    endTurnBtn->setFont("res/fonts/main.ttf");
+    endTurnBtn->setText("Artillery");
+    endTurnBtn->setBackground("res/images/Button.png");
+
     pointer.reset(new mgf::Label("mouse"));
     pointer->setBackground("res/images/Mouse.png");
     pointer->translate(glm::vec2(-10.f, -10.f));
+
+    overlay->add(createInfantry);
+    overlay->add(createCavalry);
+    overlay->add(createArtillery);
 
     overlay->add(endTurnBtn);
     overlay->add(pointer);

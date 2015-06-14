@@ -9,7 +9,7 @@
 
 
 #include "../gameLoop/GameLoop.h"
-#include "../constants.h"
+#include "../util/constants.h"
 
 class Context;
 class GameLoop;

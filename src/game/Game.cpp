@@ -320,7 +320,6 @@ void Game::produceUnit(std::string unitName, int playerId){
     if(destinedField == NULL) return;
 
     LOG_F_TRACE(GAME_LOG_PATH, "target Player: ", playerId, " base hex found at: ", currentField->mPosition[1], "/", currentField->mPosition[0]);
-    //TODO insert correct unit model
     LOG_F_TRACE(GAME_LOG_PATH, "Model to Use ", newUnit->getModel());
     std::shared_ptr<mgf::Node> unitNode = engine->root->getChild("Assets.obj")->getChild(newUnit->getModel())->clone();
     newUnit->setUnitNode(unitNode);

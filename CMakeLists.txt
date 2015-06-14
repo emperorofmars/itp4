@@ -45,9 +45,9 @@ set(SOURCE_FILES
     src/game/states/MovingState.h
     src/game/states/FightState.cpp
     src/game/states/FightState.h
-    src/game/constants.h)
+    src/game/util/constants.h)
 
-add_executable(itp4 ${SOURCE_FILES} src/game/ChanceSimulator.cpp src/game/ChanceSimulator.h)
+add_executable(itp4 ${SOURCE_FILES} src/game/util/ChanceSimulator.cpp src/game/util/ChanceSimulator.h)
 
 INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
