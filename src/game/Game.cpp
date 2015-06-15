@@ -291,6 +291,9 @@ void Game::nextTurn() {
     mCurrentPlayerId++;
     if(mCurrentPlayerId == 2) mCurrentPlayerId = 0;
 
+    glm::vec3 base = getPlayer(mCurrentPlayerId)->getBase()->getCurrentHexfield()->mPositionVector;
+
+    engine->cam->setPos(glm::vec3(base[0], engine->cam->getPos()[1], base[2]+25.f));
 
     LOG_F_TRACE(GAME_LOG_PATH, "current Player id : ", mCurrentPlayerId);
     if(getSelectedState()){

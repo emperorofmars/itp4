@@ -171,6 +171,7 @@ void Unit::getHit(int dmg){
         mUnitNode->setVisible(false);
         mCurrentHexfield->setEmtpy();
         mCurrentHexfield.reset();
+
     }
 }
 

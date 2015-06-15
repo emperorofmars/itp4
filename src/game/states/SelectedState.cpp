@@ -41,6 +41,11 @@ void SelectedState::handleRightClick() {
             if(dest->getIsOccupied()){
                 dest->getOccupation()->counterAttack(selectedUnit);
             }
+            if(selectedUnit->getCurHp() <= 0){
+                mGame->deselectUnit();
+                mContext->setCurrentState(States::STATE_IDLE);
+            }
+
             return;
         }else{
             LOG_F_TRACE(GAME_LOG_PATH, "Target NOT in Range or friendly!");
