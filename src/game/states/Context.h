@@ -19,22 +19,28 @@ class State;
 
 class Context {
 public:
-    static std::shared_ptr<Context> getInstance();
+    static std::shared_ptr <Context> getInstance();
 
-    void injectGameReference(std::shared_ptr<Game> game);
+    void injectGameReference(std::shared_ptr <Game> game);
+
     void setCurrentState(States s);
-    std::shared_ptr<State> getCurrentState();
+
+    std::shared_ptr <State> getCurrentState();
+
     void handle(InputEvent e);
+
     void initialize();
+
 private:
     //Singleton handling
     Context();
-    static std::shared_ptr<Context> instance;
+
+    static std::shared_ptr <Context> instance;
 
     //actual implementation
-    std::shared_ptr<State> mCurrentState;
+    std::shared_ptr <State> mCurrentState;
 
-    std::vector< std::shared_ptr<State> > mStates;
+    std::vector <std::shared_ptr<State>> mStates;
 
 
 };
