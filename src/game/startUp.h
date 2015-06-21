@@ -10,5 +10,4 @@
 int startUp();
 
 
-
 #endif //PROJECT_STARTUP_H

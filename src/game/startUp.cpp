@@ -17,9 +17,7 @@
 using namespace std;
 
 
-
-
-int startUp(){
+int startUp() {
 
     LOG_INIT("log/log_tbs.txt", true);
 
@@ -27,7 +25,7 @@ int startUp(){
 
 
     cout << "creating new Game" << endl;
-    std::shared_ptr<Game> game(new Game());
+    std::shared_ptr <Game> game(new Game());
 
 
     game->initGame();
@@ -37,14 +35,14 @@ int startUp(){
 
 
     cout << "creating Game Loop element" << endl;
-    std::shared_ptr<GameLoop> loop(new GameLoop(game));
+    std::shared_ptr <GameLoop> loop(new GameLoop(game));
 
     //Setting up engine
-    std::shared_ptr<EngineHelper> engine(new EngineHelper);
+    std::shared_ptr <EngineHelper> engine(new EngineHelper);
 
 
 //#########################Setting Ground
-    std::shared_ptr<mgf::Node> groundNode = engine->root->getChild("Assets.obj")->getChild("Ground")->clone();
+    std::shared_ptr <mgf::Node> groundNode = engine->root->getChild("Assets.obj")->getChild("Ground")->clone();
     groundNode->translate(glm::vec3(20.0f, 0.f, -7.0f));
     groundNode->scale(glm::vec3(1.5f, 1.f, 1.5f));
     engine->actualScene->add(groundNode);
@@ -53,7 +51,7 @@ int startUp(){
 //#########################Setting up Overlay
 
     //###############################################  create overlay
-    std::shared_ptr<mgf::Overlay> overlay(new mgf::Overlay());
+    std::shared_ptr <mgf::Overlay> overlay(new mgf::Overlay());
 
 //    std::shared_ptr<mgf::Button> but(new mgf::Button("but"));
 //    but->setColor(glm::vec3(1.f, 0.5f, 0.5f));
@@ -61,7 +59,7 @@ int startUp(){
 //    but->setText("blah");
 //    but->setBackground("res/images/Button.png");
 
-    std::shared_ptr<mgf::Label> lab(new mgf::Label("mouse"));
+    std::shared_ptr <mgf::Label> lab(new mgf::Label("mouse"));
     lab->setBackground("res/images/Mouse.png");
     lab->translate(glm::vec2(-10.f, -10.f));
 
@@ -77,16 +75,13 @@ int startUp(){
     game->generateEnvironment();
 
 
-
     engine->actualScene->print();
-
-
 
 
     engine->w->use();
     engine->p->use();
 
-    for(int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 2; ++i) {
         game->produceUnit("Infanterie", 0);
         game->produceUnit("Infanterie", 1);
         game->produceUnit("Artillerie", 0);
@@ -98,8 +93,6 @@ int startUp(){
 //#######Start Game
 
     loop->run(engine);
-
-
 
 
     return 0;

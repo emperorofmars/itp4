@@ -17,28 +17,43 @@ class Unit;
 class Player {
 public:
     Player(std::string name);
+
     ~Player();
-    std::shared_ptr<Player> mNext;
-    std::shared_ptr< std::vector < std::shared_ptr<Unit> > > mUnits;
+
+    std::shared_ptr <Player> mNext;
+    std::shared_ptr <std::vector<std::shared_ptr < Unit>> >
+    mUnits;
 
     int getId();
+
     void setId(int id);
+
     void setName(std::string name);
+
     std::string getName();
+
     //void setColor(vec4 color);
     //glm::vec4 getColor();
-    void setNext(std::shared_ptr<Player> player);
-    std::shared_ptr<Player> getNext();
+    void setNext(std::shared_ptr <Player> player);
 
-    std::shared_ptr<std::vector < std::shared_ptr<Unit>>> getUnits();
-    void setUnits(std::shared_ptr<std::vector< std::shared_ptr<Unit> > >);
+    std::shared_ptr <Player> getNext();
 
-    void setBase(std::shared_ptr<Unit> base);
-    std::shared_ptr<Unit> getBase();
+    std::shared_ptr <std::vector<std::shared_ptr < Unit>>>
+
+    getUnits();
+
+    void setUnits(std::shared_ptr <std::vector<std::shared_ptr < Unit>>
+
+    >);
+
+    void setBase(std::shared_ptr <Unit> base);
+
+    std::shared_ptr <Unit> getBase();
+
 private:
     int id;
     std::string name;
-    std::shared_ptr<Unit> baseTower;
+    std::shared_ptr <Unit> baseTower;
     //glm::vec4 color;
 
 

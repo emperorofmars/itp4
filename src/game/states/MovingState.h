@@ -13,11 +13,12 @@
 class MovingState : public State {
 
 public:
-    MovingState(const std::shared_ptr<Context> &ctx) : State(ctx) {
+    MovingState(const std::shared_ptr <Context> &ctx) : State(ctx) {
         mName = "MOVING";
     }
 
     virtual void handleEvent(InputEvent event) override;
+
 private:
     float mStepSizeX = 0;
     float mStepSizeY = 0;

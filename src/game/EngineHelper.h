@@ -17,22 +17,25 @@ class Hexfield;
 
 class EngineHelper {
 public:
-    std::shared_ptr<mgf::Window> w;
-    std::shared_ptr<mgf::IInput> input;
-    std::shared_ptr<mgf::ShaderProgram> p;
-    std::shared_ptr<mgf::ICamera> cam;
-    std::shared_ptr<mgf::Renderer> renderer;
+    std::shared_ptr <mgf::Window> w;
+    std::shared_ptr <mgf::IInput> input;
+    std::shared_ptr <mgf::ShaderProgram> p;
+    std::shared_ptr <mgf::ICamera> cam;
+    std::shared_ptr <mgf::Renderer> renderer;
     mgf::Loader l;
 
-    std::shared_ptr<mgf::Node> root;
-    std::shared_ptr<mgf::Node> actualScene;
-    std::shared_ptr<mgf::Overlay> overlay;
-    std::shared_ptr<mgf::Label> pointer;
+    std::shared_ptr <mgf::Node> root;
+    std::shared_ptr <mgf::Node> actualScene;
+    std::shared_ptr <mgf::Overlay> overlay;
+    std::shared_ptr <mgf::Label> pointer;
 
     EngineHelper();
+
     glm::vec3 getMousePos();
+
     void setPointer();
-    std::shared_ptr<mgf::IOverlayElement> getOverlayOnPos();
+
+    std::shared_ptr <mgf::IOverlayElement> getOverlayOnPos();
 };
 
 

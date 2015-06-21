@@ -10,44 +10,44 @@
 void SelectedState::handleEvent(InputEvent event) {
     State::handleEvent(event);
 
-    if(interfaceInt){
+    if (interfaceInt) {
         return;
     }
 
-    if(event == InputEvent::EVENT_RIGHTCLICK){
+    if (event == InputEvent::EVENT_RIGHTCLICK) {
         handleRightClick();
     }
 
-    if(event == InputEvent::EVENT_LEFTCLICK){
+    if (event == InputEvent::EVENT_LEFTCLICK) {
         handleLeftClick();
     }
 }
 
 
 void SelectedState::handleRightClick() {
-    std::shared_ptr<Unit> selectedUnit = mGame->getSelectedUnit();
-    if(selectedUnit->getOwner() != mGame->getCurrentPlayerId()) return;
+    std::shared_ptr <Unit> selectedUnit = mGame->getSelectedUnit();
+    if (selectedUnit->getOwner() != mGame->getCurrentPlayerId()) return;
 
     LOG_F_TRACE(GAME_LOG_PATH, "locating clicked hex");
 
-    std::shared_ptr<Hexfield> dest = mGame->getHexAtMousePos();
+    std::shared_ptr <Hexfield> dest = mGame->getHexAtMousePos();
 
     LOG_F_TRACE(GAME_LOG_PATH, "pos: ", dest->mPosition[1], " / ", dest->mPosition[0]);
 
-    if(dest->getIsOccupied()){
-        if(selectedUnit->isInRange(dest) && dest->getOccupation()->getOwner() != mGame->getCurrentPlayerId()){
+    if (dest->getIsOccupied()) {
+        if (selectedUnit->isInRange(dest) && dest->getOccupation()->getOwner() != mGame->getCurrentPlayerId()) {
             LOG_F_TRACE(GAME_LOG_PATH, "Target is enemy and in range");
             selectedUnit->attack(dest->getOccupation());
-            if(dest->getIsOccupied()){
+            if (dest->getIsOccupied()) {
                 dest->getOccupation()->counterAttack(selectedUnit);
             }
-            if(selectedUnit->getCurHp() <= 0){
+            if (selectedUnit->getCurHp() <= 0) {
                 mGame->deselectUnit();
                 mContext->setCurrentState(States::STATE_IDLE);
             }
 
             return;
-        }else{
+        } else {
             LOG_F_TRACE(GAME_LOG_PATH, "Target NOT in Range or friendly!");
         }
     }
@@ -59,15 +59,15 @@ void SelectedState::handleRightClick() {
 
 
 void SelectedState::handleLeftClick() {
-    std::shared_ptr<Hexfield> clickedHex = mGame->getHexAtMousePos();
+    std::shared_ptr <Hexfield> clickedHex = mGame->getHexAtMousePos();
 
-    if(clickedHex->getIsOccupied()){
+    if (clickedHex->getIsOccupied()) {
         mGame->deselectUnit();
         mGame->selectUnit(clickedHex->getOccupation());
 
         //TODO highlight unit
 
-    }else{
+    } else {
         mContext->setCurrentState(States::STATE_IDLE);
         mGame->deselectUnit();
         LOG_F_TRACE(GAME_LOG_PATH, "IDLE -- deselection");

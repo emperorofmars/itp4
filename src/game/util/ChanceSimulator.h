@@ -13,15 +13,18 @@
 
 class ChanceSimulator {
 public:
-    static std::shared_ptr<ChanceSimulator> getInstance();
+    static std::shared_ptr <ChanceSimulator> getInstance();
 
     double getRandomHit();
+
     float getRandomCoord();
+
     float getRandomFloat(float min, float max);
 
 private:
     ChanceSimulator();
-    static std::shared_ptr<ChanceSimulator> instance;
+
+    static std::shared_ptr <ChanceSimulator> instance;
 
     std::default_random_engine generator;
 

@@ -10,10 +10,10 @@
 
 #include "State.h"
 
-class IdleState : public State{
+class IdleState : public State {
 
 public:
-    IdleState(const std::shared_ptr<Context> &ctx) : State(ctx) {
+    IdleState(const std::shared_ptr <Context> &ctx) : State(ctx) {
         mName = "IDLE";
     }
 

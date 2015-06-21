@@ -37,35 +37,35 @@ EngineHelper::EngineHelper() {
 //#### Overlay
     overlay.reset(new mgf::Overlay());
 
-    std::shared_ptr<mgf::Button> endTurnBtn(new mgf::Button("endTurnBtn"));
+    std::shared_ptr <mgf::Button> endTurnBtn(new mgf::Button("endTurnBtn"));
     endTurnBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
     endTurnBtn->setFont("res/fonts/main.ttf");
     endTurnBtn->setText("End Turn");
     endTurnBtn->setBackground("res/images/b.png");
     endTurnBtn->translate(glm::vec2(-0.05f, -0.05f));
 
-    std::shared_ptr<mgf::Button> quitBtn(new mgf::Button("quitBtn"));
+    std::shared_ptr <mgf::Button> quitBtn(new mgf::Button("quitBtn"));
     quitBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
     quitBtn->setFont("res/fonts/main.ttf");
     quitBtn->setText("Quit Game");
     quitBtn->setBackground("res/images/b.png");
     quitBtn->translate(glm::vec2(0.85f, -0.05f));
 
-    std::shared_ptr<mgf::Button> createInfantry(new mgf::Button("infantryBtn"));
+    std::shared_ptr <mgf::Button> createInfantry(new mgf::Button("infantryBtn"));
     createInfantry->setColor(glm::vec3(1.f, 0.5f, 0.5f));
     createInfantry->setFont("res/fonts/main.ttf");
     createInfantry->setText("Infantry");
     createInfantry->setBackground("res/images/b.png");
     createInfantry->translate(glm::vec2(-0.05f, 0.65f));
 
-    std::shared_ptr<mgf::Button> createCavalry(new mgf::Button("cavalryBtn"));
+    std::shared_ptr <mgf::Button> createCavalry(new mgf::Button("cavalryBtn"));
     createCavalry->setColor(glm::vec3(1.f, 0.5f, 0.5f));
     createCavalry->setFont("res/fonts/main.ttf");
     createCavalry->setText("Cavalry");
     createCavalry->setBackground("res/images/b.png");
     createCavalry->translate(glm::vec2(0.05f, 0.65f));
 
-    std::shared_ptr<mgf::Button> createArtillery(new mgf::Button("artilleryBtn"));
+    std::shared_ptr <mgf::Button> createArtillery(new mgf::Button("artilleryBtn"));
     createArtillery->setColor(glm::vec3(1.f, 0.5f, 0.5f));
     createArtillery->setFont("res/fonts/main.ttf");
     createArtillery->setText("Artillery");
@@ -84,7 +84,7 @@ EngineHelper::EngineHelper() {
     overlay->add(pointer);
 
 //#### Setting up Sunlight
-    std::shared_ptr<mgf::Light> light(new mgf::Light());
+    std::shared_ptr <mgf::Light> light(new mgf::Light());
     light->mColor = glm::vec3(1.f, 1.f, 1.f);
     light->mStrengthDiffuse = 2;
     light->mPosition = glm::vec3(5.f, 15.f, 15.f);
@@ -104,13 +104,14 @@ glm::vec3 EngineHelper::getMousePos() {
 }
 
 void EngineHelper::setPointer() {
-    pointer->setPos(glm::vec2(input->getMouseAbsoluteNDC(w->getResolution())[0], input->getMouseAbsoluteNDC(w->getResolution())[1] / w->getAspectRatio()));
+    pointer->setPos(glm::vec2(input->getMouseAbsoluteNDC(w->getResolution())[0],
+                              input->getMouseAbsoluteNDC(w->getResolution())[1] / w->getAspectRatio()));
 
 }
 
 
-std::shared_ptr<mgf::IOverlayElement> EngineHelper::getOverlayOnPos() {
-    std::shared_ptr<mgf::IOverlayElement> elm = overlay->getMouseOverNDC
+std::shared_ptr <mgf::IOverlayElement> EngineHelper::getOverlayOnPos() {
+    std::shared_ptr <mgf::IOverlayElement> elm = overlay->getMouseOverNDC
             (input->getMouseAbsoluteNDC(w->getResolution()), w->getAspectRatio());
     return elm;
 }

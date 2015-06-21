@@ -32,20 +32,20 @@ std::string Hexfield::printPos() {
     return pos;
 }
 
-float Hexfield::getDist(std::shared_ptr<Hexfield> target){
+float Hexfield::getDist(std::shared_ptr < Hexfield > target) {
     return (std::abs(target->mPosition[1] - mPosition[1])
             + std::abs(target->mPosition[0] - mPosition[0]));
 }
 
-std::shared_ptr<Hexfield> Hexfield::getNearestNeighbor(std::shared_ptr<Hexfield> target) {
+std::shared_ptr <Hexfield> Hexfield::getNearestNeighbor(std::shared_ptr < Hexfield > target) {
     float minDist = INFINITY;
-    std::shared_ptr<Hexfield> nearestNeighbor;
+    std::shared_ptr <Hexfield> nearestNeighbor;
 
-    for(std::shared_ptr<Hexfield> neighbor : linkedTo){
-        if(neighbor == NULL) continue;
+    for (std::shared_ptr <Hexfield> neighbor : linkedTo) {
+        if (neighbor == NULL) continue;
 
         float curDist = neighbor->getDist(target);
-        if(curDist < minDist){
+        if (curDist < minDist) {
             nearestNeighbor = neighbor;
             minDist = curDist;
         }
@@ -58,16 +58,16 @@ std::shared_ptr<Hexfield> Hexfield::getNearestNeighbor(std::shared_ptr<Hexfield>
  * Setter & Getter
  */
 
-void Hexfield::setOccupation(std::shared_ptr<Unit> unit) {
+void Hexfield::setOccupation(std::shared_ptr < Unit > unit) {
     occupation = unit;
     isOccupied = true;
 }
 
-std::shared_ptr<Unit> Hexfield::getOccupation() {
+std::shared_ptr <Unit> Hexfield::getOccupation() {
     return occupation;
 }
 
-void Hexfield::setEngineObjectRef(std::shared_ptr<mgf::Node> EngineObjectRef) {
+void Hexfield::setEngineObjectRef(std::shared_ptr < mgf::Node > EngineObjectRef) {
     this->mEngineObjectRef = EngineObjectRef;
 }
 

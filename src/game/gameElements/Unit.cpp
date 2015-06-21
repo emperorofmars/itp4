@@ -8,11 +8,11 @@
 #include "../EngineHelper.h"
 #include "../util/ChanceSimulator.h"
 
-Unit::Unit(){
+Unit::Unit() {
 
 }
 
-Unit::Unit(std::shared_ptr<Unit> original) {
+Unit::Unit(std::shared_ptr < Unit > original) {
     type = original->type;
     name = original->name;
 
@@ -30,8 +30,8 @@ Unit::Unit(std::shared_ptr<Unit> original) {
     remainingMovement = movement;
 }
 
-std::shared_ptr<Unit> Unit::clone(){
-    std::shared_ptr<Unit> unit(new Unit);
+std::shared_ptr <Unit> Unit::clone() {
+    std::shared_ptr <Unit> unit(new Unit);
 
     unit->type = type;
     unit->name = name;
@@ -54,7 +54,7 @@ std::shared_ptr<Unit> Unit::clone(){
 }
 
 
-std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Unit> self) {
+std::shared_ptr <Hexfield> Unit::moveTo(std::shared_ptr < Unit > self) {
     float destinationXPos = mDestination->mPosition[1];
     float destinationYPos = mDestination->mPosition[0];
 
@@ -62,7 +62,7 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Unit> self) {
     LOG_F_TRACE(GAME_LOG_PATH, "POS: ", mCurrentHexfield->mPosition[1], "/", mCurrentHexfield->mPosition[0]);
     LOG_F_TRACE(GAME_LOG_PATH, "moving.. (dest: ", mDestination->mPosition[1], "/", mDestination->mPosition[0], ")");
 
-    std::shared_ptr<Hexfield> nearestHex;
+    std::shared_ptr <Hexfield> nearestHex;
     float minDist;
     float curDist = INFINITY;
 
@@ -71,12 +71,12 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Unit> self) {
 
     //DEBUG var
     int i = 0;
-    for(std::shared_ptr<Hexfield> neighbor : mCurrentHexfield->linkedTo){
-        if(neighbor == NULL) continue;
+    for (std::shared_ptr <Hexfield> neighbor : mCurrentHexfield->linkedTo) {
+        if (neighbor == NULL) continue;
 
         curDist = neighbor->getDist(mDestination);
 
-        if(curDist < minDist && !neighbor->getIsOccupied()){
+        if (curDist < minDist && !neighbor->getIsOccupied()) {
             LOG_F_TRACE(GAME_LOG_PATH, i, "new low at ", neighbor->mPosition[1], "/", neighbor->mPosition[0]);
             minDist = curDist;
             nearestHex = neighbor;
@@ -86,8 +86,8 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Unit> self) {
 
     LOG_F_TRACE(GAME_LOG_PATH, "finished look up loop");
 
-    if(nearestHex == mCurrentHexfield || remainingMovement <= 0){
-    //if(nearestHex == mCurrentHexfield){
+    if (nearestHex == mCurrentHexfield || remainingMovement <= 0) {
+        //if(nearestHex == mCurrentHexfield){
         LOG_F_TRACE(GAME_LOG_PATH, "final mDestination reached");
         mDestination.reset();
         return mCurrentHexfield;
@@ -106,15 +106,15 @@ std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Unit> self) {
     return nearestHex;
 }
 
-bool Unit::isInRange(std::shared_ptr<Hexfield> target){
-    if(mCurrentHexfield == target) return false;
+bool Unit::isInRange(std::shared_ptr < Hexfield > target) {
+    if (mCurrentHexfield == target) return false;
 
-    std::shared_ptr<Hexfield> targetableHex = mCurrentHexfield;
+    std::shared_ptr <Hexfield> targetableHex = mCurrentHexfield;
 
-    for(int i = 0; i < range; ++i){
+    for (int i = 0; i < range; ++i) {
         targetableHex = checkRange(targetableHex, target);
 
-        if(targetableHex == target){
+        if (targetableHex == target) {
             return true;
         }
     }
@@ -123,49 +123,49 @@ bool Unit::isInRange(std::shared_ptr<Hexfield> target){
 }
 
 //TODO rename this method
-std::shared_ptr<Hexfield> Unit::checkRange(std::shared_ptr<Hexfield> start,
-                                           std::shared_ptr<Hexfield> target) {
+std::shared_ptr <Hexfield> Unit::checkRange(std::shared_ptr < Hexfield > start,
+                                            std::shared_ptr < Hexfield > target) {
     return start->getNearestNeighbor(target);
 }
 
-void Unit::attack(std::shared_ptr<Unit> target) {
+void Unit::attack(std::shared_ptr < Unit > target) {
     LOG_F_TRACE(GAME_LOG_PATH, "attacking..");
 
     bool hit = false;
 
     double chance = ChanceSimulator::getInstance()->getRandomHit();
     LOG_F_TRACE(GAME_LOG_PATH, "randomNumber: ", chance);
-    if(chance <= hitChance){
+    if (chance <= hitChance) {
         hit = true;
     }
     //Printing Stats for debug
     printStats();
 
-    if(hit){
+    if (hit) {
         LOG_F_TRACE(GAME_LOG_PATH, "HIT");
         target->getHit(this->dmg);
-    }else{
+    } else {
         LOG_F_TRACE(GAME_LOG_PATH, "MISS");
     }
 
 }
 
 
-void Unit::counterAttack(std::shared_ptr<Unit> attacker) {
-    if(timesDefended < 2){
+void Unit::counterAttack(std::shared_ptr < Unit > attacker) {
+    if (timesDefended < 2) {
         LOG_F_TRACE(GAME_LOG_PATH, "Counter attacking!");
         attack(attacker);
         timesDefended++;
-    } else{
+    } else {
         LOG_F_TRACE(GAME_LOG_PATH, "Defended to often");
     }
 
 }
 
-void Unit::getHit(int dmg){
+void Unit::getHit(int dmg) {
     //printStats();
     curHP -= dmg;
-    if(curHP <= 0){
+    if (curHP <= 0) {
         //TODO KILL UNIT
         LOG_F_TRACE(GAME_LOG_PATH, "unit died");
         mUnitNode->setVisible(false);
@@ -176,7 +176,7 @@ void Unit::getHit(int dmg){
 }
 
 // Getter & Setter
-int Unit::getOwner(){
+int Unit::getOwner() {
     return owner;
 }
 
@@ -228,7 +228,7 @@ int Unit::getTimesDefended() {
     return timesDefended;
 }
 
-void Unit::setOwner(int id){
+void Unit::setOwner(int id) {
     owner = id;
 }
 
@@ -280,21 +280,21 @@ void Unit::setTimesDefended(int i) {
     timesDefended = i;
 }
 
-void Unit::setCurrentHexfield(std::shared_ptr<Hexfield> hexfield) {
+void Unit::setCurrentHexfield(std::shared_ptr < Hexfield > hexfield) {
     mCurrentHexfield.reset();
     LOG_F_TRACE(GAME_LOG_PATH, hexfield->mPosition[1], "/", hexfield->mPosition[0]);
     mCurrentHexfield = hexfield;
 }
 
-std::shared_ptr<Hexfield> Unit::getCurrentHexfield() {
+std::shared_ptr <Hexfield> Unit::getCurrentHexfield() {
     return mCurrentHexfield;
 }
 
-void Unit::setUnitNode(std::shared_ptr<mgf::Node> node) {
+void Unit::setUnitNode(std::shared_ptr < mgf::Node > node) {
     mUnitNode = node;
 }
 
-std::shared_ptr<mgf::Node> Unit::getUnitNode() { return mUnitNode; }
+std::shared_ptr <mgf::Node> Unit::getUnitNode() { return mUnitNode; }
 
 void Unit::printStats() {
     std::cout << type << std::endl
@@ -304,7 +304,7 @@ void Unit::printStats() {
     << "Range: " << range << std::endl
     << "HitChange" << hitChance << std::endl
     << "Movement: " << remainingMovement << "/" << movement << std::endl
-    << "SightRadius: "<< sightRadius << std::endl
+    << "SightRadius: " << sightRadius << std::endl
     << "ManaCost" << manaCost << std::endl
     << "TimesDefended: " << timesDefended << std::endl;
 
@@ -317,11 +317,11 @@ Unit::~Unit() {
     LOG_F_TRACE(GAME_LOG_PATH, "Unit destroyed");
 }
 
-void Unit::setDestination(std::shared_ptr<Hexfield> d) {
+void Unit::setDestination(std::shared_ptr < Hexfield > d) {
     mDestination = d;
 }
 
-std::shared_ptr<Hexfield> Unit::getDestination() {
+std::shared_ptr <Hexfield> Unit::getDestination() {
     return mDestination;
 }
 

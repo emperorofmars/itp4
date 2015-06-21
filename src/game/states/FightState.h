@@ -10,10 +10,10 @@
 
 #include "State.h"
 
-class FightState : public State{
+class FightState : public State {
 
 public:
-    FightState(const std::shared_ptr<Context> &ctx) : State(ctx) {
+    FightState(const std::shared_ptr <Context> &ctx) : State(ctx) {
         mName = "FIGHTING";
     }
 };

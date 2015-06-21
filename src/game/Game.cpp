@@ -12,9 +12,9 @@
 
 using namespace std;
 
-Game::Game(){
-    mUnitHolder1.reset(new std::vector<std::shared_ptr<Unit>>);
-    mUnitHolder2.reset(new std::vector<std::shared_ptr<Unit>>);
+Game::Game() {
+    mUnitHolder1.reset(new std::vector <std::shared_ptr<Unit>>);
+    mUnitHolder2.reset(new std::vector <std::shared_ptr<Unit>>);
     SELECTED_STATE = false;
     mFieldSize = 24;
     quit = false;
@@ -65,20 +65,20 @@ void Game::generatePlayingField() {
 
     cout << "generating playing field" << endl;
 
-    std::vector< std::vector< shared_ptr<Hexfield> > > field;
+    std::vector < std::vector < shared_ptr < Hexfield > > > field;
     float SCALING = 2;
 
     field.resize(mFieldSize);
 
-    for(int i = 0; i< mFieldSize; ++i){
-        for(int j = 0; j < mFieldSize; ++j){
-            shared_ptr< Hexfield > newField(new Hexfield());
+    for (int i = 0; i < mFieldSize; ++i) {
+        for (int j = 0; j < mFieldSize; ++j) {
+            shared_ptr <Hexfield> newField(new Hexfield());
 
-            newField->mPosition[0] = j*SCALING;
-            newField->mPosition[1] = i*SCALING;
+            newField->mPosition[0] = j * SCALING;
+            newField->mPosition[1] = i * SCALING;
 
-            if(i%2){
-                newField->mPosition[0] += 0.5*SCALING;
+            if (i % 2) {
+                newField->mPosition[0] += 0.5 * SCALING;
             }
 
             newField->mPositionVector = glm::vec3(newField->mPosition[0], 0.f, newField->mPosition[1]);
@@ -93,114 +93,114 @@ void Game::generatePlayingField() {
 
     cout << "linking hexfields" << endl;
 
-    for(int i = 0; i< mFieldSize; ++i){
-        for(int j = 0; j< mFieldSize; ++j){
-            shared_ptr<Hexfield> hexfield = field[i][j];
+    for (int i = 0; i < mFieldSize; ++i) {
+        for (int j = 0; j < mFieldSize; ++j) {
+            shared_ptr <Hexfield> hexfield = field[i][j];
 
             //link to left
-            if(j > 0){
-                hexfield->linkedTo[5] = field[i][j-1];
+            if (j > 0) {
+                hexfield->linkedTo[5] = field[i][j - 1];
 //                cout << "linking "
 //                << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
 //                << " to " << field[i][j-1]->printPos() << endl;
-            }else{
+            } else {
 //                cout << "not linking left" << endl;
             }
 
             //link to right
-            if(j< mFieldSize -1){
-                hexfield->linkedTo[2] = field[i][j+1];
+            if (j < mFieldSize - 1) {
+                hexfield->linkedTo[2] = field[i][j + 1];
 //                cout << "linking "
 //                << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
 //                << " to " << field[i][j+1]->printPos() << endl;
-            }else{
+            } else {
 //                cout << "not linking right" << endl;
             }
 
             //decide if the line is even oder not
-            if(i%2==0){
+            if (i % 2 == 0) {
                 // EVEN ROW
 
                 //link to top-left
-                if(i>0 && j > 0){
-                    hexfield->linkedTo[0] = field[i-1][j-1];
+                if (i > 0 && j > 0) {
+                    hexfield->linkedTo[0] = field[i - 1][j - 1];
 //                    cout << "linking "
 //                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
 //                    << " to " << field[i-1][j-1]->printPos() << endl;
-                }else{
+                } else {
 //                    cout << "not linking top-left" << endl;
                 }
 
                 //link to top-right
-                if(i>0){
-                    hexfield->linkedTo[1] = field[i-1][j];
+                if (i > 0) {
+                    hexfield->linkedTo[1] = field[i - 1][j];
 //                    cout << "linking "
 //                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
 //                    << " to " << field[i-1][j]->printPos() << endl;
-                }else{
+                } else {
 //                    cout << "not linking top-right" << endl;
                 }
 
                 //link to bottom-right
-                if(i < mFieldSize -1){
-                    hexfield->linkedTo[3] = field[i+1][j];
+                if (i < mFieldSize - 1) {
+                    hexfield->linkedTo[3] = field[i + 1][j];
 //                    cout << "linking "
 //                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
 //                    << " to " << field[i+1][j]->printPos() << endl;
-                }else{
+                } else {
 //                    cout << "not linking bot-right" << endl;
                 }
 
                 //link to bottom-left
-                if(i < mFieldSize -1 && j > 0){
-                    hexfield->linkedTo[4] = field[i+1][j-1];
+                if (i < mFieldSize - 1 && j > 0) {
+                    hexfield->linkedTo[4] = field[i + 1][j - 1];
 //                    cout << "linking "
 //                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
 //                    << " to " <<  field[i+1][j-1]->printPos() << endl;
-                }else{
+                } else {
 //                    cout << "not linking bot left" << endl;
                 }
 
-            }else{
+            } else {
                 //UN-EVEN ROW
 
                 //link to top-left
-                if(i>0){
-                    hexfield->linkedTo[0] = field[i-1][j];
+                if (i > 0) {
+                    hexfield->linkedTo[0] = field[i - 1][j];
 //                    cout << "linking "
 //                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
 //                    << " to " << field[i-1][j]->printPos() << endl;
-                }else{
+                } else {
 //                    cout << "not linking top-left" << endl;
                 }
 
                 //link to top-right
-                if(i>0 && j< mFieldSize -1){
-                    hexfield->linkedTo[1] = field[i-1][j+1];
+                if (i > 0 && j < mFieldSize - 1) {
+                    hexfield->linkedTo[1] = field[i - 1][j + 1];
 //                    cout << "linking "
 //                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
 //                    << " to " << field[i-1][j+1]->printPos() << endl;
-                }else{
+                } else {
 //                    cout << "not linking top-right" << endl;
                 }
 
                 //link to bottom-right
-                if(i < mFieldSize -1 && j < mFieldSize -1){
-                    hexfield->linkedTo[3] = field[i+1][j+1];
+                if (i < mFieldSize - 1 && j < mFieldSize - 1) {
+                    hexfield->linkedTo[3] = field[i + 1][j + 1];
 //                    cout << "linking "
 //                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
 //                    << " to " << field[i+1][j+1]->printPos() << endl;
-                }else{
+                } else {
 //                    cout << "not linking bot-right" << endl;
                 }
 
                 //link to bottom-left
-                if(i < mFieldSize -1){
-                    hexfield->linkedTo[4] = field[i+1][j];
+                if (i < mFieldSize - 1) {
+                    hexfield->linkedTo[4] = field[i + 1][j];
 //                    cout << "linking "
 //                    << hexfield->mPosition[0] << "/" << hexfield->mPosition[1]
 //                    << " to " <<  field[i+1][j]->printPos() << endl;
-                }else{
+                } else {
 //                    cout << "not linking bot-left" << endl;
                 }
             }
@@ -218,13 +218,13 @@ void Game::generatePlayingField() {
 
 
     //Sets Position of Magetowers
-    std::shared_ptr<Unit> tower(mUnitManager->getChild("Magierturm")->clone());
+    std::shared_ptr <Unit> tower(mUnitManager->getChild("Magierturm")->clone());
     mPlayers[0]->setBase(tower);
     field[4][4]->setOccupation(tower);
     tower->setCurrentHexfield(field[4][4]);
 
 
-    std::shared_ptr<Unit> tower2(mUnitManager->getChild("Magierturm")->clone());
+    std::shared_ptr <Unit> tower2(mUnitManager->getChild("Magierturm")->clone());
     mPlayers[1]->setBase(tower2);
     field[19][19]->setOccupation(tower2);
     tower2->setCurrentHexfield(field[19][19]);
@@ -234,12 +234,12 @@ void Game::generatePlayingField() {
 
 }
 
-int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node> actualScene,
-                     std::shared_ptr<Hexfield> hexfield){
+int Game::setupField(std::shared_ptr < mgf::Node > root, std::shared_ptr < mgf::Node > actualScene,
+                     std::shared_ptr < Hexfield > hexfield) {
 
     //cout << "setting up field nodes" << endl;
 
-    std::shared_ptr<mgf::Node> newNode = root->getChild("Assets.obj")->getChild("Hex")->clone();
+    std::shared_ptr <mgf::Node> newNode = root->getChild("Assets.obj")->getChild("Hex")->clone();
     actualScene->add(newNode);
     newNode->translate(hexfield->mPositionVector);
     hexfield->setEngineObjectRef(newNode);
@@ -249,17 +249,17 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
     /**
      * This Loop will recursively call this method in every Hexfield
      */
-    for(std::shared_ptr<Hexfield> field : hexfield->linkedTo){
-        if(field && !field->mIsRendered){
+    for (std::shared_ptr <Hexfield> field : hexfield->linkedTo) {
+        if (field && !field->mIsRendered) {
             setupField(root, actualScene, field);
         }
 
     }
 
 
-    if(std::shared_ptr<Unit> unit = hexfield->getOccupation()){
-        if(unit->getName() == "Magierturm"){
-            std::shared_ptr<mgf::Node> unitNode = root->getChild("Assets.obj")->getChild("Tower")->clone();
+    if (std::shared_ptr < Unit > unit = hexfield->getOccupation()) {
+        if (unit->getName() == "Magierturm") {
+            std::shared_ptr <mgf::Node> unitNode = root->getChild("Assets.obj")->getChild("Tower")->clone();
             //std::shared_ptr<mgf::Node> unitNode = root->getChild("scene.obj")->getChild("Cube")->clone();
             unit->setUnitNode(unitNode);
             actualScene->add(unitNode);
@@ -267,8 +267,8 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
             //unitNode->rotate(90, glm::vec3(0.f, 1.f, 0.f));
             //unitNode->scale(glm::vec3(0.6f, 0.6f, 0.6f));
 
-        }else if(unit->getName() == "Infanterie"){
-            std::shared_ptr<mgf::Node> unitNode = root->getChild("Assets.obj")->getChild("Infantry")->clone();
+        } else if (unit->getName() == "Infanterie") {
+            std::shared_ptr <mgf::Node> unitNode = root->getChild("Assets.obj")->getChild("Infantry")->clone();
             unit->setUnitNode(unitNode);
             actualScene->add(unitNode);
             unitNode->translate(hexfield->mPositionVector);
@@ -282,50 +282,49 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
 }
 
 
-
-
 void Game::nextTurn() {
     mRounds++;
 
     //setting Player
     mCurrentPlayerId++;
-    if(mCurrentPlayerId == 2) mCurrentPlayerId = 0;
+    if (mCurrentPlayerId == 2) mCurrentPlayerId = 0;
 
     glm::vec3 base = getPlayer(mCurrentPlayerId)->getBase()->getCurrentHexfield()->mPositionVector;
 
-    engine->cam->setPos(glm::vec3(base[0], engine->cam->getPos()[1], base[2]+25.f));
+    engine->cam->setPos(glm::vec3(base[0], engine->cam->getPos()[1], base[2] + 25.f));
 
     LOG_F_TRACE(GAME_LOG_PATH, "current Player id : ", mCurrentPlayerId);
-    if(getSelectedState()){
+    if (getSelectedState()) {
         deselectUnit();
     }
     Context::getInstance()->setCurrentState(States::STATE_IDLE);
 
     //resetting units of Current Player
-    std::shared_ptr<std::vector<std::shared_ptr<Unit>>> unitHolder = mPlayers[mCurrentPlayerId]->mUnits;
-    for(std::shared_ptr< Unit > unit : *unitHolder){
+    std::shared_ptr < std::vector < std::shared_ptr < Unit >> > unitHolder = mPlayers[mCurrentPlayerId]->mUnits;
+    for (std::shared_ptr <Unit> unit : *unitHolder) {
         unit->setRemainingMovement(unit->getMovement());
         unit->setTimesDefended(0);
     }
 
 }
 
-void Game::produceUnit(std::string unitName, int playerId){
-    std::shared_ptr<Unit> newUnit = mUnitManager->getChild(unitName)->clone();
-    if(!newUnit){
+void Game::produceUnit(std::string unitName, int playerId) {
+    std::shared_ptr <Unit> newUnit = mUnitManager->getChild(unitName)->clone();
+    if (!newUnit) {
         return;
     }
     newUnit->setOwner(playerId);
 
-    std::shared_ptr<Unit> mageTower = getPlayer(playerId)->getBase();
-    std::shared_ptr<Hexfield> currentField = mageTower->getCurrentHexfield();
+    std::shared_ptr <Unit> mageTower = getPlayer(playerId)->getBase();
+    std::shared_ptr <Hexfield> currentField = mageTower->getCurrentHexfield();
 
-    std::shared_ptr<Hexfield> destinedField = getNextFreeField(currentField);
-    if(destinedField == NULL) return;
+    std::shared_ptr <Hexfield> destinedField = getNextFreeField(currentField);
+    if (destinedField == NULL) return;
 
-    LOG_F_TRACE(GAME_LOG_PATH, "target Player: ", playerId, " base hex found at: ", currentField->mPosition[1], "/", currentField->mPosition[0]);
+    LOG_F_TRACE(GAME_LOG_PATH, "target Player: ", playerId, " base hex found at: ", currentField->mPosition[1], "/",
+                currentField->mPosition[0]);
     LOG_F_TRACE(GAME_LOG_PATH, "Model to Use ", newUnit->getModel());
-    std::shared_ptr<mgf::Node> unitNode = engine->root->getChild("Assets.obj")->getChild(newUnit->getModel())->clone();
+    std::shared_ptr <mgf::Node> unitNode = engine->root->getChild("Assets.obj")->getChild(newUnit->getModel())->clone();
     newUnit->setUnitNode(unitNode);
     newUnit->setCurrentHexfield(destinedField);
     destinedField->setOccupation(newUnit);
@@ -342,9 +341,9 @@ void Game::produceUnit(std::string unitName, int playerId){
 
 }
 
-std::shared_ptr<Hexfield> Game::getNextFreeField(std::shared_ptr<Hexfield> currentField){
-    for(std::shared_ptr<Hexfield> hex : currentField->linkedTo){
-        if(!hex->getIsOccupied()){
+std::shared_ptr <Hexfield> Game::getNextFreeField(std::shared_ptr < Hexfield > currentField) {
+    for (std::shared_ptr <Hexfield> hex : currentField->linkedTo) {
+        if (!hex->getIsOccupied()) {
             return hex;
         }
     }
@@ -352,20 +351,20 @@ std::shared_ptr<Hexfield> Game::getNextFreeField(std::shared_ptr<Hexfield> curre
     return NULL;
 }
 
-int Game::unitMovementWrapper(std::shared_ptr<Unit> unit,
-                              std::shared_ptr<Hexfield> destination) {
+int Game::unitMovementWrapper(std::shared_ptr < Unit > unit,
+                              std::shared_ptr < Hexfield > destination) {
     LOG_F_TRACE(GAME_LOG_PATH, "Starting unit movement ", unit->getName(), " to ",
-                destination->mPosition[1], "/" , destination->mPosition[0]);
+                destination->mPosition[1], "/", destination->mPosition[0]);
 
-    std::shared_ptr<Hexfield> startField = unit->getCurrentHexfield();
+    std::shared_ptr <Hexfield> startField = unit->getCurrentHexfield();
 
 
-    std::shared_ptr<Hexfield> finishedField = unit->moveTo(unit);
+    std::shared_ptr <Hexfield> finishedField = unit->moveTo(unit);
 
     LOG_F_TRACE(GAME_LOG_PATH, "translating unit to endpoint");
-    if(finishedField){
+    if (finishedField) {
         //LOG_F_TRACE(GAME_LOG_PATH, finishedField->mPositionVector);
-        std::shared_ptr<mgf::Node> node = unit->getUnitNode();
+        std::shared_ptr <mgf::Node> node = unit->getUnitNode();
         finishedField->mPositionVector;
         LOG_F_TRACE(GAME_LOG_PATH, finishedField->mPosition[1], "/", finishedField->mPosition[0]);
 
@@ -395,17 +394,17 @@ int Game::cleanUp() {
     return 0;
 }
 
-int Game::deleteUnits(){
+int Game::deleteUnits() {
 
-    for(int i = 0; i < mUnitHolder1->size(); ++i){
-        std::shared_ptr<Unit> currentUnit = mUnitHolder1->at(i);
+    for (int i = 0; i < mUnitHolder1->size(); ++i) {
+        std::shared_ptr <Unit> currentUnit = mUnitHolder1->at(i);
         currentUnit->getCurrentHexfield()->setEmtpy();
         mUnitHolder1->at(i).reset();
         currentUnit.reset();
     }
 
-    for(int i = 0; i < mUnitHolder2->size(); ++i){
-        std::shared_ptr<Unit> currentUnit = mUnitHolder2->at(i);
+    for (int i = 0; i < mUnitHolder2->size(); ++i) {
+        std::shared_ptr <Unit> currentUnit = mUnitHolder2->at(i);
         currentUnit->getCurrentHexfield()->setEmtpy();
         mUnitHolder2->at(i).reset();
         currentUnit.reset();
@@ -415,30 +414,30 @@ int Game::deleteUnits(){
     mUnitHolder2.reset();
 }
 
-int Game::eraseField(std::shared_ptr<Hexfield> hex){
+int Game::eraseField(std::shared_ptr < Hexfield > hex) {
 
 
-    for(int i = 0; i < mFieldSize; ++i){
+    for (int i = 0; i < mFieldSize; ++i) {
         deleteRow(hex);
-        if(i % 2 == 0){
+        if (i % 2 == 0) {
             hex = hex->linkedTo[3];
-        }else{
+        } else {
             hex = hex->linkedTo[4];
         }
     }
 
 }
 
-void Game::deleteRow(std::shared_ptr<Hexfield> firstField) {
-    if(firstField->linkedTo[2] != NULL){
+void Game::deleteRow(std::shared_ptr < Hexfield > firstField) {
+    if (firstField->linkedTo[2] != NULL) {
         deleteRow(firstField->linkedTo[2]);
         deleteAllLinks(firstField->linkedTo[2]);
     }
 }
 
 
-void Game::deleteAllLinks(std::shared_ptr<Hexfield> hex) {
-    for(int i = 0; i < 6; ++i){
+void Game::deleteAllLinks(std::shared_ptr < Hexfield > hex) {
+    for (int i = 0; i < 6; ++i) {
         hex->linkedTo[i].reset();
     }
 }
@@ -448,56 +447,67 @@ void Game::writeStatsToDb() {
 }
 
 
-
 /*
  * Setter & Getter
  */
 
-shared_ptr<Player> Game::getPlayer(int i) {
-    shared_ptr<Player> player;
+shared_ptr <Player> Game::getPlayer(int i) {
+    shared_ptr <Player> player;
 
-    switch(i){
-        case 0: player = mPlayers[0]; break;
-        case 1: player = mPlayers[1]; break;
-        default: player.reset(); break;
+    switch (i) {
+        case 0:
+            player = mPlayers[0];
+            break;
+        case 1:
+            player = mPlayers[1];
+            break;
+        default:
+            player.reset();
+            break;
     }
     return player;
 }
 
-std::shared_ptr<Hexfield> Game::getHexAt(std::shared_ptr<Hexfield> current, float x, float y) {
-    float minDist;
-    float curDist;
-    std::shared_ptr<Hexfield> nearest(current);
+std::shared_ptr <Hexfield> Game::getHexAt(std::shared_ptr < Hexfield > current, float
+x,
+float y
+) {
+float minDist;
+float curDist;
+std::shared_ptr <Hexfield> nearest(current);
 
-    //LOG_F_TRACE(GAME_LOG_PATH, "in field: ", current->mPosition[1], "/", current->mPosition[0]);
+//LOG_F_TRACE(GAME_LOG_PATH, "in field: ", current->mPosition[1], "/", current->mPosition[0]);
 
-    minDist = abs(x - current->mPosition[1])
-              + abs(y - current->mPosition[0]);
+minDist = abs(x - current->mPosition[1])
+          + abs(y - current->mPosition[0]);
 
-    for(std::shared_ptr<Hexfield> neighbor : current->linkedTo){
-        if(neighbor == NULL) continue;
+for(
+std::shared_ptr <Hexfield> neighbor :
+current->linkedTo){
+if(neighbor == NULL) continue;
 
-        curDist = abs(x - neighbor->mPosition[1]) + abs(y - neighbor->mPosition[0]);
-        if(curDist < minDist){
-            minDist = curDist;
-            nearest = neighbor;
-        }
+curDist = abs(x - neighbor->mPosition[1]) + abs(y - neighbor->mPosition[0]);
+if(curDist<minDist){
+minDist = curDist;
+nearest = neighbor;
+}
 
-    }
+}
 
-    if(nearest == current){
-        LOG_F_TRACE(GAME_LOG_PATH, "Found nearest at ", current->mPosition[1], "/", current->mPosition[0]);
-        return current;
-    }else{
-        nearest = getHexAt(nearest, x, y);
-    }
+if(nearest == current){
+LOG_F_TRACE(GAME_LOG_PATH, "Found nearest at ", current->mPosition[1], "/", current->mPosition[0]);
+return
+current;
+}else{
+nearest = getHexAt(nearest, x, y);
+}
 
-    return nearest;
+return
+nearest;
 }
 
 
-
-shared_ptr<Hexfield> Game::getFirstField() {
+shared_ptr <Hexfield> Game::getFirstField() {
     return mFirstField;
 }
 
@@ -510,14 +520,14 @@ void Game::setSelectedState(bool selectedState) {
     SELECTED_STATE = selectedState;
 }
 
-std::shared_ptr<Unit> Game::getSelectedUnit() {
+std::shared_ptr <Unit> Game::getSelectedUnit() {
     return mSelectedUnit;
 }
 
-void Game::selectUnit(shared_ptr<Unit> ptr) {
+void Game::selectUnit(shared_ptr < Unit > ptr) {
     mSelectedUnit = ptr;
 
-    std::shared_ptr<mgf::Material> newmat(new mgf::Material);
+    std::shared_ptr <mgf::Material> newmat(new mgf::Material);
     newmat->mDiffuseColor = glm::vec4(1.f, 1.f, 1.f, 1.f);
     getSelectedUnit()->getUnitNode()->setMaterial(newmat);
     //actualScene->getChild("Cube")->resetMaterial();                                                                                                                                                                                                                         
@@ -530,11 +540,11 @@ int Game::getCurrentPlayerId() {
     return mCurrentPlayerId;
 }
 
-void Game::setEngine(std::shared_ptr<EngineHelper> engine) {
+void Game::setEngine(std::shared_ptr < EngineHelper > engine) {
     this->engine = engine;
 }
 
-std::shared_ptr<Hexfield> Game::getHexAtMousePos() {
+std::shared_ptr <Hexfield> Game::getHexAtMousePos() {
     glm::vec3 pos = engine->getMousePos();
     return getHexAt(getFirstField(), pos[2], pos[0]);
 }
@@ -545,7 +555,7 @@ void Game::deselectUnit() {
     SELECTED_STATE = false;
 }
 
-std::shared_ptr<mgf::IOverlayElement> Game::getOverlayInteraction() {
+std::shared_ptr <mgf::IOverlayElement> Game::getOverlayInteraction() {
     return engine->getOverlayOnPos();
 }
 
@@ -553,18 +563,18 @@ void Game::quitGame() {
     quit = true;
 }
 
-bool Game::getQuit(){
+bool Game::getQuit() {
     return quit;
 }
 
-void Game::generateEnvironment(){
-    std::shared_ptr<ChanceSimulator> randomGenerator = ChanceSimulator::getInstance();
+void Game::generateEnvironment() {
+    std::shared_ptr <ChanceSimulator> randomGenerator = ChanceSimulator::getInstance();
 
-    for(int i = 0; i<400; ++i){
+    for (int i = 0; i < 400; ++i) {
         float x = randomGenerator->getRandomCoord();
         float y = randomGenerator->getRandomCoord();
 
-        if((x > 0 && x < 47) && (y > 0 && y < 47)){
+        if ((x > 0 && x < 47) && (y > 0 && y < 47)) {
             continue;
         }
 
@@ -572,8 +582,8 @@ void Game::generateEnvironment(){
 
         scalingVector = randomGenerator->getRandomFloat(0.5f, 1.5f);
 
-        std::shared_ptr<mgf::Node> tree = engine->root->getChild("Assets.obj")->getChild("Tree")->clone();
-        tree->scale(glm::vec3(scalingVector, scalingVector,scalingVector));
+        std::shared_ptr <mgf::Node> tree = engine->root->getChild("Assets.obj")->getChild("Tree")->clone();
+        tree->scale(glm::vec3(scalingVector, scalingVector, scalingVector));
         tree->translate(glm::vec3(x, 0.f, y));
         tree->add(engine->root->getChild("Assets.obj")->getChild("defaultobject")->clone());
 
