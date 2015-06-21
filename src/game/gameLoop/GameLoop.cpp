@@ -15,7 +15,7 @@
 #include "../../tbs.h"
 
 
-GameLoop::GameLoop(std::shared_ptr<Game> game) {
+GameLoop::GameLoop(std::shared_ptr < Game > game) {
     mGame = game;
     mStateContext = Context::getInstance();
     mStateContext->injectGameReference(mGame);
@@ -23,7 +23,7 @@ GameLoop::GameLoop(std::shared_ptr<Game> game) {
 
 }
 
-int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
+int GameLoop::run(std::shared_ptr < EngineHelper > engine) {
 //###############################################  Gameloop
     float current = 0, last = 0, frametime = 0;
     bool quit = false;
@@ -31,17 +31,16 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
     bool mouseLeftDown = false;
     bool mouseRightDown = false;
 
-    std::queue<InputEvent> eventsQueue;
+    std::queue <InputEvent> eventsQueue;
 
 
-
-    while(quit != true){
+    while (quit != true) {
 //###############################################  Update
         engine->input->update();
         quit = (engine->input->getQuit() || mGame->getQuit());
 
         //if(!checkOutOfBounds(engine->input->getPosition() + engine->cam->getPos())){
-            engine->cam->update(engine->input->getPosition(), engine->input->getMouseRelative());
+        engine->cam->update(engine->input->getPosition(), engine->input->getMouseRelative());
         //}
 
 
@@ -53,30 +52,30 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
         bool rightClick = engine->input->getMouseClick()[2];
         bool middleClick = engine->input->getMouseClick()[1];
 
-        if(middleClick){
+        if (middleClick) {
             mouseMidDown = true;
         }
-        if(leftClick){
+        if (leftClick) {
             mouseLeftDown = true;
         }
-        if(rightClick){
+        if (rightClick) {
             mouseRightDown = true;
         }
 
-        if(mouseMidDown && !middleClick){
+        if (mouseMidDown && !middleClick) {
             eventsQueue.push(InputEvent::EVENT_MIDDLECLICK);
             mouseMidDown = false;
-        }else if(mouseLeftDown && !leftClick){
+        } else if (mouseLeftDown && !leftClick) {
             eventsQueue.push(InputEvent::EVENT_LEFTCLICK);
             mouseLeftDown = false;
-        }else if(mouseRightDown && !rightClick){
+        } else if (mouseRightDown && !rightClick) {
             eventsQueue.push(InputEvent::EVENT_RIGHTCLICK);
             mouseRightDown = false;
-        }else{
+        } else {
             eventsQueue.push(InputEvent::EVENT_NOEVENT);
         }
 
-        if(!eventsQueue.empty()){
+        if (!eventsQueue.empty()) {
             //LOG_F_TRACE(GAME_LOG_PATH, "Event processing");
             mStateContext->handle(eventsQueue.front());
             eventsQueue.pop();
@@ -112,11 +111,11 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
 bool GameLoop::checkOutOfBounds(glm::vec3 position) {
     LOG_F_TRACE(GAME_LOG_PATH, "pos: ", mgf::vec3_toStr(position));
 
-    if(position[0] < 0.f || position[0] > 48.f){
+    if (position[0] < 0.f || position[0] > 48.f) {
         return true;
-    }else if(position[1] < 5.f || position[1] > 60.f){
+    } else if (position[1] < 5.f || position[1] > 60.f) {
         return true;
-    }else if(position[2] < 20.f || position[2] > 70.f){
+    } else if (position[2] < 20.f || position[2] > 70.f) {
         return true;
     }
 
