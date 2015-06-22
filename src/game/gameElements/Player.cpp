@@ -9,6 +9,8 @@ using namespace std;
 
 Player::Player(std::string name) {
     this->name = name;
+    this->maxMana = 100;
+    this->curMana = 100;
 }
 
 
@@ -67,6 +69,36 @@ std::shared_ptr <Unit> Player::getBase() {
 
 void Player::setBase(std::shared_ptr < Unit > base) {
     this->baseTower = base;
+}
+
+int Player::getMaxMana() const {
+    return maxMana;
+}
+
+void Player::setMaxMana(int maxMana) {
+    Player::maxMana = maxMana;
+}
+
+int Player::getCurMana() const {
+    return curMana;
+}
+
+void Player::setCurMana(int curMana) {
+    Player::curMana = curMana;
+}
+
+bool Player::useMana(int amount){
+    LOG_F_TRACE(GAME_LOG_PATH, "cur/max ", curMana, "/", maxMana);
+    if((curMana - amount) < 0){
+        return false;
+    }else{
+        curMana -= amount;
+        return true;
+    }
+}
+
+void Player::gainMana(int amount){
+    curMana += amount;
 }
 
 Player::~Player() {

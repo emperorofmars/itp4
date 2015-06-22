@@ -82,12 +82,12 @@ int startUp() {
     engine->p->use();
 
     for (int i = 0; i < 2; ++i) {
-        game->produceUnit("Infanterie", 0);
-        game->produceUnit("Infanterie", 1);
-        game->produceUnit("Artillerie", 0);
-        game->produceUnit("Artillerie", 1);
-        game->produceUnit("Kavallerie", 0);
-        game->produceUnit("Kavallerie", 1);
+        game->produceUnit("Infanterie", 0, false);
+        game->produceUnit("Infanterie", 1, false);
+        game->produceUnit("Artillerie", 0, false);
+        game->produceUnit("Artillerie", 1, false);
+        game->produceUnit("Kavallerie", 0, false);
+        game->produceUnit("Kavallerie", 1, false);
     }
 
 //#######Start Game

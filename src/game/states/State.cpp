@@ -72,17 +72,17 @@ bool State::reactToInterfaceInteraction(std::shared_ptr < mgf::IOverlayElement >
         return true;
     } else if (element->getName() == "infantryBtn") {
         LOG_F_TRACE(GAME_LOG_PATH, "button: produce IN");
-        mGame->produceUnit("Infanterie", mGame->getCurrentPlayerId());
+        mGame->produceUnit("Infanterie", mGame->getCurrentPlayerId(), true);
 
         return true;
     } else if (element->getName() == "cavalryBtn") {
         LOG_F_TRACE(GAME_LOG_PATH, "button: produce CA");
-        mGame->produceUnit("Kavallerie", mGame->getCurrentPlayerId());
+        mGame->produceUnit("Kavallerie", mGame->getCurrentPlayerId(), true);
 
         return true;
     } else if (element->getName() == "artilleryBtn") {
         LOG_F_TRACE(GAME_LOG_PATH, "button: produce AT");
-        mGame->produceUnit("Artillerie", mGame->getCurrentPlayerId());
+        mGame->produceUnit("Artillerie", mGame->getCurrentPlayerId(), true);
 
         return true;
     } else if (element->getName() == "quitBtn") {

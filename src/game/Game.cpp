@@ -309,7 +309,7 @@ void Game::nextTurn() {
 
 }
 
-void Game::produceUnit(std::string unitName, int playerId) {
+void Game::produceUnit(std::string unitName, int playerId, bool useMana) {
     std::shared_ptr <Unit> newUnit = mUnitManager->getChild(unitName)->clone();
     if (!newUnit) {
         return;
@@ -321,6 +321,14 @@ void Game::produceUnit(std::string unitName, int playerId) {
 
     std::shared_ptr <Hexfield> destinedField = getNextFreeField(currentField);
     if (destinedField == NULL) return;
+
+    //checks Mana and subtracts
+    if(useMana && !getPlayer(playerId)->useMana(newUnit->getManaCost())){
+        LOG_F_TRACE(GAME_LOG_PATH, "Not enough Mana ", getPlayer(playerId)->getCurMana());
+        return;
+    }else{
+        LOG_F_TRACE(GAME_LOG_PATH, "Mana left ", getPlayer(playerId)->getCurMana());
+    }
 
     LOG_F_TRACE(GAME_LOG_PATH, "target Player: ", playerId, " base hex found at: ", currentField->mPosition[1], "/",
                 currentField->mPosition[0]);

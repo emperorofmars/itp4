@@ -34,7 +34,7 @@ public:
 
     void nextTurn();
 
-    void produceUnit(std::string unitName, int playerId);
+    void produceUnit(std::string unitName, int playerId, bool useMana);
 
     void quitGame();
 

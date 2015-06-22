@@ -50,10 +50,19 @@ public:
 
     std::shared_ptr <Unit> getBase();
 
+    int getMaxMana() const;
+    void setMaxMana(int maxMana);
+    int getCurMana() const;
+    void setCurMana(int curMana);
+    bool useMana(int amount);
+    void gainMana(int amount);
 private:
     int id;
     std::string name;
     std::shared_ptr <Unit> baseTower;
+
+    int maxMana;
+    int curMana;
     //glm::vec4 color;
 
 
