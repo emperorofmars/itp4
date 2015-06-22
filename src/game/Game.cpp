@@ -222,12 +222,13 @@ void Game::generatePlayingField() {
     mPlayers[0]->setBase(tower);
     field[4][4]->setOccupation(tower);
     tower->setCurrentHexfield(field[4][4]);
-
+    tower->setOwner(0);
 
     std::shared_ptr <Unit> tower2(mUnitManager->getChild("Magierturm")->clone());
     mPlayers[1]->setBase(tower2);
     field[19][19]->setOccupation(tower2);
     tower2->setCurrentHexfield(field[19][19]);
+    tower2->setOwner(1);
 
     LOG_F_TRACE(GAME_LOG_PATH, "player 1 base : ", mPlayers[0]->getBase()->getCurrentHexfield()->printPos());
     LOG_F_TRACE(GAME_LOG_PATH, "player 2 base: ", mPlayers[1]->getBase()->getCurrentHexfield()->printPos());
