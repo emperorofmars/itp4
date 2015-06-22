@@ -35,12 +35,17 @@ void SelectedState::handleRightClick() {
     LOG_F_TRACE(GAME_LOG_PATH, "pos: ", dest->mPosition[1], " / ", dest->mPosition[0]);
 
     if (dest->getIsOccupied()) {
-        if (selectedUnit->isInRange(dest) && dest->getOccupation()->getOwner() != mGame->getCurrentPlayerId()) {
+        if (selectedUnit->isInRange(dest)
+            && dest->getOccupation()->getOwner() != mGame->getCurrentPlayerId()
+            && selectedUnit->getRemainingMovement() > 0) {
+
             LOG_F_TRACE(GAME_LOG_PATH, "Target is enemy and in range");
             selectedUnit->attack(dest->getOccupation());
+
             if (dest->getIsOccupied()) {
                 dest->getOccupation()->counterAttack(selectedUnit);
             }
+
             if (selectedUnit->getCurHp() <= 0) {
                 mGame->deselectUnit();
                 mContext->setCurrentState(States::STATE_IDLE);
@@ -48,7 +53,7 @@ void SelectedState::handleRightClick() {
 
             return;
         } else {
-            LOG_F_TRACE(GAME_LOG_PATH, "Target NOT in Range or friendly!");
+            LOG_F_TRACE(GAME_LOG_PATH, "Target NOT in Range or friendly or No Moves remainingq!");
         }
     }
 
@@ -64,8 +69,6 @@ void SelectedState::handleLeftClick() {
     if (clickedHex->getIsOccupied()) {
         mGame->deselectUnit();
         mGame->selectUnit(clickedHex->getOccupation());
-
-        //TODO highlight unit
 
     } else {
         mContext->setCurrentState(States::STATE_IDLE);

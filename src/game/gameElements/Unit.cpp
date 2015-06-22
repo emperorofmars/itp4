@@ -130,8 +130,10 @@ std::shared_ptr <Hexfield> Unit::checkRange(std::shared_ptr < Hexfield > start,
 
 void Unit::attack(std::shared_ptr < Unit > target) {
     LOG_F_TRACE(GAME_LOG_PATH, "attacking..");
-
     bool hit = false;
+
+    //Drains all movement on Attack
+    remainingMovement -= remainingMovement;
 
     double chance = ChanceSimulator::getInstance()->getRandomHit();
     LOG_F_TRACE(GAME_LOG_PATH, "randomNumber: ", chance);
