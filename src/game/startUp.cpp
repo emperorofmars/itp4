@@ -24,17 +24,17 @@ int startUp() {
     LOG_F_TRACE(GAME_LOG_PATH, "Starting up ... ");
 
 
-    cout << "creating new Game" << endl;
+    cout << "Creating new Game" << endl;
     std::shared_ptr <Game> game(new Game());
 
 
     game->initGame();
 
-    cout << "first player: " << game->getPlayer(0)->getName() << endl;
-    cout << "second player: " << game->getPlayer(1)->getName() << endl;
+    cout << "First player: " << game->getPlayer(0)->getName() << endl;
+    cout << "Second player: " << game->getPlayer(1)->getName() << endl;
 
 
-    cout << "creating Game Loop element" << endl;
+    cout << "Csreating Game Loop element" << endl;
     std::shared_ptr <GameLoop> loop(new GameLoop(game));
 
     //Setting up engine
