@@ -64,14 +64,25 @@ void MeshNode::resetMaterial(){
 }
 
 bool MeshNode::update(std::shared_ptr<Renderer> renderer){
+	renderer->clearLights();
 	return updateImpl(glm::mat4(1), renderer);
 }
 
 bool MeshNode::render(std::shared_ptr<Renderer> renderer){
+	update(renderer);
 	return renderImpl(glm::mat4(1), renderer);
 }
 
 bool MeshNode::updateImpl(glm::mat4 transform, std::shared_ptr<Renderer> renderer){
+	if(!mVisible) return true;
+
+	transform *= getTRS();
+	for(auto iter = mChildNodesID.begin(); iter != mChildNodesID.end(); iter++){
+		if(!iter->second->updateImpl(transform, renderer)){
+			LOG_F_ERROR(MGF_LOG_FILE, "Rendering Failed!");
+			return false;
+		}
+	}
 	return true;
 }
 

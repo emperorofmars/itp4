@@ -33,7 +33,7 @@ public:
 
 protected:
 	bool textToTexture();
-	unsigned int nextPow2(unsigned int num);
+	int nextPow2(int num);
 
 	std::string mText;
 	glm::vec3 mColor;

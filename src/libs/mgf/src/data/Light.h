@@ -11,6 +11,12 @@
 
 namespace mgf{
 
+enum{
+	POINT_LIGHT = 1,
+	SUN_LIGHT = 2,
+	SPOT_LIGHT = 3,
+};
+
 class Light{
 public:
 	Light();
@@ -25,6 +31,7 @@ public:
 	glm::vec3 mColor;
 	glm::vec3 mPosition;
 	glm::vec3 mDirection;
+	float mConeAngle;
 };
 
 } // mgf

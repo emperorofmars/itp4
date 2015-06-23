@@ -80,6 +80,7 @@ bool Node::add(std::shared_ptr<Node> node){
 bool Node::remove(const std::string name){
 	if(mChildNodesString[name] == NULL) return -1;
 	mMutex.lock();
+		mChildNodesID.erase(mChildNodesString[name]->getID());
 		mChildNodesString.erase(name);
 	mMutex.unlock();
 	return true;
@@ -89,6 +90,7 @@ bool Node::remove(unsigned int id){
 	if(mChildNodesID[id] == NULL) return -1;
 	mMutex.lock();
 		mChildNodesID.erase(id);
+		mChildNodesString.erase(mChildNodesID[id]->getName());
 	mMutex.unlock();
 	return true;
 }
@@ -99,10 +101,12 @@ void Node::setVisible(bool visible){
 }
 
 bool Node::update(std::shared_ptr<Renderer> renderer){
+	renderer->clearLights();
 	return updateImpl(glm::mat4(1), renderer);
 }
 
 bool Node::render(std::shared_ptr<Renderer> renderer){
+	update(renderer);
 	return renderImpl(glm::mat4(1), renderer);
 }
 
@@ -119,6 +123,19 @@ void Node::setMaterial(std::shared_ptr<Material> material){
 }
 
 void Node::resetMaterial(){
+	return;
+}
+
+bool Node::setLight(std::shared_ptr<Light> data){
+	return false;
+}
+
+std::shared_ptr<Light> Node::getLight(){
+	return NULL;
+}
+
+void Node::setLight(int type, float strenghtDiffuse, float strenghtSpecular, glm::vec3 color,
+					glm::vec3 position, glm::vec3 direction, float coneAngle){
 	return;
 }
 
@@ -174,6 +191,15 @@ void Node::print(unsigned int deepness){
 }
 
 bool Node::updateImpl(glm::mat4 transform, std::shared_ptr<Renderer> renderer){
+	if(!mVisible) return true;
+
+	transform *= getTRS();
+	for(auto iter = mChildNodesID.begin(); iter != mChildNodesID.end(); iter++){
+		if(!iter->second->updateImpl(transform, renderer)){
+			LOG_F_ERROR(MGF_LOG_FILE, "Rendering Failed!");
+			return false;
+		}
+	}
 	return true;
 }
 

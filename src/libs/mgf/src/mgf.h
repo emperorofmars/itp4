@@ -21,6 +21,7 @@
 #include "renderer/Renderer.h"
 #include "scene/Node.h"
 #include "scene/MeshNode.h"
+#include "scene/LightNode.h"
 #include "scene/Loader.h"
 #include "collision/MouseRay.h"
 #include "collision/RayPlane.h"

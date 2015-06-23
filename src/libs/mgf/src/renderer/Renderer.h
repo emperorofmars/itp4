@@ -30,6 +30,7 @@ public:
 
 	bool addLight(std::shared_ptr<Light> data, glm::mat4 transform);
 	bool clearLights();
+
 	bool drawMesh(std::shared_ptr<Mesh> data, glm::mat4 transform, std::shared_ptr<Material> material);
 	bool draw2dOverlayMesh(std::shared_ptr<Mesh> data, glm::mat4 transform, std::shared_ptr<Material> material);
 
@@ -43,7 +44,7 @@ private:
 	std::shared_ptr<ICamera> mCamera;
 	std::shared_ptr<ShaderProgram> mShaderProgram;
 
-	LightManager mLights;
+	std::shared_ptr<LightManager> mLights;
 };
 
 

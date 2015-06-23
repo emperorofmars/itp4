@@ -52,13 +52,13 @@ void Moveable::setLayer(int layer){
 
 void Moveable::scale(glm::vec2 scale){
 	if(mBase)
-		mBase->scale(glm::vec3(scale, 1));
+		mBase->scale(glm::vec3(scale[0], scale[1], 1));
 	return;
 }
 
 void Moveable::setScale(glm::vec2 scale){
 	if(mBase)
-		mBase->setScale(glm::vec3(scale[0], -scale[1], 1));
+		mBase->setScale(glm::vec3(scale[0], scale[1], 1));
 	return;
 }
 
