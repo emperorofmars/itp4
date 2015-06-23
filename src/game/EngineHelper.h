@@ -36,6 +36,12 @@ public:
     void setPointer();
 
     std::shared_ptr <mgf::IOverlayElement> getOverlayOnPos();
+
+    void createField();
+
+    void clearField();
+
+    void initEngine();
 };
 
 

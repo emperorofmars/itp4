@@ -90,22 +90,9 @@ EngineHelper::EngineHelper() {
     overlay->add(pointer);
 
 //#### Setting up Sunlight
-    // NEW LIGHT:
     std::shared_ptr<mgf::Node> light(new mgf::LightNode("sun"));
     light->setLight(mgf::SUN_LIGHT, 2, 2, glm::vec3(1.f, 1.f, 1.f), glm::vec3(5.f, 15.f, 15.f), glm::vec3(0.f, -10.f, -5.f), 30);
     actualScene->add(light);
-
-    // OLD LIGHT:
-//    std::shared_ptr <mgf::Light> light(new mgf::Light());
-//    light->mColor = glm::vec3(1.f, 1.f, 1.f);
-//    light->mStrengthDiffuse = 2;
-//    light->mPosition = glm::vec3(5.f, 15.f, 15.f);
-//    renderer->addLight(light, glm::mat4(1));
-//    light->mType = 2;
-//    light->mColor = glm::vec3(0.4f, 0.4f, 0.4f);
-//    light->mDirection = glm::vec3(0.f, -10.f, -5.f);
-//    renderer->addLight(light, glm::mat4(1));
-
 }
 
 glm::vec3 EngineHelper::getMousePos() {
@@ -127,3 +114,7 @@ std::shared_ptr <mgf::IOverlayElement> EngineHelper::getOverlayOnPos() {
             (input->getMouseAbsoluteNDC(w->getResolution()), w->getAspectRatio());
     return elm;
 }
+
+void EngineHelper::createField() {}
+void EngineHelper::clearField(){}
+void EngineHelper::initEngine(){}
