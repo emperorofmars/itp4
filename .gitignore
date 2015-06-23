@@ -7,3 +7,10 @@ log_game.txt
 log_mgf.txt
 src/log/
 deploy
+Makefile
+src/res/shader/fragment_shader.glsl.backup
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+src/libs/mgf/CMakeFiles/
+src/libs/mgf/cmake_install.cmake
