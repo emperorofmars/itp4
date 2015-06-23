@@ -5,6 +5,7 @@
 #include <src/overlay/Label.h>
 #include <src/overlay/Button.h>
 #include <src/overlay/Overlay.h>
+#include <src/scene/LightNode.h>
 #include "src/camera/CameraTopDown.h"
 #include "src/input/InputTopDown.h"
 #include "src/collision/MouseRay.h"
@@ -84,15 +85,25 @@ EngineHelper::EngineHelper() {
     overlay->add(pointer);
 
 //#### Setting up Sunlight
-    std::shared_ptr <mgf::Light> light(new mgf::Light());
-    light->mColor = glm::vec3(1.f, 1.f, 1.f);
-    light->mStrengthDiffuse = 2;
-    light->mPosition = glm::vec3(5.f, 15.f, 15.f);
-    renderer->addLight(light, glm::mat4(1));
-    light->mType = 2;
-    light->mColor = glm::vec3(0.4f, 0.4f, 0.4f);
-    light->mDirection = glm::vec3(0.f, -10.f, -5.f);
-    renderer->addLight(light, glm::mat4(1));
+    // NEW LIGHT:
+    std::shared_ptr<mgf::Node> light(new mgf::LightNode("sun"));
+    light->setLight(mgf::SUN_LIGHT, 2, 2, glm::vec3(1.f, 1.f, 1.f), glm::vec3(5.f, 15.f, 15.f), glm::vec3(0.f, -10.f, -5.f), 30);
+    actualScene->add(light);
+
+//    std::shared_ptr<mgf::Node> light2(new mgf::LightNode("spot"));
+//    light2->setLight(mgf::SPOT_LIGHT, 1, 0.5, glm::vec3(0.8f, 1.f, 0.6f), glm::vec3(0.f, 5.f, -5.f), glm::vec3(0.f, -1.f, 2.f), 45);
+//    actualField->add(light2);
+
+    // OLD LIGHT:
+//    std::shared_ptr <mgf::Light> light(new mgf::Light());
+//    light->mColor = glm::vec3(1.f, 1.f, 1.f);
+//    light->mStrengthDiffuse = 2;
+//    light->mPosition = glm::vec3(5.f, 15.f, 15.f);
+//    renderer->addLight(light, glm::mat4(1));
+//    light->mType = 2;
+//    light->mColor = glm::vec3(0.4f, 0.4f, 0.4f);
+//    light->mDirection = glm::vec3(0.f, -10.f, -5.f);
+//    renderer->addLight(light, glm::mat4(1));
 
 }
 
