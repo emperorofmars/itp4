@@ -579,6 +579,9 @@ bool Game::getQuit() {
 
 // TODO: implement function to show menu
 void Game::showMenu() {
+    if (quit == true) {
+        std::cout << "Menu shows up now!" << std::endl;
+    }
 }
 
 void Game::generateEnvironment() {

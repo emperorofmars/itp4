@@ -12,7 +12,7 @@ Settings::Settings() {
 void Settings::create() {
     // Set Scene and Overlay
     settingsScene.reset(new mgf::Node("settingsScene"));
-    settingsOverlay.reset(new mgf::Node("settingsOverlay"));
+    settingsOverlay.reset(new mgf::Overlay());
 
     // Create buttons
     std::shared_ptr <mgf::Button> saveBtn(new mgf::Button("saveBtn"));
@@ -24,7 +24,4 @@ void Settings::create() {
     // Add buttons to overlay
     settingsOverlay->add(saveBtn);
     settingsOverlay->add(backBtn);
-
-    // Add Overlay to Scene
-    settingsScene->add(settingsOverlay);
 }

@@ -13,6 +13,7 @@
 #include "gameLoop/GameLoop.h"
 #include "../tbs.h"
 #include "util/ChanceSimulator.h"
+#include "menu/Menu.h"
 
 using namespace std;
 
@@ -23,6 +24,9 @@ int startUp() {
 
     LOG_F_TRACE(GAME_LOG_PATH, "Starting up ... ");
 
+//    cout << "Creating Menu" << endl;
+    std::shared_ptr <Menu> menu(new Menu());
+    menu->create();
 
     cout << "Creating new Game" << endl;
     std::shared_ptr <Game> game(new Game());

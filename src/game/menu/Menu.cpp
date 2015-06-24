@@ -6,6 +6,12 @@
 #include "Menu.h"
 
 Menu::Menu() {
+    std::cout << "Entered menu constructor." << std::endl;
+}
+
+void Menu::create() {
+    std::cout << "Creating menu..." << std::endl;
+
     actualScene.reset(new mgf::Node("menuScene"));
     menuOverlay.reset(new mgf::Overlay());
 
@@ -25,10 +31,6 @@ Menu::Menu() {
     menuOverlay->add(quitBtn);
 }
 
-void Menu::create() {
-
-}
-
 void Menu::destroy() {
-
+    std::cout << "Destroying menu..." << std::endl;
 }
