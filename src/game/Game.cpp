@@ -9,6 +9,7 @@
 #include "../tbs.h"
 #include "states/Context.h"
 #include "util/ChanceSimulator.h"
+#include "menu/Menu.h"
 
 using namespace std;
 
@@ -576,9 +577,8 @@ bool Game::getQuit() {
     return quit;
 }
 
-// TODO: implement function to show settings
-void Game::showSettings() {
-
+// TODO: implement function to show menu
+void Game::showMenu() {
 }
 
 void Game::generateEnvironment() {

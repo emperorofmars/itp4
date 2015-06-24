@@ -24,3 +24,11 @@ Menu::Menu() {
     menuOverlay->add(settingsBtn);
     menuOverlay->add(quitBtn);
 }
+
+void Menu::create() {
+
+}
+
+void Menu::destroy() {
+
+}

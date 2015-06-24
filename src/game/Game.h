@@ -85,7 +85,7 @@ public:
     std::shared_ptr <std::vector<std::shared_ptr < Unit>> >
     mUnitHolder2;
 
-    void showSettings();
+    void showMenu();
 private:
     std::shared_ptr <Player> mPlayers[2];
     std::shared_ptr <Player> mWinner;

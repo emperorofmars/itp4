@@ -9,4 +9,8 @@ public:
     std::shared_ptr <mgf::Node> root;
     std::shared_ptr <mgf::Node> actualScene;
     std::shared_ptr <mgf::Overlay> menuOverlay;
+
+    void create();
+
+    void destroy();
 };

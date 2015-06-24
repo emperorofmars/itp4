@@ -38,62 +38,67 @@ EngineHelper::EngineHelper() {
 //#### Overlay
     overlay.reset(new mgf::Overlay());
 
+    /**
+     * Create buttons
+     */
     std::shared_ptr <mgf::Button> endTurnBtn(new mgf::Button("endTurnBtn"));
-//    endTurnBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
-//    endTurnBtn->setFont("res/fonts/main.ttf");
-//    endTurnBtn->setText("End Turn");
     endTurnBtn->setBackground("res/images/elemente/nextround.png");
     endTurnBtn->translate(glm::vec2(0.85f, 0.65f));
 
     std::shared_ptr <mgf::Button> quitBtn(new mgf::Button("quitBtn"));
-//    quitBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
-//    quitBtn->setFont("res/fonts/main.ttf");
-//    quitBtn->setText("Quit Game");
     quitBtn->setBackground("res/images/elemente/quit.png");
     quitBtn->translate(glm::vec2(0.85f, -0.05f));
 
     std::shared_ptr <mgf::Button> createInfantry(new mgf::Button("infantryBtn"));
-//    createInfantry->setColor(glm::vec3(1.f, 0.5f, 0.5f));
-//    createInfantry->setFont("res/fonts/main.ttf");
-//    createInfantry->setText("Infantry");
     createInfantry->setBackground("res/images/elemente/infantry.png");
     createInfantry->translate(glm::vec2(-0.05f, 0.65f));
 
     std::shared_ptr <mgf::Button> createCavalry(new mgf::Button("cavalryBtn"));
-//    createCavalry->setColor(glm::vec3(1.f, 0.5f, 0.5f));
-//    createCavalry->setFont("res/fonts/main.ttf");
-//    createCavalry->setText("Cavalry");
     createCavalry->setBackground("res/images/elemente/cavalry.png");
     createCavalry->translate(glm::vec2(0.05f, 0.65f));
 
     std::shared_ptr <mgf::Button> createArtillery(new mgf::Button("artilleryBtn"));
-//    createArtillery->setColor(glm::vec3(1.f, 0.5f, 0.5f));
-//    createArtillery->setFont("res/fontss/main.ttf");
-//    createArtillery->setText("Artillery");
     createArtillery->setBackground("res/images/elemente/artillery.png");
     createArtillery->translate(glm::vec2(0.15f, 0.65f));
 
-    std::shared_ptr <mgf::Button> menuBtn(new mgf::Button("menuBtn"));
-    menuBtn->setBackground("res/images/elemente/menu.png");
-    menuBtn->translate(glm::vec2(-0.05f, -0.05f));
+//TODO: Menu Button ?!
+//    std::shared_ptr <mgf::Button> menuBtn(new mgf::Button("menuBtn"));
+//    menuBtn->setBackground("res/images/elemente/menu.png");
+//    menuBtn->translate(glm::vec2(-0.05f, -0.05f));
 
-    // Game status Labels:
+    /**
+     * Create game status Labels:
+     */
     std::shared_ptr <mgf::Label> statusHealth(new mgf::Label("statusHealth"));
     statusHealth->setBackground("res/images/elemente/health.png");
-    statusHealth->translate(glm::vec2(0.60f, 0.65f));
+    statusHealth->translate(glm::vec2(-0.05f, -0.05f));
 
+    std::shared_ptr <mgf::Label> actualHealth(new mgf::Label("actualHealth"));
+    actualHealth->setFont("res/fonts/main.ttf");
+    actualHealth->setText("100");
+    actualHealth->setTextSize(5.0f);
+    actualHealth->setBackground("");
+    actualHealth->translate(glm::vec2(0.07f, -0.05f));
+
+    /**
+     * Set mouse pointer
+     */
     pointer.reset(new mgf::Label("mouse"));
     pointer->setBackground("res/images/Mouse.png");
     pointer->translate(glm::vec2(-10.f, -10.f));
 
+    /**
+     * Add elements to Overlay
+     */
     overlay->add(createInfantry);
     overlay->add(createCavalry);
     overlay->add(createArtillery);
     overlay->add(quitBtn);
     overlay->add(endTurnBtn);
-    overlay->add(menuBtn);
     overlay->add(statusHealth);
+    overlay->add(actualHealth);
     overlay->add(pointer);
+    //    overlay->add(menuBtn);
 
 //#### Setting up Sunlight
     std::shared_ptr<mgf::Node> light(new mgf::LightNode("sun"));
