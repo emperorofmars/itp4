@@ -43,7 +43,7 @@ EngineHelper::EngineHelper() {
 //    endTurnBtn->setFont("res/fonts/main.ttf");
 //    endTurnBtn->setText("End Turn");
     endTurnBtn->setBackground("res/images/elemente/nextround.png");
-    endTurnBtn->translate(glm::vec2(-0.05f, -0.05f));
+    endTurnBtn->translate(glm::vec2(0.85f, 0.65f));
 
     std::shared_ptr <mgf::Button> quitBtn(new mgf::Button("quitBtn"));
 //    quitBtn->setColor(glm::vec3(1.f, 0.5f, 0.5f));
@@ -73,10 +73,11 @@ EngineHelper::EngineHelper() {
     createArtillery->setBackground("res/images/elemente/artillery.png");
     createArtillery->translate(glm::vec2(0.15f, 0.65f));
 
-    std::shared_ptr <mgf::Button> settings(new mgf::Button("settingsBtn"));
-    settings->setBackground("res/images/elemente/settings.png");
-    settings->translate(glm::vec2(0.85f, 0.65f));
+    std::shared_ptr <mgf::Button> menuBtn(new mgf::Button("menuBtn"));
+    menuBtn->setBackground("res/images/elemente/menu.png");
+    menuBtn->translate(glm::vec2(-0.05f, -0.05f));
 
+    // Game status Labels:
     std::shared_ptr <mgf::Label> statusHealth(new mgf::Label("statusHealth"));
     statusHealth->setBackground("res/images/elemente/health.png");
     statusHealth->translate(glm::vec2(0.60f, 0.65f));
@@ -90,7 +91,7 @@ EngineHelper::EngineHelper() {
     overlay->add(createArtillery);
     overlay->add(quitBtn);
     overlay->add(endTurnBtn);
-    overlay->add(settings);
+    overlay->add(menuBtn);
     overlay->add(statusHealth);
     overlay->add(pointer);
 

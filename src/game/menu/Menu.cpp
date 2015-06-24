@@ -6,12 +6,21 @@
 #include "Menu.h"
 
 Menu::Menu() {
-    actualScene.reset(new mgf::Node("scene"));
-
+    actualScene.reset(new mgf::Node("menuScene"));
     menuOverlay.reset(new mgf::Overlay());
 
-    std::shared_ptr <mgf::Button> saveBtn(new mgf::Button("saveBtn"));
-    saveBtn->setBackground("res/images/elemente/save.png");
+    // Create buttons
+    std::shared_ptr <mgf::Button> playBtn(new mgf::Button("playBtn"));
+    playBtn->setBackground("res/images/elemente/play.png");
 
-    menuOverlay->add(saveBtn);
+    std::shared_ptr <mgf::Button> settingsBtn(new mgf::Button("settingsBtn"));
+    settingsBtn->setBackground("res/images/elemente/settings.png");
+
+    std::shared_ptr <mgf::Button> quitBtn(new mgf::Button("quitBtn"));
+    quitBtn->setBackground("res/images/elemente/quit.png");
+
+    // Add buttons to overlay
+    menuOverlay->add(playBtn);
+    menuOverlay->add(settingsBtn);
+    menuOverlay->add(quitBtn);
 }
