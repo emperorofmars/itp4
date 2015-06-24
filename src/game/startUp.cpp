@@ -14,6 +14,7 @@
 #include "../tbs.h"
 #include "util/ChanceSimulator.h"
 #include "menu/Menu.h"
+#include "menu/MenuLoop.h"
 
 using namespace std;
 
@@ -28,9 +29,11 @@ int startUp() {
     std::shared_ptr <Menu> menu(new Menu());
     menu->create();
 
+    cout << "Creating Menu Loop element" << endl;
+    std::shared_ptr <MenuLoop> menuLoop(new MenuLoop());
+
     cout << "Creating new Game" << endl;
     std::shared_ptr <Game> game(new Game());
-
 
     game->initGame();
 
@@ -38,7 +41,7 @@ int startUp() {
     cout << "Second player: " << game->getPlayer(1)->getName() << endl;
 
 
-    cout << "Csreating Game Loop element" << endl;
+    cout << "Creating Game Loop element" << endl;
     std::shared_ptr <GameLoop> loop(new GameLoop(game));
 
     //Setting up engine
@@ -51,17 +54,10 @@ int startUp() {
     groundNode->scale(glm::vec3(1.5f, 1.f, 1.5f));
     engine->actualScene->add(groundNode);
 
-
 //#########################Setting up Overlay
 
     //###############################################  create overlay
     std::shared_ptr <mgf::Overlay> overlay(new mgf::Overlay());
-
-//    std::shared_ptr<mgf::Button> but(new mgf::Button("but"));
-//    but->setColor(glm::vec3(1.f, 0.5f, 0.5f));
-//    but->setFont("res/fonts/main.ttf");
-//    but->setText("blah");
-//    but->setBackground("res/images/Button.png");
 
     std::shared_ptr <mgf::Label> lab(new mgf::Label("mouse"));
     lab->setBackground("res/images/Mouse.png");
@@ -70,20 +66,19 @@ int startUp() {
     //overlay->add(but);
     overlay->add(lab);
 
-
-
 //############Setting up Playingfield etc.
 
     game->setEngine(engine);
     game->setupField(engine->root, engine->actualScene, game->getFirstField());
     game->generateEnvironment();
 
-
     engine->actualScene->print();
-
 
     engine->w->use();
     engine->p->use();
+
+    // TODO: make the Menu Loop work :(
+    menuLoop->run(engine);
 
     for (int i = 0; i < 2; ++i) {
         game->produceUnit("Infanterie", 0, false);
