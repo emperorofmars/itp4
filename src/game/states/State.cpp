@@ -89,6 +89,11 @@ bool State::reactToInterfaceInteraction(std::shared_ptr < mgf::IOverlayElement >
         LOG_F_TRACE(GAME_LOG_PATH, "button: Quit");
         mGame->quitGame();
         return true;
+    } else if (element->getName() == "settingsBtn") {
+        LOG_F_TRACE(GAME_LOG_PATH, "button: Settings");
+        mGame->showSettings();
+
+        return true;
     }
 
     return false;

@@ -77,6 +77,10 @@ EngineHelper::EngineHelper() {
     settings->setBackground("res/images/elemente/settings.png");
     settings->translate(glm::vec2(0.85f, 0.65f));
 
+    std::shared_ptr <mgf::Label> statusHealth(new mgf::Label("statusHealth"));
+    statusHealth->setBackground("res/images/elemente/health.png");
+    statusHealth->translate(glm::vec2(0.60f, 0.65f));
+
     pointer.reset(new mgf::Label("mouse"));
     pointer->setBackground("res/images/Mouse.png");
     pointer->translate(glm::vec2(-10.f, -10.f));
@@ -87,6 +91,7 @@ EngineHelper::EngineHelper() {
     overlay->add(quitBtn);
     overlay->add(endTurnBtn);
     overlay->add(settings);
+    overlay->add(statusHealth);
     overlay->add(pointer);
 
 //#### Setting up Sunlight

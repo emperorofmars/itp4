@@ -576,6 +576,11 @@ bool Game::getQuit() {
     return quit;
 }
 
+// TODO: implement function to show settings
+void Game::showSettings() {
+
+}
+
 void Game::generateEnvironment() {
     std::shared_ptr <ChanceSimulator> randomGenerator = ChanceSimulator::getInstance();
 
