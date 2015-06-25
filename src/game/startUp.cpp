@@ -62,7 +62,6 @@ int startUp() {
     lab->setBackground("res/images/Mouse.png");
     lab->translate(glm::vec2(-10.f, -10.f));
 
-    //overlay->add(but);
     overlay->add(lab);
 
 //############Setting up Playingfield etc.
@@ -77,7 +76,7 @@ int startUp() {
     engine->p->use();
 
     // TODO: make the Menu Loop work :(
-    menuLoop->run(engine);
+    //menuLoop->run(engine);
 
     for (int i = 0; i < 2; ++i) {
         game->produceUnit("Infanterie", 0, false);
