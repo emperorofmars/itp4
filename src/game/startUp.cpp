@@ -53,17 +53,10 @@ int startUp() {
     //###############################################  create overlay
     std::shared_ptr <mgf::Overlay> overlay(new mgf::Overlay());
 
-//    std::shared_ptr<mgf::Button> but(new mgf::Button("but"));
-//    but->setColor(glm::vec3(1.f, 0.5f, 0.5f));
-//    but->setFont("res/fonts/main.ttf");
-//    but->setText("blah");
-//    but->setBackground("res/images/Button.png");
-
     std::shared_ptr <mgf::Label> lab(new mgf::Label("mouse"));
     lab->setBackground("res/images/Mouse.png");
     lab->translate(glm::vec2(-10.f, -10.f));
 
-    //overlay->add(but);
     overlay->add(lab);
 
 
