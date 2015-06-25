@@ -35,7 +35,7 @@ public:
 
     void setPointer();
 
-    std::shared_ptr <mgf::IOverlayElement> getOverlayOnPos();
+    std::shared_ptr<mgf::IOverlayElement> getOverlayOnPos();
 
     void createField();
 

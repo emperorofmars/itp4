@@ -77,7 +77,7 @@ int startUp() {
     engine->p->use();
 
     // TODO: make the Menu Loop work :(
-    menuLoop->run(engine);
+    //menuLoop->run(engine);
 
     for (int i = 0; i < 2; ++i) {
         game->produceUnit("Infanterie", 0, false);

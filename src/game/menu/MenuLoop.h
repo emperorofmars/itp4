@@ -12,11 +12,35 @@
 class MenuLoop {
 public:
     MenuLoop();
-    int run(std::shared_ptr <EngineHelper> engine);
+    int run();
+    void init();
 
-    std::deque <int> input;
 private:
     std::shared_ptr <Context> mStateContext;
+
+    void processLeftClick();
+    void createOverlay();
+
+    void cleanUp();
+
+    bool quit;
+    //Graphix stuff
+
+    std::shared_ptr <mgf::Window> w;
+    std::shared_ptr <mgf::IInput> input;
+    std::shared_ptr <mgf::ShaderProgram> p;
+    std::shared_ptr <mgf::ICamera> cam;
+    std::shared_ptr <mgf::Renderer> renderer;
+    mgf::Loader l;
+
+    std::shared_ptr <mgf::Node> root;
+    std::shared_ptr <mgf::Node> actualScene;
+    std::shared_ptr <mgf::Overlay> overlay;
+    std::shared_ptr <mgf::Label> pointer;
+
+    std::shared_ptr <mgf::IOverlayElement> getOverlayOnPos();
+    void setPointer();
+    glm::vec3 getMousePos();
 };
 
 
