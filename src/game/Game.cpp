@@ -14,8 +14,8 @@
 using namespace std;
 
 Game::Game() {
-    mUnitHolder1.reset(new std::vector <std::shared_ptr<Unit>>);
-    mUnitHolder2.reset(new std::vector <std::shared_ptr<Unit>>);
+    mUnitHolder1.reset(new std::vector<std::shared_ptr<Unit>>);
+    mUnitHolder2.reset(new std::vector<std::shared_ptr<Unit>>);
     SELECTED_STATE = false;
     mFieldSize = 24;
     quit = false;
@@ -66,14 +66,14 @@ void Game::generatePlayingField() {
 
     cout << "generating playing field" << endl;
 
-    std::vector < std::vector < shared_ptr < Hexfield > > > field;
+    std::vector<std::vector<shared_ptr<Hexfield> > > field;
     float SCALING = 2;
 
     field.resize(mFieldSize);
 
     for (int i = 0; i < mFieldSize; ++i) {
         for (int j = 0; j < mFieldSize; ++j) {
-            shared_ptr <Hexfield> newField(new Hexfield());
+            shared_ptr<Hexfield> newField(new Hexfield());
 
             newField->mPosition[0] = j * SCALING;
             newField->mPosition[1] = i * SCALING;
@@ -96,7 +96,7 @@ void Game::generatePlayingField() {
 
     for (int i = 0; i < mFieldSize; ++i) {
         for (int j = 0; j < mFieldSize; ++j) {
-            shared_ptr <Hexfield> hexfield = field[i][j];
+            shared_ptr<Hexfield> hexfield = field[i][j];
 
             //link to left
             if (j > 0) {
@@ -219,13 +219,13 @@ void Game::generatePlayingField() {
 
 
     //Sets Position of Magetowers
-    std::shared_ptr <Unit> tower(mUnitManager->getChild("Magierturm")->clone());
+    std::shared_ptr<Unit> tower(mUnitManager->getChild("Magierturm")->clone());
     mPlayers[0]->setBase(tower);
     field[4][4]->setOccupation(tower);
     tower->setCurrentHexfield(field[4][4]);
     tower->setOwner(0);
 
-    std::shared_ptr <Unit> tower2(mUnitManager->getChild("Magierturm")->clone());
+    std::shared_ptr<Unit> tower2(mUnitManager->getChild("Magierturm")->clone());
     mPlayers[1]->setBase(tower2);
     field[19][19]->setOccupation(tower2);
     tower2->setCurrentHexfield(field[19][19]);
@@ -236,12 +236,12 @@ void Game::generatePlayingField() {
 
 }
 
-int Game::setupField(std::shared_ptr < mgf::Node > root, std::shared_ptr < mgf::Node > actualScene,
-                     std::shared_ptr < Hexfield > hexfield) {
+int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node> actualScene,
+                     std::shared_ptr<Hexfield> hexfield) {
 
     //cout << "setting up field nodes" << endl;
 
-    std::shared_ptr <mgf::Node> newNode = root->getChild("Assets.obj")->getChild("Hex")->clone();
+    std::shared_ptr<mgf::Node> newNode = root->getChild("Assets.obj")->getChild("Hex")->clone();
     actualScene->add(newNode);
     newNode->translate(hexfield->mPositionVector);
     hexfield->setEngineObjectRef(newNode);
@@ -251,7 +251,7 @@ int Game::setupField(std::shared_ptr < mgf::Node > root, std::shared_ptr < mgf::
     /**
      * This Loop will recursively call this method in every Hexfield
      */
-    for (std::shared_ptr <Hexfield> field : hexfield->linkedTo) {
+    for (std::shared_ptr<Hexfield> field : hexfield->linkedTo) {
         if (field && !field->mIsRendered) {
             setupField(root, actualScene, field);
         }
@@ -259,9 +259,9 @@ int Game::setupField(std::shared_ptr < mgf::Node > root, std::shared_ptr < mgf::
     }
 
 
-    if (std::shared_ptr < Unit > unit = hexfield->getOccupation()) {
+    if (std::shared_ptr<Unit> unit = hexfield->getOccupation()) {
         if (unit->getName() == "Magierturm") {
-            std::shared_ptr <mgf::Node> unitNode = root->getChild("Assets.obj")->getChild("Tower")->clone();
+            std::shared_ptr<mgf::Node> unitNode = root->getChild("Assets.obj")->getChild("Tower")->clone();
             //std::shared_ptr<mgf::Node> unitNode = root->getChild("scene.obj")->getChild("Cube")->clone();
             unit->setUnitNode(unitNode);
             actualScene->add(unitNode);
@@ -270,7 +270,7 @@ int Game::setupField(std::shared_ptr < mgf::Node > root, std::shared_ptr < mgf::
             //unitNode->scale(glm::vec3(0.6f, 0.6f, 0.6f));
 
         } else if (unit->getName() == "Infanterie") {
-            std::shared_ptr <mgf::Node> unitNode = root->getChild("Assets.obj")->getChild("Infantry")->clone();
+            std::shared_ptr<mgf::Node> unitNode = root->getChild("Assets.obj")->getChild("Infantry")->clone();
             unit->setUnitNode(unitNode);
             actualScene->add(unitNode);
             unitNode->translate(hexfield->mPositionVector);
@@ -302,8 +302,8 @@ void Game::nextTurn() {
     Context::getInstance()->setCurrentState(States::STATE_IDLE);
 
     //resetting units of Current Player
-    std::shared_ptr < std::vector < std::shared_ptr < Unit >> > unitHolder = mPlayers[mCurrentPlayerId]->mUnits;
-    for (std::shared_ptr <Unit> unit : *unitHolder) {
+    std::shared_ptr<std::vector<std::shared_ptr<Unit >>> unitHolder = mPlayers[mCurrentPlayerId]->mUnits;
+    for (std::shared_ptr<Unit> unit : *unitHolder) {
         unit->setRemainingMovement(unit->getMovement());
         unit->setTimesDefended(0);
     }
@@ -311,30 +311,32 @@ void Game::nextTurn() {
 }
 
 void Game::produceUnit(std::string unitName, int playerId, bool useMana) {
-    std::shared_ptr <Unit> newUnit = mUnitManager->getChild(unitName)->clone();
+    std::shared_ptr<Unit> newUnit = mUnitManager->getChild(unitName)->clone();
     if (!newUnit) {
         return;
     }
     newUnit->setOwner(playerId);
 
-    std::shared_ptr <Unit> mageTower = getPlayer(playerId)->getBase();
-    std::shared_ptr <Hexfield> currentField = mageTower->getCurrentHexfield();
+    std::shared_ptr<Unit> mageTower = getPlayer(playerId)->getBase();
+    std::shared_ptr<Hexfield> currentField = mageTower->getCurrentHexfield();
 
-    std::shared_ptr <Hexfield> destinedField = getNextFreeField(currentField);
+    std::shared_ptr<Hexfield> destinedField = getNextFreeField(currentField);
     if (destinedField == NULL) return;
 
     //checks Mana and subtracts
-    if(useMana && !getPlayer(playerId)->useMana(newUnit->getManaCost())){
+    if (useMana && !getPlayer(playerId)->useMana(newUnit->getManaCost())) {
         LOG_F_TRACE(GAME_LOG_PATH, "Not enough Mana ", getPlayer(playerId)->getCurMana());
+        engine->mana->setText(std::to_string(getPlayer(playerId)->getCurMana()));
         return;
-    }else{
+    } else {
+        engine->mana->setText(std::to_string(getPlayer(playerId)->getCurMana()));
         LOG_F_TRACE(GAME_LOG_PATH, "Mana left ", getPlayer(playerId)->getCurMana());
     }
 
     LOG_F_TRACE(GAME_LOG_PATH, "target Player: ", playerId, " base hex found at: ", currentField->mPosition[1], "/",
                 currentField->mPosition[0]);
     LOG_F_TRACE(GAME_LOG_PATH, "Model to Use ", newUnit->getModel());
-    std::shared_ptr <mgf::Node> unitNode = engine->root->getChild("Assets.obj")->getChild(newUnit->getModel())->clone();
+    std::shared_ptr<mgf::Node> unitNode = engine->root->getChild("Assets.obj")->getChild(newUnit->getModel())->clone();
     newUnit->setUnitNode(unitNode);
     newUnit->setCurrentHexfield(destinedField);
     destinedField->setOccupation(newUnit);
@@ -351,8 +353,8 @@ void Game::produceUnit(std::string unitName, int playerId, bool useMana) {
 
 }
 
-std::shared_ptr <Hexfield> Game::getNextFreeField(std::shared_ptr < Hexfield > currentField) {
-    for (std::shared_ptr <Hexfield> hex : currentField->linkedTo) {
+std::shared_ptr<Hexfield> Game::getNextFreeField(std::shared_ptr<Hexfield> currentField) {
+    for (std::shared_ptr<Hexfield> hex : currentField->linkedTo) {
         if (!hex->getIsOccupied()) {
             return hex;
         }
@@ -361,20 +363,20 @@ std::shared_ptr <Hexfield> Game::getNextFreeField(std::shared_ptr < Hexfield > c
     return NULL;
 }
 
-int Game::unitMovementWrapper(std::shared_ptr < Unit > unit,
-                              std::shared_ptr < Hexfield > destination) {
+int Game::unitMovementWrapper(std::shared_ptr<Unit> unit,
+                              std::shared_ptr<Hexfield> destination) {
     LOG_F_TRACE(GAME_LOG_PATH, "Starting unit movement ", unit->getName(), " to ",
                 destination->mPosition[1], "/", destination->mPosition[0]);
 
-    std::shared_ptr <Hexfield> startField = unit->getCurrentHexfield();
+    std::shared_ptr<Hexfield> startField = unit->getCurrentHexfield();
 
 
-    std::shared_ptr <Hexfield> finishedField = unit->moveTo(unit);
+    std::shared_ptr<Hexfield> finishedField = unit->moveTo(unit);
 
     LOG_F_TRACE(GAME_LOG_PATH, "translating unit to endpoint");
     if (finishedField) {
         //LOG_F_TRACE(GAME_LOG_PATH, finishedField->mPositionVector);
-        std::shared_ptr <mgf::Node> node = unit->getUnitNode();
+        std::shared_ptr<mgf::Node> node = unit->getUnitNode();
         finishedField->mPositionVector;
         LOG_F_TRACE(GAME_LOG_PATH, finishedField->mPosition[1], "/", finishedField->mPosition[0]);
 
@@ -407,14 +409,14 @@ int Game::cleanUp() {
 int Game::deleteUnits() {
 
     for (int i = 0; i < mUnitHolder1->size(); ++i) {
-        std::shared_ptr <Unit> currentUnit = mUnitHolder1->at(i);
+        std::shared_ptr<Unit> currentUnit = mUnitHolder1->at(i);
         currentUnit->getCurrentHexfield()->setEmtpy();
         mUnitHolder1->at(i).reset();
         currentUnit.reset();
     }
 
     for (int i = 0; i < mUnitHolder2->size(); ++i) {
-        std::shared_ptr <Unit> currentUnit = mUnitHolder2->at(i);
+        std::shared_ptr<Unit> currentUnit = mUnitHolder2->at(i);
         currentUnit->getCurrentHexfield()->setEmtpy();
         mUnitHolder2->at(i).reset();
         currentUnit.reset();
@@ -424,7 +426,7 @@ int Game::deleteUnits() {
     mUnitHolder2.reset();
 }
 
-int Game::eraseField(std::shared_ptr < Hexfield > hex) {
+int Game::eraseField(std::shared_ptr<Hexfield> hex) {
 
 
     for (int i = 0; i < mFieldSize; ++i) {
@@ -438,7 +440,7 @@ int Game::eraseField(std::shared_ptr < Hexfield > hex) {
 
 }
 
-void Game::deleteRow(std::shared_ptr < Hexfield > firstField) {
+void Game::deleteRow(std::shared_ptr<Hexfield> firstField) {
     if (firstField->linkedTo[2] != NULL) {
         deleteRow(firstField->linkedTo[2]);
         deleteAllLinks(firstField->linkedTo[2]);
@@ -446,7 +448,7 @@ void Game::deleteRow(std::shared_ptr < Hexfield > firstField) {
 }
 
 
-void Game::deleteAllLinks(std::shared_ptr < Hexfield > hex) {
+void Game::deleteAllLinks(std::shared_ptr<Hexfield> hex) {
     for (int i = 0; i < 6; ++i) {
         hex->linkedTo[i].reset();
     }
@@ -461,8 +463,8 @@ void Game::writeStatsToDb() {
  * Setter & Getter
  */
 
-shared_ptr <Player> Game::getPlayer(int i) {
-    shared_ptr <Player> player;
+shared_ptr<Player> Game::getPlayer(int i) {
+    shared_ptr<Player> player;
 
     switch (i) {
         case 0:
@@ -478,46 +480,43 @@ shared_ptr <Player> Game::getPlayer(int i) {
     return player;
 }
 
-std::shared_ptr <Hexfield> Game::getHexAt(std::shared_ptr < Hexfield > current, float
-x,
-float y
-) {
-float minDist;
-float curDist;
-std::shared_ptr <Hexfield> nearest(current);
+std::shared_ptr<Hexfield> Game::getHexAt(std::shared_ptr<Hexfield> current, float x, float y) {
+    float minDist;
+    float curDist;
+    std::shared_ptr<Hexfield> nearest(current);
 
 //LOG_F_TRACE(GAME_LOG_PATH, "in field: ", current->mPosition[1], "/", current->mPosition[0]);
 
-minDist = abs(x - current->mPosition[1])
-          + abs(y - current->mPosition[0]);
+    minDist = abs(x - current->mPosition[1])
+              + abs(y - current->mPosition[0]);
 
-for(
-std::shared_ptr <Hexfield> neighbor :
-current->linkedTo){
-if(neighbor == NULL) continue;
+    for (
+        std::shared_ptr<Hexfield> neighbor :
+            current->linkedTo) {
+        if (neighbor == NULL) continue;
 
-curDist = abs(x - neighbor->mPosition[1]) + abs(y - neighbor->mPosition[0]);
-if(curDist<minDist){
-minDist = curDist;
-nearest = neighbor;
+        curDist = abs(x - neighbor->mPosition[1]) + abs(y - neighbor->mPosition[0]);
+        if (curDist < minDist) {
+            minDist = curDist;
+            nearest = neighbor;
+        }
+
+    }
+
+    if (nearest == current) {
+        LOG_F_TRACE(GAME_LOG_PATH, "Found nearest at ", current->mPosition[1], "/", current->mPosition[0]);
+        return
+                current;
+    } else {
+        nearest = getHexAt(nearest, x, y);
+    }
+
+    return
+            nearest;
 }
 
-}
 
-if(nearest == current){
-LOG_F_TRACE(GAME_LOG_PATH, "Found nearest at ", current->mPosition[1], "/", current->mPosition[0]);
-return
-current;
-}else{
-nearest = getHexAt(nearest, x, y);
-}
-
-return
-nearest;
-}
-
-
-shared_ptr <Hexfield> Game::getFirstField() {
+shared_ptr<Hexfield> Game::getFirstField() {
     return mFirstField;
 }
 
@@ -530,14 +529,14 @@ void Game::setSelectedState(bool selectedState) {
     SELECTED_STATE = selectedState;
 }
 
-std::shared_ptr <Unit> Game::getSelectedUnit() {
+std::shared_ptr<Unit> Game::getSelectedUnit() {
     return mSelectedUnit;
 }
 
-void Game::selectUnit(shared_ptr < Unit > ptr) {
+void Game::selectUnit(shared_ptr<Unit> ptr) {
     mSelectedUnit = ptr;
 
-    std::shared_ptr <mgf::Material> newmat(new mgf::Material);
+    std::shared_ptr<mgf::Material> newmat(new mgf::Material);
     newmat->mDiffuseColor = glm::vec4(1.f, 1.f, 1.f, 1.f);
     getSelectedUnit()->getUnitNode()->setMaterial(newmat);
     //actualScene->getChild("Cube")->resetMaterial();                                                                                                                                                                                                                         
@@ -550,11 +549,11 @@ int Game::getCurrentPlayerId() {
     return mCurrentPlayerId;
 }
 
-void Game::setEngine(std::shared_ptr < EngineHelper > engine) {
+void Game::setEngine(std::shared_ptr<EngineHelper> engine) {
     this->engine = engine;
 }
 
-std::shared_ptr <Hexfield> Game::getHexAtMousePos() {
+std::shared_ptr<Hexfield> Game::getHexAtMousePos() {
     glm::vec3 pos = engine->getMousePos();
     return getHexAt(getFirstField(), pos[2], pos[0]);
 }
@@ -565,7 +564,7 @@ void Game::deselectUnit() {
     SELECTED_STATE = false;
 }
 
-std::shared_ptr <mgf::IOverlayElement> Game::getOverlayInteraction() {
+std::shared_ptr<mgf::IOverlayElement> Game::getOverlayInteraction() {
     return engine->getOverlayOnPos();
 }
 
@@ -577,15 +576,8 @@ bool Game::getQuit() {
     return quit;
 }
 
-// TODO: implement function to show menu
-void Game::showMenu() {
-    if (quit == true) {
-        std::cout << "Menu shows up now!" << std::endl;
-    }
-}
-
 void Game::generateEnvironment() {
-    std::shared_ptr <ChanceSimulator> randomGenerator = ChanceSimulator::getInstance();
+    std::shared_ptr<ChanceSimulator> randomGenerator = ChanceSimulator::getInstance();
 
     for (int i = 0; i < 400; ++i) {
         float x = randomGenerator->getRandomCoord();
@@ -599,7 +591,7 @@ void Game::generateEnvironment() {
 
         scalingVector = randomGenerator->getRandomFloat(0.5f, 1.5f);
 
-        std::shared_ptr <mgf::Node> tree = engine->root->getChild("Assets.obj")->getChild("Tree")->clone();
+        std::shared_ptr<mgf::Node> tree = engine->root->getChild("Assets.obj")->getChild("Tree")->clone();
         tree->scale(glm::vec3(scalingVector, scalingVector, scalingVector));
         tree->translate(glm::vec3(x, 0.f, y));
         tree->add(engine->root->getChild("Assets.obj")->getChild("defaultobject")->clone());
@@ -607,5 +599,10 @@ void Game::generateEnvironment() {
         engine->actualScene->add(tree);
 
     }
+}
 
+void Game::setStatusBar() {
+    if (getSelectedUnit()->getCurHp()) {
+        engine->health->setText(std::to_string(getSelectedUnit()->getCurHp()));
+    }
 }

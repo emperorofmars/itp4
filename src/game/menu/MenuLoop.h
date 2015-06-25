@@ -25,7 +25,6 @@ private:
 
     bool quit;
     //Graphix stuff
-
     std::shared_ptr <mgf::Window> w;
     std::shared_ptr <mgf::IInput> input;
     std::shared_ptr <mgf::ShaderProgram> p;

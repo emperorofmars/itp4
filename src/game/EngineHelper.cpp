@@ -12,6 +12,7 @@
 #include "src/collision/RayPlane.h"
 #include "EngineHelper.h"
 #include "gameElements/Hexfield.h"
+#include "gameLoop/GameLoop.h"
 
 EngineHelper::EngineHelper() {
     w.reset(new mgf::Window("Clash of Mages", 1000, 800, 0, 0));
@@ -61,11 +62,6 @@ EngineHelper::EngineHelper() {
     createArtillery->setBackground("res/images/elemente/artillery.png");
     createArtillery->translate(glm::vec2(0.15f, 0.65f));
 
-//TODO: Menu Button ?!
-//    std::shared_ptr <mgf::Button> menuBtn(new mgf::Button("menuBtn"));
-//    menuBtn->setBackground("res/images/elemente/menu.png");
-//    menuBtn->translate(glm::vec2(-0.05f, -0.05f));
-
     /**
      * Create game status Labels:
      */
@@ -73,12 +69,19 @@ EngineHelper::EngineHelper() {
     statusHealth->setBackground("res/images/elemente/health.png");
     statusHealth->translate(glm::vec2(-0.05f, -0.05f));
 
-    std::shared_ptr <mgf::Label> actualHealth(new mgf::Label("actualHealth"));
-    actualHealth->setFont("res/fonts/main.ttf");
-    actualHealth->setText("100");
-    actualHealth->setTextSize(5.0f);
-    actualHealth->setBackground("");
-    actualHealth->translate(glm::vec2(0.07f, -0.05f));
+    health.reset(new mgf::Label("health"));
+    health->setFont("res/fonts/main.ttf");
+    health->translate(glm::vec2(0.07f, -0.05f));
+
+
+    // Mana
+//    std::shared_ptr <mgf::Label> statusMana(new mgf::Label("statusMana"));
+//    statusMana->setBackground("res/images/elemente/mana.png");
+//    statusMana->translate(glm::vec2(0.09, -0.05f));
+
+    mana.reset(new mgf::Label("mana"));
+    mana->setFont("res/fonts/main.ttf");
+    mana->translate(glm::vec2(0.3f, -0.05f));
 
     /**
      * Set mouse pointer
@@ -96,9 +99,10 @@ EngineHelper::EngineHelper() {
     overlay->add(quitBtn);
     overlay->add(endTurnBtn);
     overlay->add(statusHealth);
-    overlay->add(actualHealth);
+    overlay->add(health);
+//    overlay->add(statusMana);
+    overlay->add(mana);
     overlay->add(pointer);
-    //    overlay->add(menuBtn);
 
 //#### Setting up Sunlight
     std::shared_ptr<mgf::Node> light(new mgf::LightNode("sun"));

@@ -42,7 +42,6 @@ int GameLoop::run(std::shared_ptr < EngineHelper > engine) {
         engine->cam->update(engine->input->getPosition(), engine->input->getMouseRelative());
         //}
 
-
 //###############################################  Pointer
         engine->setPointer();
 
@@ -79,7 +78,6 @@ int GameLoop::run(std::shared_ptr < EngineHelper > engine) {
             mStateContext->handle(eventsQueue.front());
             eventsQueue.pop();
         }
-
 
 //###############################################  Rendering
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

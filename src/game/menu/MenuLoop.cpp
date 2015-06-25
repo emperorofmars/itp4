@@ -23,17 +23,13 @@ int MenuLoop::run() {
     quit = false;
     float current = 0, last = 0, frametime = 0;
 
-
-
-
     bool mouseMidDown = false;
     bool mouseLeftDown = false;
     bool mouseRightDown = false;
 
 
     while (!quit) {
-        std::cout << "MenuLoop running." << std::endl;
-
+//        std::cout << "MenuLoop running." << std::endl;
 
         input->update();
         quit = (input->getQuit());
@@ -104,15 +100,15 @@ int MenuLoop::run() {
     return 0;
 }
 
-void MenuLoop::processLeftClick(){
+void MenuLoop::processLeftClick() {
     //TODO check overlay etc
 
     std::shared_ptr<mgf::IOverlayElement> elm = getOverlayOnPos();
-    if(elm){
+    if (elm) {
         //TODO process element
-        if(elm->getName() == "startBtn"){
+        if (elm->getName() == "startBtn") {
             startUp();
-        }else if(elm->getName() == "quitBtn"){
+        } else if (elm->getName() == "quitBtn") {
             quit = true;
         }
 
@@ -136,14 +132,12 @@ void MenuLoop::init() {
     root.reset(new mgf::Node("root"));
     actualScene.reset(new mgf::Node("scene"));
 
-
     root->add(l.load("res/models/assets/alt/Assets.obj"));
 
     root->print();
 
     createOverlay();
 }
-
 
 
 void MenuLoop::createOverlay() {
@@ -153,26 +147,21 @@ void MenuLoop::createOverlay() {
     /**
      * Create buttons
      */
-    //TODO Adapt buttons
-
-    std::shared_ptr <mgf::Button> startBtn(new mgf::Button("startBtn"));
+    std::shared_ptr<mgf::Button> startBtn(new mgf::Button("startBtn"));
     startBtn->setBackground("res/images/elemente/play.png");
     startBtn->translate(glm::vec2(0.4f, 0.1f));
 
-    std::shared_ptr <mgf::Button> settingsBtn(new mgf::Button("settingsBtn"));
+    std::shared_ptr<mgf::Button> settingsBtn(new mgf::Button("settingsBtn"));
     settingsBtn->setBackground("res/images/elemente/settings.png");
     settingsBtn->translate(glm::vec2(0.4f, 0.2f));
 
-    std::shared_ptr <mgf::Button> quitBtn(new mgf::Button("quitBtn"));
+    std::shared_ptr<mgf::Button> quitBtn(new mgf::Button("quitBtn"));
     quitBtn->setBackground("res/images/elemente/quit.png");
     quitBtn->translate(glm::vec2(0.4f, 0.3f));
 
-
-
-
     /**
- * Set mouse pointer
- */
+     * Set mouse pointer
+     */
     pointer.reset(new mgf::Label("mouse"));
     pointer->setBackground("res/images/Mouse.png");
     pointer->translate(glm::vec2(-10.f, -10.f));
@@ -192,7 +181,6 @@ void MenuLoop::cleanUp() {
 }
 
 
-
 glm::vec3 MenuLoop::getMousePos() {
     glm::vec3 mray = mgf::calculateMouseRay(cam->getP(), cam->getV(), input->getMouseAbsolute(), glm::vec2(1000, 800));
     glm::vec3 mpoint = mgf::colLinePlane(cam->getPos(), mray, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
@@ -207,8 +195,8 @@ void MenuLoop::setPointer() {
 }
 
 
-std::shared_ptr <mgf::IOverlayElement> MenuLoop::getOverlayOnPos() {
-    std::shared_ptr <mgf::IOverlayElement> elm = overlay->getMouseOverNDC
+std::shared_ptr<mgf::IOverlayElement> MenuLoop::getOverlayOnPos() {
+    std::shared_ptr<mgf::IOverlayElement> elm = overlay->getMouseOverNDC
             (input->getMouseAbsoluteNDC(w->getResolution()), w->getAspectRatio());
     return elm;
 }
