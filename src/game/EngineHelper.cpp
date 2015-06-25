@@ -75,13 +75,13 @@ EngineHelper::EngineHelper() {
 
 
     // Mana
-//    std::shared_ptr <mgf::Label> statusMana(new mgf::Label("statusMana"));
-//    statusMana->setBackground("res/images/elemente/mana.png");
-//    statusMana->translate(glm::vec2(0.09, -0.05f));
+    std::shared_ptr <mgf::Label> statusMana(new mgf::Label("statusMana"));
+    statusMana->setBackground("res/images/elemente/mana.png");
+    statusMana->translate(glm::vec2(0.3, -0.05f));
 
     mana.reset(new mgf::Label("mana"));
     mana->setFont("res/fonts/main.ttf");
-    mana->translate(glm::vec2(0.3f, -0.05f));
+    mana->translate(glm::vec2(0.4f, -0.05f));
 
     /**
      * Set mouse pointer
@@ -100,7 +100,7 @@ EngineHelper::EngineHelper() {
     overlay->add(endTurnBtn);
     overlay->add(statusHealth);
     overlay->add(health);
-//    overlay->add(statusMana);
+    overlay->add(statusMana);
     overlay->add(mana);
     overlay->add(pointer);
 
