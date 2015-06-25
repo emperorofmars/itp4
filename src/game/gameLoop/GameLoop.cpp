@@ -33,8 +33,7 @@ int GameLoop::run(std::shared_ptr < EngineHelper > engine) {
 
     std::queue <InputEvent> eventsQueue;
 
-
-    while (quit != true) {
+    while (!quit) {
 //###############################################  Update
         engine->input->update();
         quit = (engine->input->getQuit() || mGame->getQuit());

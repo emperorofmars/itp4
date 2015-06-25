@@ -28,7 +28,7 @@ void Positionable::rotate(float angle, glm::vec3 data){
 
 void Positionable::scale(glm::vec3 data){
 	mScale *= data;
-	mTRS *= glm::scale(glm::mat4(1), mScale);
+	mTRS *= glm::scale(glm::mat4(1), data);
 }
 
 void Positionable::setTranslation(glm::vec3 data){

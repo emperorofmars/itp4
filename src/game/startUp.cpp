@@ -13,6 +13,8 @@
 #include "gameLoop/GameLoop.h"
 #include "../tbs.h"
 #include "util/ChanceSimulator.h"
+#include "menu/Menu.h"
+#include "menu/MenuLoop.h"
 
 using namespace std;
 
@@ -23,18 +25,23 @@ int startUp() {
 
     LOG_F_TRACE(GAME_LOG_PATH, "Starting up ... ");
 
+//    cout << "Creating Menu" << endl;
+    std::shared_ptr <Menu> menu(new Menu());
+    menu->create();
 
-    cout << "creating new Game" << endl;
+    cout << "Creating Menu Loop element" << endl;
+    std::shared_ptr <MenuLoop> menuLoop(new MenuLoop());
+
+    cout << "Creating new Game" << endl;
     std::shared_ptr <Game> game(new Game());
-
 
     game->initGame();
 
-    cout << "first player: " << game->getPlayer(0)->getName() << endl;
-    cout << "second player: " << game->getPlayer(1)->getName() << endl;
+    cout << "First player: " << game->getPlayer(0)->getName() << endl;
+    cout << "Second player: " << game->getPlayer(1)->getName() << endl;
 
 
-    cout << "creating Game Loop element" << endl;
+    cout << "Creating Game Loop element" << endl;
     std::shared_ptr <GameLoop> loop(new GameLoop(game));
 
     //Setting up engine
@@ -47,7 +54,6 @@ int startUp() {
     groundNode->scale(glm::vec3(1.5f, 1.f, 1.5f));
     engine->actualScene->add(groundNode);
 
-
 //#########################Setting up Overlay
 
     //###############################################  create overlay
@@ -59,20 +65,19 @@ int startUp() {
 
     overlay->add(lab);
 
-
-
 //############Setting up Playingfield etc.
 
     game->setEngine(engine);
     game->setupField(engine->root, engine->actualScene, game->getFirstField());
     game->generateEnvironment();
 
-
     engine->actualScene->print();
-
 
     engine->w->use();
     engine->p->use();
+
+    // TODO: make the Menu Loop work :(
+    menuLoop->run(engine);
 
     for (int i = 0; i < 2; ++i) {
         game->produceUnit("Infanterie", 0, false);

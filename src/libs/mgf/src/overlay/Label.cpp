@@ -42,7 +42,7 @@ bool Label::setText(const std::string &text){
 }
 
 bool Label::setFont(const std::string &font){
-	mFont = TTF_OpenFont(font.c_str(), 24);//(int)mSize);
+	mFont = TTF_OpenFont(font.c_str(), 128);//(int)mSize);
 	if(!mFont){
 		LOG_F_ERROR(MGF_LOG_FILE, "Failed to open Font!");
 		return false;
@@ -91,8 +91,8 @@ std::shared_ptr<Texture> Label::getBackground(){
 	return NULL;
 }
 
-unsigned int Label::nextPow2(unsigned int num){
-	unsigned int pow = 2, next = pow * 2;
+int Label::nextPow2(int num){
+	int pow = 2, next = pow * 2;
 	while((next *= 2) <= num) pow *= 2;
 	return pow * 2;
 }

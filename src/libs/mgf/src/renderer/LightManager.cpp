@@ -79,7 +79,7 @@ std::shared_ptr<Texture> LightManager::getTexture(){
 void LightManager::assembleTexture(){
 	mTexture.reset(new Texture());
 	if(mLights.size() > 0){
-		float lightTexture[mLights.size()][4][4];
+		float lightTexture[mLights.size()][5][4];
 
 		for(unsigned int i = 0; i < mLights.size(); i++){
 			lightTexture[i][0][0] = mLights[i]->mActive;
@@ -101,14 +101,19 @@ void LightManager::assembleTexture(){
 			lightTexture[i][3][1] = mLights[i]->mDirection[1];
 			lightTexture[i][3][2] = mLights[i]->mDirection[2];
 			lightTexture[i][3][3] = 0;
+
+			lightTexture[i][4][0] = mLights[i]->mConeAngle;
+			lightTexture[i][4][1] = 0;
+			lightTexture[i][4][2] = 0;
+			lightTexture[i][4][3] = 0;
 		}
 
 		glActiveTexture(GL_TEXTURE0);
 		glGenTextures(1, &mTexture->mTextureBuffer);
 		glBindTexture(GL_TEXTURE_2D, mTexture->mTextureBuffer);
 
-		glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA32F, 4, mLights.size());
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 4, mLights.size(), GL_RGBA, GL_FLOAT, lightTexture);
+		glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA32F, 5, mLights.size());
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 5, mLights.size(), GL_RGBA, GL_FLOAT, lightTexture);
 	}
 	return;
 }

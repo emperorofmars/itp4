@@ -22,6 +22,8 @@ set(SOURCE_FILES
     src/scene/SimpleLoader.h
     src/scene/OverlayNode.cpp
     src/scene/OverlayNode.h
+    src/scene/LightNode.cpp
+    src/scene/LightNode.h
     src/renderer/LightManager.cpp
     src/renderer/LightManager.h
     src/overlay/Button.cpp

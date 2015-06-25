@@ -40,6 +40,11 @@ public:
 	virtual void setMaterial(std::shared_ptr<Material> material);
 	virtual void resetMaterial();
 
+	virtual bool setLight(std::shared_ptr<Light> data);
+	virtual std::shared_ptr<Light> getLight();
+	virtual void setLight(int type, float strenghtDiffuse, float strenghtSpecular, glm::vec3 color,
+						glm::vec3 position, glm::vec3 direction, float coneAngle);
+
 	mgfID_t getID();
 	std::string getName();
 

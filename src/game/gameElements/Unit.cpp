@@ -155,11 +155,11 @@ void Unit::attack(std::shared_ptr < Unit > target) {
 
 void Unit::counterAttack(std::shared_ptr < Unit > attacker) {
     if (timesDefended < 2) {
-        LOG_F_TRACE(GAME_LOG_PATH, "Counter attacking!");
+        LOG_F_TRACE(GAME_LOG_PATH, "Counter attack!");
         attack(attacker);
         timesDefended++;
     } else {
-        LOG_F_TRACE(GAME_LOG_PATH, "Defended to often");
+        LOG_F_TRACE(GAME_LOG_PATH, "Defended to often.");
     }
 
 }
@@ -169,7 +169,7 @@ void Unit::getHit(int dmg) {
     curHP -= dmg;
     if (curHP <= 0) {
         //TODO KILL UNIT
-        LOG_F_TRACE(GAME_LOG_PATH, "unit died");
+        LOG_F_TRACE(GAME_LOG_PATH, "Unit dead.");
         mUnitNode->setVisible(false);
         mCurrentHexfield->setEmtpy();
         mCurrentHexfield.reset();
@@ -316,7 +316,7 @@ void Unit::printStats() {
 Unit::~Unit() {
     mCurrentHexfield.reset();
     mUnitNode.reset();
-    LOG_F_TRACE(GAME_LOG_PATH, "Unit destroyed");
+    LOG_F_TRACE(GAME_LOG_PATH, "Unit destroyed.");
 }
 
 void Unit::setDestination(std::shared_ptr < Hexfield > d) {
