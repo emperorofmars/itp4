@@ -86,7 +86,9 @@ public:
     mUnitHolder2;
 
     void setStatusBar();
-    void showMenu();
+
+    void deselectUnitStatusBar();
+
 private:
     std::shared_ptr <Player> mPlayers[2];
     std::shared_ptr <Player> mWinner;
@@ -109,6 +111,8 @@ private:
     void generatePlayingField();
 
     void writeStatsToDb();
+
+    void cleanStatusBar();
 };
 
 

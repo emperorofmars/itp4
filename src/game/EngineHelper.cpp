@@ -65,6 +65,8 @@ EngineHelper::EngineHelper() {
     /**
      * Create game status Labels:
      */
+
+    // Health
     std::shared_ptr <mgf::Label> statusHealth(new mgf::Label("statusHealth"));
     statusHealth->setBackground("res/images/elemente/health.png");
     statusHealth->translate(glm::vec2(-0.05f, -0.05f));
@@ -72,7 +74,6 @@ EngineHelper::EngineHelper() {
     health.reset(new mgf::Label("health"));
     health->setFont("res/fonts/main.ttf");
     health->translate(glm::vec2(0.07f, -0.05f));
-
 
     // Mana
     std::shared_ptr <mgf::Label> statusMana(new mgf::Label("statusMana"));
@@ -82,6 +83,12 @@ EngineHelper::EngineHelper() {
     mana.reset(new mgf::Label("mana"));
     mana->setFont("res/fonts/main.ttf");
     mana->translate(glm::vec2(0.4f, -0.05f));
+
+    // Player
+    player.reset(new mgf::Label("label"));
+    player->setFont("res/fonts/main.ttf");
+    player->setLayer(0);
+    player->translate(glm::vec2(-0.05f, 0.02));
 
     /**
      * Set mouse pointer
@@ -102,6 +109,7 @@ EngineHelper::EngineHelper() {
     overlay->add(health);
     overlay->add(statusMana);
     overlay->add(mana);
+    overlay->add(player);
     overlay->add(pointer);
 
 //#### Setting up Sunlight

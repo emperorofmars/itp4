@@ -53,12 +53,9 @@ void Game::initGame() {
 
     generatePlayingField();
 
-
     mRounds = 1;
     mCurrentPlayerId = 0;
     mStarted = time(0);
-
-
 }
 
 
@@ -280,7 +277,6 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
 
     }
 
-
 }
 
 
@@ -296,6 +292,9 @@ void Game::nextTurn() {
     engine->cam->setPos(glm::vec3(base[0], engine->cam->getPos()[1], base[2] + 25.f));
 
     LOG_F_TRACE(GAME_LOG_PATH, "current Player id : ", mCurrentPlayerId);
+
+    engine->player->setText(getPlayer(mCurrentPlayerId)->getName());
+
     if (getSelectedState()) {
         deselectUnit();
     }
@@ -402,7 +401,6 @@ int Game::cleanUp() {
     eraseField(mFirstField);
     mFirstField.reset();
     engine.reset();
-
     return 0;
 }
 
@@ -562,6 +560,8 @@ void Game::deselectUnit() {
     getSelectedUnit()->getUnitNode()->resetMaterial();
     mSelectedUnit.reset();
     SELECTED_STATE = false;
+
+    cleanStatusBar();
 }
 
 std::shared_ptr<mgf::IOverlayElement> Game::getOverlayInteraction() {
@@ -598,6 +598,9 @@ void Game::generateEnvironment() {
 
         engine->actualScene->add(tree);
 
+        // TODO: find better place to call this! Makes startup slow :(
+        engine->player->setText(getPlayer(mCurrentPlayerId)->getName());
+
     }
 }
 
@@ -605,4 +608,8 @@ void Game::setStatusBar() {
     if (getSelectedUnit()->getCurHp()) {
         engine->health->setText(std::to_string(getSelectedUnit()->getCurHp()));
     }
+}
+
+void Game::cleanStatusBar() {
+//    engine->health->setText("");
 }
