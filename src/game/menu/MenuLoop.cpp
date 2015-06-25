@@ -12,6 +12,7 @@
 #include "../EngineHelper.h"
 #include "../../tbs.h"
 #include "../startUp.h"
+#include "Menu.h"
 
 MenuLoop::MenuLoop() {
     mStateContext = Context::getInstance();
@@ -156,11 +157,15 @@ void MenuLoop::createOverlay() {
 
     std::shared_ptr <mgf::Button> startBtn(new mgf::Button("startBtn"));
     startBtn->setBackground("res/images/elemente/play.png");
-    startBtn->translate(glm::vec2(0.85f, 0.65f));
+    startBtn->translate(glm::vec2(0.4f, 0.1f));
+
+    std::shared_ptr <mgf::Button> settingsBtn(new mgf::Button("settingsBtn"));
+    settingsBtn->setBackground("res/images/elemente/settings.png");
+    settingsBtn->translate(glm::vec2(0.4f, 0.2f));
 
     std::shared_ptr <mgf::Button> quitBtn(new mgf::Button("quitBtn"));
     quitBtn->setBackground("res/images/elemente/quit.png");
-    quitBtn->translate(glm::vec2(0.85f, -0.05f));
+    quitBtn->translate(glm::vec2(0.4f, 0.3f));
 
 
 
@@ -178,8 +183,7 @@ void MenuLoop::createOverlay() {
 
     overlay->add(quitBtn);
     overlay->add(startBtn);
-    //overlay->add(statusHealth);
-    //overlay->add(actualHealth);
+    overlay->add(settingsBtn);
     overlay->add(pointer);
 }
 
