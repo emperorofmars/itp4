@@ -40,7 +40,6 @@ int startUp() {
     cout << "First player: " << game->getPlayer(0)->getName() << endl;
     cout << "Second player: " << game->getPlayer(1)->getName() << endl;
 
-
     cout << "Creating Game Loop element" << endl;
     std::shared_ptr <GameLoop> loop(new GameLoop(game));
 
