@@ -293,8 +293,7 @@ void Game::nextTurn() {
 
     LOG_F_TRACE(GAME_LOG_PATH, "current Player id : ", mCurrentPlayerId);
 
-    engine->player->setText(getPlayer(mCurrentPlayerId)->getName());
-    engine->mana->setText(std::to_string(getPlayer(mCurrentPlayerId)->getCurMana()));
+    setPlayerStatus();
 
     if (getSelectedState()) {
         deselectUnit();
@@ -326,10 +325,12 @@ void Game::produceUnit(std::string unitName, int playerId, bool useMana) {
     //checks Mana and subtracts
     if (useMana && !getPlayer(playerId)->useMana(newUnit->getManaCost())) {
         LOG_F_TRACE(GAME_LOG_PATH, "Not enough Mana ", getPlayer(playerId)->getCurMana());
-        engine->mana->setText(std::to_string(getPlayer(playerId)->getCurMana()));
+        setPlayerStatus();
+//        engine->mana->setText(std::to_string(getPlayer(playerId)->getCurMana()));
         return;
     } else {
-        engine->mana->setText(std::to_string(getPlayer(playerId)->getCurMana()));
+        setPlayerStatus();
+//        engine->mana->setText(std::to_string(getPlayer(playerId)->getCurMana()));
         LOG_F_TRACE(GAME_LOG_PATH, "Mana left ", getPlayer(playerId)->getCurMana());
     }
 
@@ -605,14 +606,43 @@ void Game::generateEnvironment() {
     }
 }
 
+/**
+ * Sets health in the status bar according to selected unit
+ */
 void Game::setStatusBar() {
-    if (getSelectedUnit()->getCurHp() != NULL) {
+    if (engine->health != NULL) {
         engine->health->setText(std::to_string(getSelectedUnit()->getCurHp()));
     }
 }
+
+/**
+ *  Clears health in status bar
+ */
 
 void Game::cleanStatusBar() {
     if (engine->health != NULL) {
         engine->health->setText("");
     }
+}
+
+/**
+ * Sets Player name and current Mana in the status bar
+ */
+void Game::setPlayerStatus() {
+    engine->player->setText(getPlayer(mCurrentPlayerId)->getName());
+    engine->mana->setText(std::to_string(getPlayer(mCurrentPlayerId)->getCurMana()));
+}
+
+/**
+ * Cleans player status
+ */
+void Game::cleanPlayerStatus() {
+    engine->player->setText("");
+    engine->mana->setText("");
+}
+
+void Game::resetStatusBar() {
+    engine->player.reset();
+    engine->mana.reset();
+    engine->health.reset();
 }

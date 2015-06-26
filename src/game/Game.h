@@ -113,6 +113,12 @@ private:
     void writeStatsToDb();
 
     void cleanStatusBar();
+
+    void setPlayerStatus();
+
+    void cleanPlayerStatus();
+
+    void resetStatusBar();
 };
 
 
