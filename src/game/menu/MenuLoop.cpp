@@ -19,7 +19,7 @@ MenuLoop::MenuLoop() {
 }
 
 
-int MenuLoop::run() {
+int MenuLoop::run(std::shared_ptr < EngineHelper > engine) {
     quit = false;
     float current = 0, last = 0, frametime = 0;
 
@@ -51,28 +51,10 @@ int MenuLoop::run() {
             mouseRightDown = true;
         }
 
-//        if (mouseMidDown && !middleClick) {
-//            eventsQueue.push(InputEvent::EVENT_MIDDLECLICK);
-//            mouseMidDown = false;
-//        } else
         if (mouseLeftDown && !leftClick) {
             processLeftClick();
-            //eventsQueue.push(InputEvent::EVENT_LEFTCLICK);
             mouseLeftDown = false;
         }
-//        else if (mouseRightDown && !rightClick) {
-//            eventsQueue.push(InputEvent::EVENT_RIGHTCLICK);
-//            mouseRightDown = false;
-//        } else {
-//            eventsQueue.push(InputEvent::EVENT_NOEVENT);
-//        }
-
-//        if (!eventsQueue.empty()) {
-//            //LOG_F_TRACE(GAME_LOG_PATH, "Event processing");
-//            mStateContext->handle(eventsQueue.front());
-//            eventsQueue.pop();
-//        }
-//
 
 //###############################################  Rendering
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -93,7 +75,7 @@ int MenuLoop::run() {
 //###############################################  Gameloop end
 
     LOG_F_TRACE(GAME_LOG_PATH, "starting clean up!");
-    cleanUp();
+//    cleanUp();
 
     LOG_F_TRACE(GAME_LOG_PATH, "cleanup complete, exiting");
 
@@ -115,68 +97,32 @@ void MenuLoop::processLeftClick() {
     }
 }
 
-void MenuLoop::init() {
-    w.reset(new mgf::Window("Clash of Mages - Menu", 1000, 800, 0, 0));
-    input.reset(new mgf::InputTopDown);
-
-    p.reset(new mgf::ShaderProgram);
-    p->addShader("res/shader/vertex_shader.glsl", GL_VERTEX_SHADER);
-    p->addShader("res/shader/fragment_shader.glsl", GL_FRAGMENT_SHADER);
-    p->createProgram();
-
-    cam.reset(new mgf::CameraTopDown(40, w->getAspectRatio(), 1000.f, 0.1f));
-    cam->setPos(glm::vec3(25.f, 40.f, 35.f));
-
-    renderer.reset(new mgf::Renderer(w, cam, p));
-
-    root.reset(new mgf::Node("root"));
-    actualScene.reset(new mgf::Node("scene"));
-
-    root->add(l.load("res/models/assets/alt/Assets.obj"));
-
-    root->print();
-
-    createOverlay();
-}
+//void MenuLoop::init() {
+//    w.reset(new mgf::Window("Clash of Mages - Menu", 1000, 800, 0, 0));
+//    input.reset(new mgf::InputTopDown);
+//
+//    p.reset(new mgf::ShaderProgram);
+//    p->addShader("res/shader/vertex_shader.glsl", GL_VERTEX_SHADER);
+//    p->addShader("res/shader/fragment_shader.glsl", GL_FRAGMENT_SHADER);
+//    p->createProgram();
+//
+//    cam.reset(new mgf::CameraTopDown(40, w->getAspectRatio(), 1000.f, 0.1f));
+//    cam->setPos(glm::vec3(25.f, 40.f, 35.f));
+//
+//    renderer.reset(new mgf::Renderer(w, cam, p));
+//
+//    root.reset(new mgf::Node("root"));
+//    actualScene.reset(new mgf::Node("scene"));
+//
+//    root->add(l.load("res/models/assets/alt/Assets.obj"));
+//
+//    root->print();
+//
+//    createOverlay();
+//}
 
 
 void MenuLoop::createOverlay() {
-//#### Overlay
-    overlay.reset(new mgf::Overlay());
-
-    /**
-     * Create buttons
-     */
-    std::shared_ptr<mgf::Button> startBtn(new mgf::Button("startBtn"));
-    startBtn->setBackground("res/images/elemente/play.png");
-    startBtn->translate(glm::vec2(0.4f, 0.1f));
-
-    std::shared_ptr<mgf::Button> settingsBtn(new mgf::Button("settingsBtn"));
-    settingsBtn->setBackground("res/images/elemente/settings.png");
-    settingsBtn->translate(glm::vec2(0.4f, 0.2f));
-
-    std::shared_ptr<mgf::Button> quitBtn(new mgf::Button("quitBtn"));
-    quitBtn->setBackground("res/images/elemente/quit.png");
-    quitBtn->translate(glm::vec2(0.4f, 0.3f));
-
-    /**
-     * Set mouse pointer
-     */
-    pointer.reset(new mgf::Label("mouse"));
-    pointer->setBackground("res/images/Mouse.png");
-    pointer->translate(glm::vec2(-10.f, -10.f));
-
-    /**
-     * Add elements to Overlay
-     */
-
-    overlay->add(quitBtn);
-    overlay->add(startBtn);
-    overlay->add(settingsBtn);
-    overlay->add(pointer);
-}
-
-void MenuLoop::cleanUp() {
 
 }
 

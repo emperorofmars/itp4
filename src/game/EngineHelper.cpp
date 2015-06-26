@@ -13,6 +13,14 @@
 #include "EngineHelper.h"
 #include "gameElements/Hexfield.h"
 #include "gameLoop/GameLoop.h"
+#include "menu/MenuLoop.h"
+
+/*
+ * TODO: engine helper nehmen
+ * gleiches window, camera etc benutzen
+ * dann eine initGame und initMenu func machen
+ * und eine destroy von beidem
+ */
 
 EngineHelper::EngineHelper() {
     w.reset(new mgf::Window("Clash of Mages", 1000, 800, 0, 0));
@@ -35,8 +43,49 @@ EngineHelper::EngineHelper() {
     root->add(l.load("res/models/assets/alt/Assets.obj"));
 
     root->print();
+}
 
-//#### Overlay
+void EngineHelper::initMenu() {
+    //#### Overlay
+    overlay.reset(new mgf::Overlay());
+
+    /**
+     * Create buttons
+     */
+    std::shared_ptr<mgf::Button> startBtn(new mgf::Button("startBtn"));
+    startBtn->setBackground("res/images/elemente/play.png");
+    startBtn->translate(glm::vec2(0.4f, 0.1f));
+
+    std::shared_ptr<mgf::Button> settingsBtn(new mgf::Button("settingsBtn"));
+    settingsBtn->setBackground("res/images/elemente/settings.png");
+    settingsBtn->translate(glm::vec2(0.4f, 0.2f));
+
+    std::shared_ptr<mgf::Button> quitBtn(new mgf::Button("quitBtn"));
+    quitBtn->setBackground("res/images/elemente/quit.png");
+    quitBtn->translate(glm::vec2(0.4f, 0.3f));
+
+    /**
+     * Set mouse pointer
+     */
+    pointer.reset(new mgf::Label("mouse"));
+    pointer->setBackground("res/images/Mouse.png");
+    pointer->translate(glm::vec2(-10.f, -10.f));
+
+    /**
+     * Add elements to Overlay
+     */
+
+    overlay->add(quitBtn);
+    overlay->add(startBtn);
+    overlay->add(settingsBtn);
+    overlay->add(pointer);
+
+    MenuLoop menu;
+
+}
+
+void EngineHelper::initGame() {
+    //#### Overlay
     overlay.reset(new mgf::Overlay());
 
     /**
@@ -118,6 +167,14 @@ EngineHelper::EngineHelper() {
     actualScene->add(light);
 }
 
+void EngineHelper::destroyMenu() {
+
+}
+
+void EngineHelper::destroyGame() {
+
+}
+
 glm::vec3 EngineHelper::getMousePos() {
     glm::vec3 mray = mgf::calculateMouseRay(cam->getP(), cam->getV(), input->getMouseAbsolute(), glm::vec2(1000, 800));
     glm::vec3 mpoint = mgf::colLinePlane(cam->getPos(), mray, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
@@ -137,6 +194,9 @@ std::shared_ptr <mgf::IOverlayElement> EngineHelper::getOverlayOnPos() {
             (input->getMouseAbsoluteNDC(w->getResolution()), w->getAspectRatio());
     return elm;
 }
+
+
+
 
 void EngineHelper::createField() {}
 void EngineHelper::clearField(){}

@@ -48,6 +48,13 @@ public:
     void initEngine();
 
 
+    void initMenu();
+
+    void initGame();
+
+    void destroyMenu();
+
+    void destroyGame();
 };
 
 

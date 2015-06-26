@@ -82,7 +82,10 @@ int startUp() {
 
 //#######Start Game
 
-    loop->run(engine);
+    MenuLoop menu;
+
+    menu.run(engine);
+//    loop->run(engine);
 
 
     return 0;

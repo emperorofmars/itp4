@@ -12,7 +12,7 @@
 class MenuLoop {
 public:
     MenuLoop();
-    int run();
+    int run(std::shared_ptr < EngineHelper > engine);
     void init();
 
 private:
