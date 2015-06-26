@@ -56,7 +56,6 @@ void Context::setCurrentState(States s) {
             break;
     }
     LOG_F_TRACE(GAME_LOG_PATH, mCurrentState->getName());
-
 }
 
 std::shared_ptr <State> Context::getCurrentState() {
@@ -64,7 +63,6 @@ std::shared_ptr <State> Context::getCurrentState() {
 }
 
 void Context::injectGameReference(std::shared_ptr < Game > game) {
-
     for (std::shared_ptr <State> state : mStates) {
         state->setGame(game);
     }

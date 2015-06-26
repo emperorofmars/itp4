@@ -426,8 +426,6 @@ int Game::deleteUnits() {
 }
 
 int Game::eraseField(std::shared_ptr<Hexfield> hex) {
-
-
     for (int i = 0; i < mFieldSize; ++i) {
         deleteRow(hex);
         if (i % 2 == 0) {
@@ -535,6 +533,8 @@ std::shared_ptr<Unit> Game::getSelectedUnit() {
 void Game::selectUnit(shared_ptr<Unit> ptr) {
     mSelectedUnit = ptr;
 
+    setStatusBar();
+
     std::shared_ptr<mgf::Material> newmat(new mgf::Material);
     newmat->mDiffuseColor = glm::vec4(1.f, 1.f, 1.f, 1.f);
     getSelectedUnit()->getUnitNode()->setMaterial(newmat);
@@ -606,11 +606,13 @@ void Game::generateEnvironment() {
 }
 
 void Game::setStatusBar() {
-    if (getSelectedUnit()->getCurHp()) {
+    if (getSelectedUnit()->getCurHp() != NULL) {
         engine->health->setText(std::to_string(getSelectedUnit()->getCurHp()));
     }
 }
 
 void Game::cleanStatusBar() {
-//    engine->health->setText("");
+    if (engine->health != NULL) {
+        engine->health->setText("");
+    }
 }
