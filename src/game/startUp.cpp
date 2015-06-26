@@ -18,7 +18,6 @@
 
 using namespace std;
 
-
 int startUp() {
 
     LOG_INIT("log/log_tbs.txt", true);
@@ -26,7 +25,7 @@ int startUp() {
     LOG_F_TRACE(GAME_LOG_PATH, "Starting up ... ");
 
     cout << "Creating new Game" << endl;
-    std::shared_ptr <Game> game(new Game());
+    std::shared_ptr<Game> game(new Game());
 
     game->initGame();
 
@@ -34,30 +33,30 @@ int startUp() {
     cout << "Second player: " << game->getPlayer(1)->getName() << endl;
 
     cout << "Creating Game Loop element" << endl;
-    std::shared_ptr <GameLoop> loop(new GameLoop(game));
+    std::shared_ptr<GameLoop> loop(new GameLoop(game));
 
     //Setting up engine
-    std::shared_ptr <EngineHelper> engine(new EngineHelper);
+    std::shared_ptr<EngineHelper> engine(new EngineHelper);
 
 
 //#########################Setting Ground
-    std::shared_ptr <mgf::Node> groundNode = engine->root->getChild("Assets.obj")->getChild("Ground")->clone();
+    std::shared_ptr<mgf::Node> groundNode = engine->root->getChild("Assets.obj")->getChild("Ground")->clone();
     groundNode->translate(glm::vec3(20.0f, 0.f, -7.0f));
     groundNode->scale(glm::vec3(1.5f, 1.f, 1.5f));
     engine->actualScene->add(groundNode);
 
-//#########################Setting up Overlay
+//######################### Setting up Overlay
 
     //###############################################  create overlay
-    std::shared_ptr <mgf::Overlay> overlay(new mgf::Overlay());
+    std::shared_ptr<mgf::Overlay> overlay(new mgf::Overlay());
 
-    std::shared_ptr <mgf::Label> lab(new mgf::Label("mouse"));
+    std::shared_ptr<mgf::Label> lab(new mgf::Label("mouse"));
     lab->setBackground("res/images/Mouse.png");
     lab->translate(glm::vec2(-10.f, -10.f));
 
     overlay->add(lab);
 
-//############Setting up Playingfield etc.
+//############ Setting up Playingfield etc.
 
     game->setEngine(engine);
     game->setupField(engine->root, engine->actualScene, game->getFirstField());
@@ -67,9 +66,6 @@ int startUp() {
 
     engine->w->use();
     engine->p->use();
-
-    // TODO: make the Menu Loop work :(
-    //menuLoop->run(engine);
 
     for (int i = 0; i < 2; ++i) {
         game->produceUnit("Infanterie", 0, false);
@@ -82,10 +78,10 @@ int startUp() {
 
 //#######Start Game
 
-    MenuLoop menu;
+//    MenuLoop menu;
+//    menu.run(engine);
 
-    menu.run(engine);
-//    loop->run(engine);
+    loop->run(engine);
 
 
     return 0;

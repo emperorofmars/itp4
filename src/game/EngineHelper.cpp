@@ -11,18 +11,17 @@
 #include "src/collision/MouseRay.h"
 #include "src/collision/RayPlane.h"
 #include "EngineHelper.h"
-#include "gameElements/Hexfield.h"
-#include "gameLoop/GameLoop.h"
-#include "menu/MenuLoop.h"
 
 /*
  * TODO: engine helper nehmen
  * gleiches window, camera etc benutzen
- * dann eine initGame und initMenu func machen
+ * dann eine createGameOverlay und createMenuOverlay func machen
  * und eine destroy von beidem
  */
 
 EngineHelper::EngineHelper() {
+    printStatus(1, "EngineHelper object");
+
     w.reset(new mgf::Window("Clash of Mages", 1000, 800, 0, 0));
     input.reset(new mgf::InputTopDown);
 
@@ -43,9 +42,15 @@ EngineHelper::EngineHelper() {
     root->add(l.load("res/models/assets/alt/Assets.obj"));
 
     root->print();
+
+    createMenuOverlay();
+
+    printStatus(2, "EngineHelper object");
 }
 
-void EngineHelper::initMenu() {
+void EngineHelper::createMenuOverlay() {
+    printStatus(1, "menu overlay");
+
     //#### Overlay
     overlay.reset(new mgf::Overlay());
 
@@ -80,11 +85,23 @@ void EngineHelper::initMenu() {
     overlay->add(settingsBtn);
     overlay->add(pointer);
 
-    MenuLoop menu;
-
+    printStatus(2, "menu overlay");
 }
 
-void EngineHelper::initGame() {
+//void EngineHelper::processMenuLeftClick() {
+//    std::shared_ptr<mgf::IOverlayElement> elm = getOverlayOnPos();
+//
+//    if (elm) {
+//        if (elm->getName() == "startBtn") {
+//            startUp();
+//        } else if (elm->getName() == "quitBtn") {
+//            quit = true;
+//        }
+//    }
+//}
+
+void EngineHelper::createGameOverlay() {
+    printStatus(1, "game overlay");
     //#### Overlay
     overlay.reset(new mgf::Overlay());
 
@@ -165,6 +182,8 @@ void EngineHelper::initGame() {
     std::shared_ptr<mgf::Node> light(new mgf::LightNode("sun"));
     light->setLight(mgf::SUN_LIGHT, 2, 2, glm::vec3(1.f, 1.f, 1.f), glm::vec3(5.f, 15.f, 15.f), glm::vec3(0.f, -10.f, -5.f), 30);
     actualScene->add(light);
+
+    printStatus(2, "game overlay");
 }
 
 void EngineHelper::destroyMenu() {
@@ -201,3 +220,11 @@ std::shared_ptr <mgf::IOverlayElement> EngineHelper::getOverlayOnPos() {
 void EngineHelper::createField() {}
 void EngineHelper::clearField(){}
 void EngineHelper::initEngine(){}
+
+void EngineHelper::printStatus(int status, std::string object) {
+    if (status == 1) {
+        std::cout << "Creating " << object << "..." << std::endl;
+    } else if (status == 2) {
+        std::cout << "Created " << object << "." << std::endl;
+    }
+}

@@ -12,13 +12,10 @@ int main(){
     cout << "Starting up Clash of Mages" << endl;
     cout << endl;
 
-    EngineHelper helper;
-    helper.initMenu();
+    std::shared_ptr<EngineHelper> engine(new EngineHelper);
 
-//    MenuLoop menu;
-//    menu.init();
-
-//    menu.run();
+    MenuLoop menu;
+    menu.run(engine);
 
     //startUp();
 

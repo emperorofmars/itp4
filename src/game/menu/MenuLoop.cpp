@@ -19,7 +19,9 @@ MenuLoop::MenuLoop() {
 }
 
 
-int MenuLoop::run(std::shared_ptr < EngineHelper > engine) {
+int MenuLoop::run(std::shared_ptr<EngineHelper> engine) {
+    std::cout << "Starting menu loop..." << std::endl;
+
     quit = false;
     float current = 0, last = 0, frametime = 0;
 
@@ -27,19 +29,23 @@ int MenuLoop::run(std::shared_ptr < EngineHelper > engine) {
     bool mouseLeftDown = false;
     bool mouseRightDown = false;
 
+    bool running = false;
 
     while (!quit) {
-//        std::cout << "MenuLoop running." << std::endl;
+        if (!running) {
+            std::cout << "MenuLoop running." << std::endl;
+            running = true;
+        }
 
-        input->update();
-        quit = (input->getQuit());
+        engine->input->update();
+        quit = (engine->input->getQuit());
 
-        setPointer();
+        engine->setPointer();
 
         //###############################################  Controls
-        bool leftClick = input->getMouseClick()[0];
-        bool rightClick = input->getMouseClick()[2];
-        bool middleClick = input->getMouseClick()[1];
+        bool leftClick = engine->input->getMouseClick()[0];
+        bool rightClick = engine->input->getMouseClick()[2];
+        bool middleClick = engine->input->getMouseClick()[1];
 
         if (middleClick) {
             mouseMidDown = true;
@@ -60,11 +66,11 @@ int MenuLoop::run(std::shared_ptr < EngineHelper > engine) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearBufferfv(GL_COLOR, 0, glm::value_ptr(glm::vec4(0.3f, 0.3f, 0.3f, 1.0f)));
 
-        actualScene->render(renderer); //rendering on gpu happens here
-        overlay->render(renderer);
+        engine->actualScene->render(engine->renderer); //rendering on gpu happens here
+        engine->overlay->render(engine->renderer);
 
 
-        w->swap(); //display the rendered image on screen
+        engine->w->swap(); //display the rendered image on screen
 
 //###############################################  Calculate fps
         current = SDL_GetTicks();
@@ -121,12 +127,6 @@ void MenuLoop::processLeftClick() {
 //    createOverlay();
 //}
 
-
-void MenuLoop::createOverlay() {
-
-}
-
-
 glm::vec3 MenuLoop::getMousePos() {
     glm::vec3 mray = mgf::calculateMouseRay(cam->getP(), cam->getV(), input->getMouseAbsolute(), glm::vec2(1000, 800));
     glm::vec3 mpoint = mgf::colLinePlane(cam->getPos(), mray, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
@@ -139,7 +139,6 @@ void MenuLoop::setPointer() {
                               input->getMouseAbsoluteNDC(w->getResolution())[1] / w->getAspectRatio()));
 
 }
-
 
 std::shared_ptr<mgf::IOverlayElement> MenuLoop::getOverlayOnPos() {
     std::shared_ptr<mgf::IOverlayElement> elm = overlay->getMouseOverNDC
