@@ -57,6 +57,8 @@ public:
     void destroyGame();
 
     void printStatus(int status, std::string object);
+
+    void processMenuLeftClick();
 };
 
 

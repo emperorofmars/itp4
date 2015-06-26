@@ -36,7 +36,7 @@ int startUp() {
     std::shared_ptr<GameLoop> loop(new GameLoop(game));
 
     //Setting up engine
-    std::shared_ptr<EngineHelper> engine(new EngineHelper);
+    std::shared_ptr<EngineHelper> engine(engine);
 
 
 //#########################Setting Ground
@@ -77,12 +77,7 @@ int startUp() {
     }
 
 //#######Start Game
-
-//    MenuLoop menu;
-//    menu.run(engine);
-
     loop->run(engine);
-
 
     return 0;
 

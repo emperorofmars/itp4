@@ -15,7 +15,7 @@
 #include "Menu.h"
 
 MenuLoop::MenuLoop() {
-    mStateContext = Context::getInstance();
+//    mStateContext = Context::getInstance();
 }
 
 
@@ -58,7 +58,7 @@ int MenuLoop::run(std::shared_ptr<EngineHelper> engine) {
         }
 
         if (mouseLeftDown && !leftClick) {
-            processLeftClick();
+            engine->processMenuLeftClick();
             mouseLeftDown = false;
         }
 
@@ -86,62 +86,4 @@ int MenuLoop::run(std::shared_ptr<EngineHelper> engine) {
     LOG_F_TRACE(GAME_LOG_PATH, "cleanup complete, exiting");
 
     return 0;
-}
-
-void MenuLoop::processLeftClick() {
-    //TODO check overlay etc
-
-    std::shared_ptr<mgf::IOverlayElement> elm = getOverlayOnPos();
-    if (elm) {
-        //TODO process element
-        if (elm->getName() == "startBtn") {
-            startUp();
-        } else if (elm->getName() == "quitBtn") {
-            quit = true;
-        }
-
-    }
-}
-
-//void MenuLoop::init() {
-//    w.reset(new mgf::Window("Clash of Mages - Menu", 1000, 800, 0, 0));
-//    input.reset(new mgf::InputTopDown);
-//
-//    p.reset(new mgf::ShaderProgram);
-//    p->addShader("res/shader/vertex_shader.glsl", GL_VERTEX_SHADER);
-//    p->addShader("res/shader/fragment_shader.glsl", GL_FRAGMENT_SHADER);
-//    p->createProgram();
-//
-//    cam.reset(new mgf::CameraTopDown(40, w->getAspectRatio(), 1000.f, 0.1f));
-//    cam->setPos(glm::vec3(25.f, 40.f, 35.f));
-//
-//    renderer.reset(new mgf::Renderer(w, cam, p));
-//
-//    root.reset(new mgf::Node("root"));
-//    actualScene.reset(new mgf::Node("scene"));
-//
-//    root->add(l.load("res/models/assets/alt/Assets.obj"));
-//
-//    root->print();
-//
-//    createOverlay();
-//}
-
-glm::vec3 MenuLoop::getMousePos() {
-    glm::vec3 mray = mgf::calculateMouseRay(cam->getP(), cam->getV(), input->getMouseAbsolute(), glm::vec2(1000, 800));
-    glm::vec3 mpoint = mgf::colLinePlane(cam->getPos(), mray, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
-
-    return mpoint;
-}
-
-void MenuLoop::setPointer() {
-    pointer->setPos(glm::vec2(input->getMouseAbsoluteNDC(w->getResolution())[0],
-                              input->getMouseAbsoluteNDC(w->getResolution())[1] / w->getAspectRatio()));
-
-}
-
-std::shared_ptr<mgf::IOverlayElement> MenuLoop::getOverlayOnPos() {
-    std::shared_ptr<mgf::IOverlayElement> elm = overlay->getMouseOverNDC
-            (input->getMouseAbsoluteNDC(w->getResolution()), w->getAspectRatio());
-    return elm;
 }

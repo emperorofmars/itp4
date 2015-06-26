@@ -11,13 +11,7 @@
 #include "src/collision/MouseRay.h"
 #include "src/collision/RayPlane.h"
 #include "EngineHelper.h"
-
-/*
- * TODO: engine helper nehmen
- * gleiches window, camera etc benutzen
- * dann eine createGameOverlay und createMenuOverlay func machen
- * und eine destroy von beidem
- */
+#include "startUp.h"
 
 EngineHelper::EngineHelper() {
     printStatus(1, "EngineHelper object");
@@ -38,7 +32,6 @@ EngineHelper::EngineHelper() {
     root.reset(new mgf::Node("root"));
     actualScene.reset(new mgf::Node("scene"));
 
-
     root->add(l.load("res/models/assets/alt/Assets.obj"));
 
     root->print();
@@ -51,10 +44,9 @@ EngineHelper::EngineHelper() {
 void EngineHelper::createMenuOverlay() {
     printStatus(1, "menu overlay");
 
-    //#### Overlay
     overlay.reset(new mgf::Overlay());
 
-    /**
+    /*
      * Create buttons
      */
     std::shared_ptr<mgf::Button> startBtn(new mgf::Button("startBtn"));
@@ -69,17 +61,16 @@ void EngineHelper::createMenuOverlay() {
     quitBtn->setBackground("res/images/elemente/quit.png");
     quitBtn->translate(glm::vec2(0.4f, 0.3f));
 
-    /**
+    /*
      * Set mouse pointer
      */
     pointer.reset(new mgf::Label("mouse"));
     pointer->setBackground("res/images/Mouse.png");
     pointer->translate(glm::vec2(-10.f, -10.f));
 
-    /**
+    /*
      * Add elements to Overlay
      */
-
     overlay->add(quitBtn);
     overlay->add(startBtn);
     overlay->add(settingsBtn);
@@ -88,24 +79,26 @@ void EngineHelper::createMenuOverlay() {
     printStatus(2, "menu overlay");
 }
 
-//void EngineHelper::processMenuLeftClick() {
-//    std::shared_ptr<mgf::IOverlayElement> elm = getOverlayOnPos();
-//
-//    if (elm) {
-//        if (elm->getName() == "startBtn") {
-//            startUp();
-//        } else if (elm->getName() == "quitBtn") {
-//            quit = true;
-//        }
-//    }
-//}
+void EngineHelper::processMenuLeftClick() {
+    std::shared_ptr<mgf::IOverlayElement> elm = getOverlayOnPos();
+
+    if (elm) {
+        if (elm->getName() == "startBtn") {
+            destroyMenu();
+            createGameOverlay();
+            startUp();
+        } else if (elm->getName() == "quitBtn") {
+            exit(0);
+        }
+    }
+}
 
 void EngineHelper::createGameOverlay() {
     printStatus(1, "game overlay");
-    //#### Overlay
+
     overlay.reset(new mgf::Overlay());
 
-    /**
+    /*
      * Create buttons
      */
     std::shared_ptr <mgf::Button> endTurnBtn(new mgf::Button("endTurnBtn"));
@@ -128,7 +121,7 @@ void EngineHelper::createGameOverlay() {
     createArtillery->setBackground("res/images/elemente/artillery.png");
     createArtillery->translate(glm::vec2(0.15f, 0.65f));
 
-    /**
+    /*
      * Create game status Labels:
      */
 
@@ -163,7 +156,7 @@ void EngineHelper::createGameOverlay() {
     pointer->setBackground("res/images/Mouse.png");
     pointer->translate(glm::vec2(-10.f, -10.f));
 
-    /**
+    /*
      * Add elements to Overlay
      */
     overlay->add(createInfantry);
@@ -187,7 +180,11 @@ void EngineHelper::createGameOverlay() {
 }
 
 void EngineHelper::destroyMenu() {
-
+    printStatus(0, "Destroying menu...");
+//    overlay.reset(new mgf::Overlay);
+//    pointer.reset();
+//    actualScene.reset();
+    printStatus(0, "Menu destroyed.");
 }
 
 void EngineHelper::destroyGame() {
@@ -214,17 +211,19 @@ std::shared_ptr <mgf::IOverlayElement> EngineHelper::getOverlayOnPos() {
     return elm;
 }
 
-
-
-
 void EngineHelper::createField() {}
 void EngineHelper::clearField(){}
 void EngineHelper::initEngine(){}
 
+/*
+ * For debugging.
+ */
 void EngineHelper::printStatus(int status, std::string object) {
     if (status == 1) {
         std::cout << "Creating " << object << "..." << std::endl;
     } else if (status == 2) {
         std::cout << "Created " << object << "." << std::endl;
+    } else {
+        std::cout << object << std::endl;
     }
 }
