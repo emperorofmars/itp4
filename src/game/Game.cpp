@@ -294,6 +294,7 @@ void Game::nextTurn() {
     LOG_F_TRACE(GAME_LOG_PATH, "current Player id : ", mCurrentPlayerId);
 
     engine->player->setText(getPlayer(mCurrentPlayerId)->getName());
+    engine->mana->setText(std::to_string(getPlayer(mCurrentPlayerId)->getCurMana()));
 
     if (getSelectedState()) {
         deselectUnit();
