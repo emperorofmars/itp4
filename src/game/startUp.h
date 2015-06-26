@@ -6,6 +6,7 @@
 #define PROJECT_STARTUP_H
 
 #include <string>
+#include "EngineHelper.h"
 
 int startUp();
 

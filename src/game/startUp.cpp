@@ -36,8 +36,7 @@ int startUp() {
     std::shared_ptr<GameLoop> loop(new GameLoop(game));
 
     //Setting up engine
-    std::shared_ptr<EngineHelper> engine(engine);
-
+    std::shared_ptr<EngineHelper> engine(new EngineHelper);
 
 //#########################Setting Ground
     std::shared_ptr<mgf::Node> groundNode = engine->root->getChild("Assets.obj")->getChild("Ground")->clone();

@@ -86,6 +86,7 @@ void EngineHelper::processMenuLeftClick() {
         if (elm->getName() == "startBtn") {
             destroyMenu();
             createGameOverlay();
+
             startUp();
         } else if (elm->getName() == "quitBtn") {
             exit(0);
