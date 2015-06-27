@@ -83,7 +83,6 @@ void EngineHelper::processMenuLeftClick() {
 
     if (elm) {
         if (elm->getName() == "startBtn") {
-//            destroyMenu();
             startUp();
         } else if (elm->getName() == "quitBtn") {
             exit(0);
