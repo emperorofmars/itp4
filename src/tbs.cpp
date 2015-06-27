@@ -13,6 +13,7 @@ int main(){
     cout << endl;
 
     std::shared_ptr<EngineHelper> engine(new EngineHelper);
+    engine->createMenuOverlay();
 
     MenuLoop menu;
     menu.run(engine);

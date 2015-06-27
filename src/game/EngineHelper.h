@@ -32,7 +32,6 @@ public:
     std::shared_ptr <mgf::Label> mana;
     std::shared_ptr <mgf::Label> player;
 
-
     EngineHelper();
 
     glm::vec3 getMousePos();
@@ -59,6 +58,7 @@ public:
     void printStatus(int status, std::string object);
 
     void processMenuLeftClick();
+
 };
 
 

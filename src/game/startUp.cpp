@@ -37,6 +37,7 @@ int startUp() {
 
     //Setting up engine
     std::shared_ptr<EngineHelper> engine(new EngineHelper);
+    engine->createGameOverlay();
 
 //#########################Setting Ground
     std::shared_ptr<mgf::Node> groundNode = engine->root->getChild("Assets.obj")->getChild("Ground")->clone();
@@ -55,7 +56,7 @@ int startUp() {
 
     overlay->add(lab);
 
-//############ Setting up Playingfield etc.
+//############ Setting up Playfield etc.
 
     game->setEngine(engine);
     game->setupField(engine->root, engine->actualScene, game->getFirstField());
