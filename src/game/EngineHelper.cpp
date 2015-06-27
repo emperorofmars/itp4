@@ -17,7 +17,6 @@ EngineHelper::EngineHelper() {
     printStatus(1, "EngineHelper object");
 
     w.reset(new mgf::Window("Clash of Mages", 1000, 800, 0, 0));
-
     input.reset(new mgf::InputTopDown);
 
     p.reset(new mgf::ShaderProgram);
@@ -83,6 +82,7 @@ void EngineHelper::processMenuLeftClick() {
 
     if (elm) {
         if (elm->getName() == "startBtn") {
+//            destroyMenu();
             startUp();
         } else if (elm->getName() == "quitBtn") {
             exit(0);
@@ -178,11 +178,6 @@ void EngineHelper::createGameOverlay() {
 
 void EngineHelper::destroyMenu() {
     printStatus(0, "Destroying menu...");
-
-    overlay.reset();
-    pointer.reset();
-    w.reset();
-    actualScene.reset();
 
     printStatus(0, "Menu destroyed.");
 }
