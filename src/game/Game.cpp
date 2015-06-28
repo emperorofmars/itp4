@@ -24,6 +24,11 @@ Game::Game() {
     quit = false;
 }
 
+Game::~Game() {
+    mUnitHolder1.reset();
+    mUnitHolder2.reset();
+}
+
 void Game::initGame() {
 
 
@@ -729,13 +734,6 @@ void Game::createGameOverlay() {
     engine->player->setFont("res/fonts/main.ttf");
     engine->player->setLayer(0);
     engine->player->translate(glm::vec2(-0.05f, 0.02));
-
-    /**
-     * Set mouse pointer
-     */
-//    engine->pointer.reset(new mgf::Label("mouse"));
-//    engine->pointer->setBackground("res/images/Mouse.png");
-//    engine->pointer->translate(glm::vec2(-10.f, -10.f));
 
     /*
      * Add elements to Overlay

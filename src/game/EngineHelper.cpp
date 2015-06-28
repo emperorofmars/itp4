@@ -14,6 +14,7 @@
 #include "startUp.h"
 #include "menu/Menu.h"
 #include "menu/Settings.h"
+#include "menu/MenuLoop.h"
 
 EngineHelper::EngineHelper() {
     printStatus(1, "EngineHelper object");
@@ -40,32 +41,6 @@ EngineHelper::EngineHelper() {
     printStatus(2, "EngineHelper object");
 }
 
-void EngineHelper::processMenuLeftClick() {
-    std::shared_ptr<mgf::IOverlayElement> elm = getOverlayOnPos();
-
-    if (elm) {
-        if (elm->getName() == "startBtn") {
-            startUp((std::shared_ptr<EngineHelper>) this);
-        } else if (elm->getName() == "settingsBtn") {
-            std::cout << "Settings starting now!" << std::endl;
-            Settings settings((std::shared_ptr<EngineHelper>) this);
-            settings.createSettingsOverlay();
-            settings.run();
-        } else if (elm->getName() == "quitBtn") {
-            exit(0);
-        }
-    }
-}
-
-void EngineHelper::processSettingsLeftClick() {
-    std::shared_ptr<mgf::IOverlayElement> elm = getOverlayOnPos();
-
-    if (elm) {
-        if (elm->getName() == "backBtn") {
-            std::cout << "Back button clicked." << std::endl;
-        }
-    }
-}
 
 glm::vec3 EngineHelper::getMousePos() {
     glm::vec3 mray = mgf::calculateMouseRay(cam->getP(), cam->getV(), input->getMouseAbsolute(), glm::vec2(1000, 800));

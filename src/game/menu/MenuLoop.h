@@ -27,6 +27,9 @@ private:
     std::shared_ptr <mgf::Node> actualScene;
     std::shared_ptr <mgf::Overlay> overlay;
 
+    std::shared_ptr <EngineHelper> mEngine;
+
+    void processMenuLeftClick();
 };
 
 

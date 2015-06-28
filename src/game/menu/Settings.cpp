@@ -5,9 +5,12 @@
 #include <src/overlay/Button.h>
 #include "Settings.h"
 #include "../EngineHelper.h"
+#include "MenuLoop.h"
+#include "Menu.h"
 
 Settings::Settings(std::shared_ptr<EngineHelper> engine): mEngine(engine) {
     mStateContext = Context::getInstance();
+    createSettingsOverlay();
 }
 
 void Settings::createSettingsOverlay() {
@@ -17,14 +20,13 @@ void Settings::createSettingsOverlay() {
     mEngine->overlay.reset(new mgf::Overlay());
 
     // Create buttons
+    backBtn.reset(new mgf::Button("backBtn"));
+    backBtn->setBackground("res/images/elemente/back.png");
+    backBtn->translate(glm::vec2(0.3f, 0.5f));
+
     std::shared_ptr <mgf::Button> saveBtn(new mgf::Button("saveBtn"));
     saveBtn->setBackground("res/images/elemente/save.png");
     saveBtn->translate(glm::vec2(0.5f, 0.5f));
-
-
-    std::shared_ptr <mgf::Button> backBtn(new mgf::Button("backBtn"));
-    backBtn->setBackground("res/images/elemente/back.png");
-    backBtn->translate(glm::vec2(0.3f, 0.5f));
 
     // Add buttons to overlay
     mEngine->overlay->add(saveBtn);
@@ -59,12 +61,12 @@ int Settings::run() {
         bool midClick = mEngine->input->getMouseClick()[1];
         bool rightClick = mEngine->input->getMouseClick()[2];
 
-        leftClick ? mouseLeftDown = true : mouseLeftDown = false;
-        midClick ? mouseMidDown = true : mouseMidDown = false;
-        rightClick ? mouseRightDown = true : mouseRightDown = false;
+        if (midClick) mouseMidDown = true;
+        if (leftClick) mouseLeftDown = true;
+        if (rightClick) mouseRightDown = true;
 
         if (mouseLeftDown && !leftClick) {
-            mEngine->processSettingsLeftClick();
+            processSettingsLeftClick();
             mouseLeftDown = false;
         }
 
@@ -81,3 +83,25 @@ int Settings::run() {
     }
     return 0;
 }
+
+int Settings::quit() {
+    Menu menu;
+    menu.create(mEngine);    // creates menu overlay
+
+    MenuLoop menuLoop;
+    menuLoop.run(mEngine);
+
+    return 0;
+}
+
+void Settings::processSettingsLeftClick() {
+    std::shared_ptr<mgf::IOverlayElement> elm = mEngine->getOverlayOnPos();
+
+    if (elm) {
+        if (elm->getName() == "backBtn") {
+            std::cout << "Back button clicked." << std::endl;
+            quit();
+        }
+    }
+}
+

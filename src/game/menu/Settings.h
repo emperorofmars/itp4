@@ -16,14 +16,18 @@ public:
     Settings(std::shared_ptr<EngineHelper> engine);
 
     int run();
-    void createSettingsOverlay();
+
+    std::shared_ptr<mgf::Button> backBtn;
+    int quit();
 
 private:
+    std::shared_ptr <EngineHelper> mEngine;
     std::shared_ptr<Context> mStateContext;
-
     bool mBack;
 
-    std::shared_ptr <EngineHelper> mEngine;
+    void createSettingsOverlay();
+
+    void processSettingsLeftClick();
 };
 
 

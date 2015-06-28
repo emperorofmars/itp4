@@ -13,6 +13,7 @@
 #include "../../tbs.h"
 #include "../startUp.h"
 #include "Menu.h"
+#include "Settings.h"
 
 MenuLoop::MenuLoop() {
     mStateContext = Context::getInstance();
@@ -20,6 +21,7 @@ MenuLoop::MenuLoop() {
 
 
 int MenuLoop::run(std::shared_ptr<EngineHelper> engine) {
+    mEngine = engine;
     std::cout << "Starting menu loop..." << std::endl;
 
     quit = false;
@@ -58,7 +60,7 @@ int MenuLoop::run(std::shared_ptr<EngineHelper> engine) {
         }
 
         if (mouseLeftDown && !leftClick) {
-            engine->processMenuLeftClick();
+            processMenuLeftClick();
             mouseLeftDown = false;
         }
 
@@ -78,12 +80,23 @@ int MenuLoop::run(std::shared_ptr<EngineHelper> engine) {
         last = current;
         //std::cerr << "FPS: " << 1000.f / frametime << std::endl;	//show fps
     }
-//###############################################  Gameloop end
-
-    LOG_F_TRACE(GAME_LOG_PATH, "starting clean up!");
-//    cleanUp();
-
-    LOG_F_TRACE(GAME_LOG_PATH, "cleanup complete, exiting");
+//###############################################  MenuLoop end
 
     return 0;
+}
+
+void MenuLoop::processMenuLeftClick() {
+    std::shared_ptr<mgf::IOverlayElement> elm = mEngine->getOverlayOnPos();
+
+    if (elm) {
+        if (elm->getName() == "startBtn") {
+            startUp(mEngine);
+        } else if (elm->getName() == "settingsBtn") {
+            std::cout << "Settings starting now!" << std::endl;
+            Settings settings(mEngine);
+            settings.run();
+        } else if (elm->getName() == "quitBtn") {
+            exit(0);
+        }
+    }
 }
