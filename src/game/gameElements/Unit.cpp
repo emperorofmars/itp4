@@ -133,7 +133,7 @@ void Unit::attack(std::shared_ptr < Unit > target) {
     bool hit = false;
 
     //Drains all movement on Attack
-    remainingMovement -= remainingMovement;
+    //remainingMovement -= remainingMovement;
 
     double chance = ChanceSimulator::getInstance()->getRandomHit();
     LOG_F_TRACE(GAME_LOG_PATH, "randomNumber: ", chance);
