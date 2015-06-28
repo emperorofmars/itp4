@@ -40,19 +40,6 @@ public:
 
     std::shared_ptr<mgf::IOverlayElement> getOverlayOnPos();
 
-    void createField();
-
-    void clearField();
-
-    void initEngine();
-
-
-    void createGameOverlay();
-
-    void destroyMenu();
-
-    void destroyGame();
-
     void printStatus(int status, std::string object);
 
     void processMenuLeftClick();

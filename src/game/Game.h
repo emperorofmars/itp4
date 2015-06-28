@@ -87,7 +87,6 @@ public:
 
     void setStatusBar();
 
-    void deselectUnitStatusBar();
     void createGameOverlay(std::shared_ptr<EngineHelper> engine);
 
 
