@@ -5,6 +5,8 @@
 */
 
 
+#include <src/overlay/Button.h>
+#include <src/scene/LightNode.h>
 #include "Game.h"
 #include "../tbs.h"
 #include "states/Context.h"
@@ -539,7 +541,7 @@ void Game::selectUnit(shared_ptr<Unit> ptr) {
     std::shared_ptr<mgf::Material> newmat(new mgf::Material);
     newmat->mDiffuseColor = glm::vec4(1.f, 1.f, 1.f, 1.f);
     getSelectedUnit()->getUnitNode()->setMaterial(newmat);
-    //actualScene->getChild("Cube")->resetMaterial();                                                                                                                                                                                                                         
+    //actualScene->getChild("Cube")->resetMaterial();
 
 
     SELECTED_STATE = true;
@@ -645,4 +647,91 @@ void Game::resetStatusBar() {
     engine->player.reset();
     engine->mana.reset();
     engine->health.reset();
+}
+
+void Game::createGameOverlay(std::shared_ptr<EngineHelper> engine) {
+//    printStatus(1, "game overlay");
+
+    engine->actualScene.reset(new mgf::Node("gameScene"));
+    engine->overlay.reset(new mgf::Overlay());
+
+    /*
+     * Create buttons
+     */
+    std::shared_ptr <mgf::Button> endTurnBtn(new mgf::Button("endTurnBtn"));
+    endTurnBtn->setBackground("res/images/elemente/nextround.png");
+    endTurnBtn->translate(glm::vec2(0.85f, 0.65f));
+
+    std::shared_ptr <mgf::Button> quitBtn(new mgf::Button("quitBtn"));
+    quitBtn->setBackground("res/images/elemente/quit.png");
+    quitBtn->translate(glm::vec2(0.85f, -0.05f));
+
+    std::shared_ptr <mgf::Button> createInfantry(new mgf::Button("infantryBtn"));
+    createInfantry->setBackground("res/images/elemente/infantry.png");
+    createInfantry->translate(glm::vec2(-0.05f, 0.65f));
+
+    std::shared_ptr <mgf::Button> createCavalry(new mgf::Button("cavalryBtn"));
+    createCavalry->setBackground("res/images/elemente/cavalry.png");
+    createCavalry->translate(glm::vec2(0.05f, 0.65f));
+
+    std::shared_ptr <mgf::Button> createArtillery(new mgf::Button("artilleryBtn"));
+    createArtillery->setBackground("res/images/elemente/artillery.png");
+    createArtillery->translate(glm::vec2(0.15f, 0.65f));
+
+    /*
+     * Create game status Labels:
+     */
+
+    // Health
+    std::shared_ptr <mgf::Label> statusHealth(new mgf::Label("statusHealth"));
+    statusHealth->setBackground("res/images/elemente/health.png");
+    statusHealth->translate(glm::vec2(-0.05f, -0.05f));
+
+    engine->health.reset(new mgf::Label("health"));
+    engine->health->setFont("res/fonts/main.ttf");
+    engine->health->translate(glm::vec2(0.07f, -0.05f));
+
+    // Mana
+    std::shared_ptr <mgf::Label> statusMana(new mgf::Label("statusMana"));
+    statusMana->setBackground("res/images/elemente/mana.png");
+    statusMana->translate(glm::vec2(0.3, -0.05f));
+
+    engine->mana.reset(new mgf::Label("mana"));
+    engine->mana->setFont("res/fonts/main.ttf");
+    engine->mana->translate(glm::vec2(0.4f, -0.05f));
+
+    // Player
+    engine->player.reset(new mgf::Label("label"));
+    engine->player->setFont("res/fonts/main.ttf");
+    engine->player->setLayer(0);
+    engine->player->translate(glm::vec2(-0.05f, 0.02));
+
+    /**
+     * Set mouse pointer
+     */
+    engine->pointer.reset(new mgf::Label("mouse"));
+    engine->pointer->setBackground("res/images/Mouse.png");
+    engine->pointer->translate(glm::vec2(-10.f, -10.f));
+
+    /*
+     * Add elements to Overlay
+     */
+    engine->overlay->add(createInfantry);
+    engine->overlay->add(createCavalry);
+    engine->overlay->add(createArtillery);
+    engine->overlay->add(quitBtn);
+    engine->overlay->add(endTurnBtn);
+    engine->overlay->add(statusHealth);
+    engine->overlay->add(engine->health);
+    engine->overlay->add(statusMana);
+    engine->overlay->add(engine->mana);
+    engine->overlay->add(engine->player);
+    engine->overlay->add(engine->pointer);
+
+//#### Setting up Sunlight
+    std::shared_ptr<mgf::Node> light(new mgf::LightNode("sun"));
+    light->setLight(mgf::SUN_LIGHT, 2, 2, glm::vec3(1.f, 1.f, 1.f), glm::vec3(5.f, 15.f, 15.f), glm::vec3(0.f, -10.f, -5.f), 30);
+    engine->actualScene->add(light);
+
+//    printStatus(2, "game overlay");
 }
