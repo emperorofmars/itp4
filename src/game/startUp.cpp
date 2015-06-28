@@ -36,7 +36,8 @@ int startUp(std::shared_ptr<EngineHelper> engine) {
     std::shared_ptr<GameLoop> loop(new GameLoop(game));
 
     //Setting up overlay
-    game->createGameOverlay(engine);
+    game->setEngine(engine);
+    game->createGameOverlay();
 
 //#########################Setting Ground
     std::shared_ptr<mgf::Node> groundNode = engine->root->getChild("Assets.obj")->getChild("Ground")->clone();
@@ -47,17 +48,19 @@ int startUp(std::shared_ptr<EngineHelper> engine) {
 //######################### Setting up Overlay
 
     //###############################################  createSettingsOverlay overlay
-    std::shared_ptr<mgf::Overlay> overlay(new mgf::Overlay());
-
-    std::shared_ptr<mgf::Label> lab(new mgf::Label("mouse"));
-    lab->setBackground("res/images/Mouse.png");
-    lab->translate(glm::vec2(-10.f, -10.f));
-
-    overlay->add(lab);
+//    std::shared_ptr<mgf::Overlay> overlay(new mgf::Overlay());
+//
+//    std::shared_ptr<mgf::Label> lab(new mgf::Label("mouse"));
+//    lab->setBackground("res/images/Mouse.png");
+//    lab->translate(glm::vec2(-10.f, -10.f));
+//
+//    overlay->add(lab);
 
 //############ Setting up Playfield etc.
 
     game->setEngine(engine);
+
+
     game->setupField(engine->root, engine->actualScene, game->getFirstField());
     game->generateEnvironment();
 

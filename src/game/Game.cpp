@@ -651,7 +651,7 @@ void Game::resetStatusBar() {
     engine->health.reset();
 }
 
-void Game::createGameOverlay(std::shared_ptr<EngineHelper> engine) {
+void Game::createGameOverlay() {
 //    printStatus(1, "game overlay");
 
     engine->actualScene.reset(new mgf::Node("gameScene"));
@@ -711,9 +711,9 @@ void Game::createGameOverlay(std::shared_ptr<EngineHelper> engine) {
     /**
      * Set mouse pointer
      */
-    engine->pointer.reset(new mgf::Label("mouse"));
-    engine->pointer->setBackground("res/images/Mouse.png");
-    engine->pointer->translate(glm::vec2(-10.f, -10.f));
+//    engine->pointer.reset(new mgf::Label("mouse"));
+//    engine->pointer->setBackground("res/images/Mouse.png");
+//    engine->pointer->translate(glm::vec2(-10.f, -10.f));
 
     /*
      * Add elements to Overlay

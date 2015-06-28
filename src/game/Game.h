@@ -87,7 +87,7 @@ public:
 
     void setStatusBar();
 
-    void createGameOverlay(std::shared_ptr<EngineHelper> engine);
+    void createGameOverlay();
 
 
 private:
