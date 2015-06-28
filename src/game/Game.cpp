@@ -260,10 +260,10 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
         if (unit->getName() == "Magierturm") {
             std::shared_ptr<mgf::Node> unitNode;
             if(unit->getOwner() == 0){
-                unitNode = root->getChild("Assets.obj")->getChild("Tower01")->clone();
+                unitNode = root->getChild("Assets.obj")->getChild("Tower02")->clone();
 
             }else{
-                unitNode = root->getChild("Assets.obj")->getChild("Tower02")->clone();
+                unitNode = root->getChild("Assets.obj")->getChild("Tower01")->clone();
 
             }
             //std::shared_ptr<mgf::Node> unitNode = root->getChild("scene.obj")->getChild("Cube")->clone();
