@@ -11,6 +11,7 @@ Player::Player(std::string name) {
     this->name = name;
     this->maxMana = 100;
     this->curMana = 100;
+    camPos = glm::vec3(-1,-1,-1);
 }
 
 
@@ -69,6 +70,7 @@ std::shared_ptr <Unit> Player::getBase() {
 
 void Player::setBase(std::shared_ptr < Unit > base) {
     this->baseTower = base;
+
 }
 
 int Player::getMaxMana() const {
@@ -120,4 +122,12 @@ bool Player::allDead() {
     }
 
     return allDead;
+}
+
+void Player::setCam(glm::vec3 vec3) {
+    camPos = vec3;
+}
+
+glm::vec3 Player::getCam() {
+    return camPos;
 }

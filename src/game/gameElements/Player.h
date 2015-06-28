@@ -11,6 +11,7 @@
 
 #include <memory>
 #include "Unit.h"
+#include "Hexfield.h"
 
 class Unit;
 
@@ -57,6 +58,8 @@ public:
     bool useMana(int amount);
     void gainMana(int amount);
     bool allDead();
+    void setCam(glm::vec3);
+    glm::vec3 getCam();
 private:
     int id;
     std::string name;
@@ -65,7 +68,7 @@ private:
     int maxMana;
     int curMana;
     //glm::vec4 color;
-
+    glm::vec3 camPos;
 
 };
 

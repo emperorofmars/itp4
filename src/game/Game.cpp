@@ -258,7 +258,14 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
 
     if (std::shared_ptr<Unit> unit = hexfield->getOccupation()) {
         if (unit->getName() == "Magierturm") {
-            std::shared_ptr<mgf::Node> unitNode = root->getChild("Assets.obj")->getChild("Tower")->clone();
+            std::shared_ptr<mgf::Node> unitNode;
+            if(unit->getOwner() == 0){
+                unitNode = root->getChild("Assets.obj")->getChild("Tower01")->clone();
+
+            }else{
+                unitNode = root->getChild("Assets.obj")->getChild("Tower02")->clone();
+
+            }
             //std::shared_ptr<mgf::Node> unitNode = root->getChild("scene.obj")->getChild("Cube")->clone();
             unit->setUnitNode(unitNode);
             actualScene->add(unitNode);
@@ -283,13 +290,25 @@ int Game::setupField(std::shared_ptr<mgf::Node> root, std::shared_ptr<mgf::Node>
 void Game::nextTurn() {
     mRounds++;
 
+    getPlayer(mCurrentPlayerId)->setCam(engine->cam->getPos());
+
     //setting Player
     mCurrentPlayerId++;
     if (mCurrentPlayerId == 2) mCurrentPlayerId = 0;
 
-    glm::vec3 base = getPlayer(mCurrentPlayerId)->getBase()->getCurrentHexfield()->mPositionVector;
+    std::shared_ptr<Player> player = getPlayer(mCurrentPlayerId);
 
-    engine->cam->setPos(glm::vec3(base[0], engine->cam->getPos()[1], base[2] + 25.f));
+    glm::vec3 base = player->getBase()->getCurrentHexfield()->mPositionVector;
+
+    cout << " player cam : " << mgf::vec3_toStr(player->getCam()) << endl;
+    if(player->getCam()[0] != -1
+            && player->getCam()[1] != -1
+            && player->getCam()[2] != -1){
+        engine->cam->setPos(player->getCam());
+    }else{
+        engine->cam->setPos(glm::vec3(base[0], engine->cam->getPos()[1], base[2] + 25.f));
+
+    }
 
     LOG_F_TRACE(GAME_LOG_PATH, "current Player id : ", mCurrentPlayerId);
 
@@ -337,7 +356,10 @@ void Game::produceUnit(std::string unitName, int playerId, bool useMana) {
     LOG_F_TRACE(GAME_LOG_PATH, "target Player: ", playerId, " base hex found at: ", currentField->mPosition[1], "/",
                 currentField->mPosition[0]);
     LOG_F_TRACE(GAME_LOG_PATH, "Model to Use ", newUnit->getModel());
-    std::shared_ptr<mgf::Node> unitNode = engine->root->getChild("Assets.obj")->getChild(newUnit->getModel())->clone();
+    string playerString = std::to_string(playerId+1);
+    playerString.insert(playerString.begin(), '0');
+    cout << " player " << playerString << endl;
+    std::shared_ptr<mgf::Node> unitNode = engine->root->getChild("Assets.obj")->getChild(newUnit->getModel().append(playerString))->clone();
     newUnit->setUnitNode(unitNode);
     newUnit->setCurrentHexfield(destinedField);
     destinedField->setOccupation(newUnit);
