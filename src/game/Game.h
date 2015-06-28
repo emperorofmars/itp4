@@ -85,7 +85,10 @@ public:
     std::shared_ptr <std::vector<std::shared_ptr < Unit>> >
     mUnitHolder2;
 
-    void showMenu();
+    void setStatusBar();
+
+    void deselectUnitStatusBar();
+
 private:
     std::shared_ptr <Player> mPlayers[2];
     std::shared_ptr <Player> mWinner;
@@ -108,6 +111,14 @@ private:
     void generatePlayingField();
 
     void writeStatsToDb();
+
+    void cleanStatusBar();
+
+    void setPlayerStatus();
+
+    void cleanPlayerStatus();
+
+    void resetStatusBar();
 };
 
 

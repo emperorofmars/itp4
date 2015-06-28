@@ -28,6 +28,10 @@ public:
     std::shared_ptr <mgf::Node> actualScene;
     std::shared_ptr <mgf::Overlay> overlay;
     std::shared_ptr <mgf::Label> pointer;
+    std::shared_ptr <mgf::Label> health;
+    std::shared_ptr <mgf::Label> mana;
+    std::shared_ptr <mgf::Label> player;
+
 
     EngineHelper();
 
@@ -42,6 +46,8 @@ public:
     void clearField();
 
     void initEngine();
+
+
 };
 
 

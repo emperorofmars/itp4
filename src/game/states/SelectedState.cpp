@@ -64,12 +64,12 @@ void SelectedState::handleRightClick() {
 
 
 void SelectedState::handleLeftClick() {
+
     std::shared_ptr <Hexfield> clickedHex = mGame->getHexAtMousePos();
 
     if (clickedHex->getIsOccupied()) {
         mGame->deselectUnit();
         mGame->selectUnit(clickedHex->getOccupation());
-
     } else {
         mContext->setCurrentState(States::STATE_IDLE);
         mGame->deselectUnit();
