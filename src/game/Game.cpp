@@ -12,6 +12,7 @@
 #include "states/Context.h"
 #include "util/ChanceSimulator.h"
 #include "menu/Menu.h"
+#include "menu/MenuLoop.h"
 
 using namespace std;
 
@@ -391,7 +392,7 @@ int Game::unitMovementWrapper(std::shared_ptr<Unit> unit,
 
 
 int Game::cleanUp() {
-    writeStatsToDb();
+//    writeStatsToDb();
 
     deleteUnits();
 
@@ -404,7 +405,12 @@ int Game::cleanUp() {
 
     eraseField(mFirstField);
     mFirstField.reset();
-    engine.reset();
+
+    Menu menu;
+    menu.create(engine);    // creates menu overlay
+
+    MenuLoop menuLoop;
+    menuLoop.run(engine);   // starts menu loop
     return 0;
 }
 
@@ -437,7 +443,6 @@ int Game::eraseField(std::shared_ptr<Hexfield> hex) {
             hex = hex->linkedTo[4];
         }
     }
-
 }
 
 void Game::deleteRow(std::shared_ptr<Hexfield> firstField) {
@@ -601,10 +606,7 @@ void Game::generateEnvironment() {
         tree->add(engine->root->getChild("Assets.obj")->getChild("defaultobject")->clone());
 
         engine->actualScene->add(tree);
-
-        // TODO: find better place to call this! Makes startup slow :(
         engine->player->setText(getPlayer(mCurrentPlayerId)->getName());
-
     }
 }
 

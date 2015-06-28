@@ -31,7 +31,7 @@ EngineHelper::EngineHelper() {
     renderer.reset(new mgf::Renderer(w, cam, p));
 
     root.reset(new mgf::Node("root"));
-    actualScene.reset(new mgf::Node("menuScene"));
+//    actualScene.reset(new mgf::Node("menuScene"));
 
     root->add(l.load("res/models/assets/alt/Assets.obj"));
 
@@ -46,6 +46,8 @@ void EngineHelper::processMenuLeftClick() {
     if (elm) {
         if (elm->getName() == "startBtn") {
             startUp((std::shared_ptr<EngineHelper>) this);
+        } else if (elm->getName() == "settingsBtn") {
+            std::cout << "Settings starting now!" << std::endl;
         } else if (elm->getName() == "quitBtn") {
             exit(0);
         }

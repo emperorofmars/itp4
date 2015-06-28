@@ -12,6 +12,7 @@ Menu::Menu() {
 void Menu::create(std::shared_ptr<EngineHelper> engine) {
     std::cout << "Creating menu..." << std::endl;
 
+    engine->actualScene.reset(new mgf::Node("menuScene"));
     engine->overlay.reset(new mgf::Overlay());
 
     /*
