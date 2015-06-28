@@ -48,7 +48,7 @@ int startUp(std::shared_ptr<EngineHelper> engine) {
 
 //######################### Setting up Overlay
 
-    //###############################################  create overlay
+    //###############################################  createSettingsOverlay overlay
     std::shared_ptr<mgf::Overlay> overlay(new mgf::Overlay());
 
     std::shared_ptr<mgf::Label> lab(new mgf::Label("mouse"));

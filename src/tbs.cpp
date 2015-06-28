@@ -3,6 +3,7 @@
 #include "game/startUp.h"
 #include "libs/mlog.h"
 #include "game/menu/MenuLoop.h"
+#include "game/menu/Menu.h"
 
 using namespace std;
 
@@ -13,10 +14,13 @@ int main(){
     cout << endl;
 
     std::shared_ptr<EngineHelper> engine(new EngineHelper);
-    engine->createMenuOverlay();
+//    engine->createMenuOverlay();
 
-    MenuLoop menu;
-    menu.run(engine);
+    Menu menu;
+    menu.create(engine);
+
+    MenuLoop menuLoop;
+    menuLoop.run(engine);
 
     //startUp();
 

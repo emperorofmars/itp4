@@ -12,6 +12,7 @@
 #include "src/collision/RayPlane.h"
 #include "EngineHelper.h"
 #include "startUp.h"
+#include "menu/Menu.h"
 
 EngineHelper::EngineHelper() {
     printStatus(1, "EngineHelper object");
@@ -30,51 +31,13 @@ EngineHelper::EngineHelper() {
     renderer.reset(new mgf::Renderer(w, cam, p));
 
     root.reset(new mgf::Node("root"));
-    actualScene.reset(new mgf::Node("scene"));
+    actualScene.reset(new mgf::Node("menuScene"));
 
     root->add(l.load("res/models/assets/alt/Assets.obj"));
 
     root->print();
 
     printStatus(2, "EngineHelper object");
-}
-
-void EngineHelper::createMenuOverlay() {
-    printStatus(1, "menu overlay");
-
-    overlay.reset(new mgf::Overlay());
-
-    /*
-     * Create buttons
-     */
-    std::shared_ptr<mgf::Button> startBtn(new mgf::Button("startBtn"));
-    startBtn->setBackground("res/images/elemente/play.png");
-    startBtn->translate(glm::vec2(0.4f, 0.1f));
-
-    std::shared_ptr<mgf::Button> settingsBtn(new mgf::Button("settingsBtn"));
-    settingsBtn->setBackground("res/images/elemente/settings.png");
-    settingsBtn->translate(glm::vec2(0.4f, 0.2f));
-
-    std::shared_ptr<mgf::Button> quitBtn(new mgf::Button("quitBtn"));
-    quitBtn->setBackground("res/images/elemente/quit.png");
-    quitBtn->translate(glm::vec2(0.4f, 0.3f));
-
-    /*
-     * Set mouse pointer
-     */
-    pointer.reset(new mgf::Label("mouse"));
-    pointer->setBackground("res/images/Mouse.png");
-    pointer->translate(glm::vec2(-10.f, -10.f));
-
-    /*
-     * Add elements to Overlay
-     */
-    overlay->add(quitBtn);
-    overlay->add(startBtn);
-    overlay->add(settingsBtn);
-    overlay->add(pointer);
-
-    printStatus(2, "menu overlay");
 }
 
 void EngineHelper::processMenuLeftClick() {
@@ -92,10 +55,7 @@ void EngineHelper::processMenuLeftClick() {
 void EngineHelper::createGameOverlay() {
     printStatus(1, "game overlay");
 
-    actualScene.reset();
-    actualScene.reset(new mgf::Node("scene"));
-
-    overlay.reset();
+    actualScene.reset(new mgf::Node("gameScene"));
     overlay.reset(new mgf::Overlay());
 
     /*

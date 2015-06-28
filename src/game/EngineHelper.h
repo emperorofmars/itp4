@@ -47,8 +47,6 @@ public:
     void initEngine();
 
 
-    void createMenuOverlay();
-
     void createGameOverlay();
 
     void destroyMenu();
