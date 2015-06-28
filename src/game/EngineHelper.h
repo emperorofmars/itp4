@@ -44,6 +44,7 @@ public:
 
     void processMenuLeftClick();
 
+    void processSettingsLeftClick();
 };
 
 

@@ -9,17 +9,21 @@
 #include <src/overlay/Overlay.h>
 #include <src/scene/Node.h>
 #include "../EngineHelper.h"
+#include "../states/Context.h"
 
 class Settings {
 public:
-    Settings();
+    Settings(std::shared_ptr<EngineHelper> engine);
 
-    std::shared_ptr <mgf::Node> settingsScene;
-    std::shared_ptr <mgf::Overlay> settingsOverlay;
+    int run();
+    void createSettingsOverlay();
 
-    void createSettingsOverlay(std::shared_ptr<EngineHelper> engine);
+private:
+    std::shared_ptr<Context> mStateContext;
 
-    void destroy();
+    bool mBack;
+
+    std::shared_ptr <EngineHelper> mEngine;
 };
 
 

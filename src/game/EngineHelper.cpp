@@ -13,6 +13,7 @@
 #include "EngineHelper.h"
 #include "startUp.h"
 #include "menu/Menu.h"
+#include "menu/Settings.h"
 
 EngineHelper::EngineHelper() {
     printStatus(1, "EngineHelper object");
@@ -31,7 +32,6 @@ EngineHelper::EngineHelper() {
     renderer.reset(new mgf::Renderer(w, cam, p));
 
     root.reset(new mgf::Node("root"));
-//    actualScene.reset(new mgf::Node("menuScene"));
 
     root->add(l.load("res/models/assets/alt/Assets.obj"));
 
@@ -48,8 +48,21 @@ void EngineHelper::processMenuLeftClick() {
             startUp((std::shared_ptr<EngineHelper>) this);
         } else if (elm->getName() == "settingsBtn") {
             std::cout << "Settings starting now!" << std::endl;
+            Settings settings((std::shared_ptr<EngineHelper>) this);
+            settings.createSettingsOverlay();
+            settings.run();
         } else if (elm->getName() == "quitBtn") {
             exit(0);
+        }
+    }
+}
+
+void EngineHelper::processSettingsLeftClick() {
+    std::shared_ptr<mgf::IOverlayElement> elm = getOverlayOnPos();
+
+    if (elm) {
+        if (elm->getName() == "backBtn") {
+            std::cout << "Back button clicked." << std::endl;
         }
     }
 }
