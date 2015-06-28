@@ -176,7 +176,7 @@ void MenuLoop::createOverlay() {
     overlay->add(startBtn);
     overlay->add(settingsBtn);
     overlay->add(pointer);
-    overlay->add(background);
+    //overlay->add(background);
 
 }
 
