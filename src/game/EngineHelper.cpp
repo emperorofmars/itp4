@@ -82,8 +82,7 @@ void EngineHelper::processMenuLeftClick() {
 
     if (elm) {
         if (elm->getName() == "startBtn") {
-//            destroyMenu();
-            startUp();
+            startUp((std::shared_ptr<EngineHelper>) this);
         } else if (elm->getName() == "quitBtn") {
             exit(0);
         }
@@ -93,6 +92,10 @@ void EngineHelper::processMenuLeftClick() {
 void EngineHelper::createGameOverlay() {
     printStatus(1, "game overlay");
 
+    actualScene.reset();
+    actualScene.reset(new mgf::Node("scene"));
+
+    overlay.reset();
     overlay.reset(new mgf::Overlay());
 
     /*
@@ -178,6 +181,8 @@ void EngineHelper::createGameOverlay() {
 
 void EngineHelper::destroyMenu() {
     printStatus(0, "Destroying menu...");
+
+    overlay.reset();
 
     printStatus(0, "Menu destroyed.");
 }

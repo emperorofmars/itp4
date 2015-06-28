@@ -18,7 +18,7 @@
 
 using namespace std;
 
-int startUp() {
+int startUp(std::shared_ptr<EngineHelper> engine) {
 
     LOG_INIT("log/log_tbs.txt", true);
 
@@ -36,7 +36,8 @@ int startUp() {
     std::shared_ptr<GameLoop> loop(new GameLoop(game));
 
     //Setting up engine
-    std::shared_ptr<EngineHelper> engine(new EngineHelper);
+//    std::shared_ptr<EngineHelper> engine(new EngineHelper);
+//    engine->destroyMenu();
     engine->createGameOverlay();
 
 //#########################Setting Ground
