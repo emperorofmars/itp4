@@ -19,18 +19,30 @@ void Settings::createSettingsOverlay() {
     mEngine->actualScene.reset(new mgf::Node("settingsScene"));
     mEngine->overlay.reset(new mgf::Overlay());
 
+    // Create labels
+    std::shared_ptr <mgf::Label> settingFullscreen(new mgf::Label("settingFullscrn"));
+    settingFullscreen->setBackground("res/images/elemente/fullscreen.png");
+    settingFullscreen->translate(glm::vec2(0.3f, 0.0f));
+
+    std::shared_ptr <mgf::Label> settingRes(new mgf::Label("settingRes"));
+    settingRes->setBackground("res/images/elemente/resolution.png");
+    settingRes->translate(glm::vec2(0.3f, 0.05f));
+
+
     // Create buttons
     backBtn.reset(new mgf::Button("backBtn"));
     backBtn->setBackground("res/images/elemente/back.png");
     backBtn->translate(glm::vec2(0.3f, 0.5f));
 
-    std::shared_ptr <mgf::Button> saveBtn(new mgf::Button("saveBtn"));
+    saveBtn.reset(new mgf::Button("saveBtn"));
     saveBtn->setBackground("res/images/elemente/save.png");
     saveBtn->translate(glm::vec2(0.5f, 0.5f));
 
     // Add buttons to overlay
-    mEngine->overlay->add(saveBtn);
+    mEngine->overlay->add(settingFullscreen);
+    mEngine->overlay->add(settingRes);
     mEngine->overlay->add(backBtn);
+    mEngine->overlay->add(saveBtn);
     mEngine->overlay->add(mEngine->pointer);
 }
 

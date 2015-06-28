@@ -18,6 +18,8 @@ public:
     int run();
 
     std::shared_ptr<mgf::Button> backBtn;
+    std::shared_ptr<mgf::Button> saveBtn;
+
     int quit();
 
 private:
