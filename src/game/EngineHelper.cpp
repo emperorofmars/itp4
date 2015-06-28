@@ -11,10 +11,12 @@
 #include "src/collision/MouseRay.h"
 #include "src/collision/RayPlane.h"
 #include "EngineHelper.h"
-#include "gameElements/Hexfield.h"
-#include "gameLoop/GameLoop.h"
+#include "startUp.h"
+#include "menu/Menu.h"
 
 EngineHelper::EngineHelper() {
+    printStatus(1, "EngineHelper object");
+
     w.reset(new mgf::Window("Clash of Mages", 1000, 800, 0, 0));
     input.reset(new mgf::InputTopDown);
 
@@ -29,93 +31,27 @@ EngineHelper::EngineHelper() {
     renderer.reset(new mgf::Renderer(w, cam, p));
 
     root.reset(new mgf::Node("root"));
-    actualScene.reset(new mgf::Node("scene"));
-
+//    actualScene.reset(new mgf::Node("menuScene"));
 
     root->add(l.load("res/models/assets/alt/Assets.obj"));
 
     root->print();
 
-//#### Overlay
-    overlay.reset(new mgf::Overlay());
+    printStatus(2, "EngineHelper object");
+}
 
-    /**
-     * Create buttons
-     */
-    std::shared_ptr <mgf::Button> endTurnBtn(new mgf::Button("endTurnBtn"));
-    endTurnBtn->setBackground("res/images/elemente/nextround.png");
-    endTurnBtn->translate(glm::vec2(0.85f, 0.65f));
+void EngineHelper::processMenuLeftClick() {
+    std::shared_ptr<mgf::IOverlayElement> elm = getOverlayOnPos();
 
-    std::shared_ptr <mgf::Button> quitBtn(new mgf::Button("quitBtn"));
-    quitBtn->setBackground("res/images/elemente/quit.png");
-    quitBtn->translate(glm::vec2(0.85f, -0.05f));
-
-    std::shared_ptr <mgf::Button> createInfantry(new mgf::Button("infantryBtn"));
-    createInfantry->setBackground("res/images/elemente/infantry.png");
-    createInfantry->translate(glm::vec2(-0.05f, 0.65f));
-
-    std::shared_ptr <mgf::Button> createCavalry(new mgf::Button("cavalryBtn"));
-    createCavalry->setBackground("res/images/elemente/cavalry.png");
-    createCavalry->translate(glm::vec2(0.05f, 0.65f));
-
-    std::shared_ptr <mgf::Button> createArtillery(new mgf::Button("artilleryBtn"));
-    createArtillery->setBackground("res/images/elemente/artillery.png");
-    createArtillery->translate(glm::vec2(0.15f, 0.65f));
-
-    /**
-     * Create game status Labels:
-     */
-
-    // Health
-    std::shared_ptr <mgf::Label> statusHealth(new mgf::Label("statusHealth"));
-    statusHealth->setBackground("res/images/elemente/health.png");
-    statusHealth->translate(glm::vec2(-0.05f, -0.05f));
-
-    health.reset(new mgf::Label("health"));
-    health->setFont("res/fonts/main.ttf");
-    health->translate(glm::vec2(0.07f, -0.05f));
-
-    // Mana
-    std::shared_ptr <mgf::Label> statusMana(new mgf::Label("statusMana"));
-    statusMana->setBackground("res/images/elemente/mana.png");
-    statusMana->translate(glm::vec2(0.3, -0.05f));
-
-    mana.reset(new mgf::Label("mana"));
-    mana->setFont("res/fonts/main.ttf");
-    mana->translate(glm::vec2(0.4f, -0.05f));
-
-    // Player
-    player.reset(new mgf::Label("label"));
-    player->setFont("res/fonts/main.ttf");
-    player->setLayer(0);
-    player->translate(glm::vec2(-0.05f, 0.02));
-
-    /**
-     * Set mouse pointer
-     */
-    pointer.reset(new mgf::Label("mouse"));
-    pointer->setBackground("res/images/Mouse.png");
-    pointer->translate(glm::vec2(-10.f, -10.f));
-
-    /**
-     * Add elements to Overlay
-     */
-    overlay->add(createInfantry);
-    overlay->add(createCavalry);
-    overlay->add(createArtillery);
-    overlay->add(quitBtn);
-    overlay->add(endTurnBtn);
-    overlay->add(statusHealth);
-    overlay->add(health);
-    overlay->add(statusMana);
-    overlay->add(mana);
-    overlay->add(player);
-    overlay->add(pointer);
-
-//#### Setting up Sunlight
-    std::shared_ptr<mgf::Node> light(new mgf::LightNode("sun"));
-    light->setLight(mgf::SUN_LIGHT, 2, 2, glm::vec3(1.f, 1.f, 1.f), glm::vec3(5.f, 15.f, 15.f), glm::vec3(0.f, -10.f, -5.f), 30);
-    actualScene->add(light);
+    if (elm) {
+        if (elm->getName() == "startBtn") {
+            startUp((std::shared_ptr<EngineHelper>) this);
+        } else if (elm->getName() == "settingsBtn") {
+            std::cout << "Settings starting now!" << std::endl;
+        } else if (elm->getName() == "quitBtn") {
+            exit(0);
+        }
+    }
 }
 
 glm::vec3 EngineHelper::getMousePos() {
@@ -138,6 +74,15 @@ std::shared_ptr <mgf::IOverlayElement> EngineHelper::getOverlayOnPos() {
     return elm;
 }
 
-void EngineHelper::createField() {}
-void EngineHelper::clearField(){}
-void EngineHelper::initEngine(){}
+/*
+ * For debugging.
+ */
+void EngineHelper::printStatus(int status, std::string object) {
+    if (status == 1) {
+        std::cout << "Creating " << object << "..." << std::endl;
+    } else if (status == 2) {
+        std::cout << "Created " << object << "." << std::endl;
+    } else {
+        std::cout << object << std::endl;
+    }
+}

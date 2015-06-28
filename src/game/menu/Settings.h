@@ -8,6 +8,7 @@
 
 #include <src/overlay/Overlay.h>
 #include <src/scene/Node.h>
+#include "../EngineHelper.h"
 
 class Settings {
 public:
@@ -16,7 +17,7 @@ public:
     std::shared_ptr <mgf::Node> settingsScene;
     std::shared_ptr <mgf::Overlay> settingsOverlay;
 
-    void create();
+    void createSettingsOverlay(std::shared_ptr<EngineHelper> engine);
 
     void destroy();
 };

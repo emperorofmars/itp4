@@ -6,8 +6,9 @@
 #define PROJECT_STARTUP_H
 
 #include <string>
+#include "EngineHelper.h"
 
-int startUp();
+int startUp(std::shared_ptr<EngineHelper> ptr);
 
 
 #endif //PROJECT_STARTUP_H

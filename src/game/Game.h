@@ -87,7 +87,8 @@ public:
 
     void setStatusBar();
 
-    void deselectUnitStatusBar();
+    void createGameOverlay();
+
 
 private:
     std::shared_ptr <Player> mPlayers[2];

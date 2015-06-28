@@ -66,6 +66,7 @@ State::~State() {
 
 bool State::reactToInterfaceInteraction(std::shared_ptr < mgf::IOverlayElement > element) {
     LOG_F_TRACE(GAME_LOG_PATH, "clicked on UI");
+
     if (element->getName() == "endTurnBtn") {
         LOG_F_TRACE(GAME_LOG_PATH, "NextTurn Button pushed");
         mGame->nextTurn();

@@ -100,12 +100,12 @@ int Label::nextPow2(int num){
 bool Label::textToTexture(){
 	if(!mFont){
 		mTop->setVisible(false);
-		LOG_F_INFO(MGF_LOG_FILE, "Failed to create text: no Font");
+		LOG_F_INFO(MGF_LOG_FILE, "Failed to createSettingsOverlay text: no Font");
 		return false;
 	}
 	if(mText.size() == 0){
 		mTop->setVisible(false);
-		LOG_F_INFO(MGF_LOG_FILE, "Failed to create text: no Text");
+		LOG_F_INFO(MGF_LOG_FILE, "Failed to createSettingsOverlay text: no Text");
 		return false;
 	}
 	SDL_Color color;
@@ -116,7 +116,7 @@ bool Label::textToTexture(){
 	SDL_Surface *img = TTF_RenderText_Solid(mFont, mText.c_str(), color);
 	if(!img){
 		mTop->setVisible(false);
-		LOG_F_ERROR(MGF_LOG_FILE, "Failed to create text: could not create image");
+		LOG_F_ERROR(MGF_LOG_FILE, "Failed to create text: could not createSettingsOverlay image");
 		return false;
 	}
 	SDL_Surface *realimg = SDL_CreateRGBSurface(0, nextPow2(img->w) * 2, nextPow2(img->h) * 2, 32,
@@ -129,7 +129,7 @@ bool Label::textToTexture(){
 	std::shared_ptr<Texture> tex = loadTextureFromSDLSurface(realimg);
 	if(!tex){
 		mTop->setVisible(false);
-		LOG_F_ERROR(MGF_LOG_FILE, "Failed to create text: could not load texture");
+		LOG_F_ERROR(MGF_LOG_FILE, "Failed to createSettingsOverlay text: could not load texture");
 		return false;
 	}
 	mTopMat->mDiffuseTextures.resize(1);

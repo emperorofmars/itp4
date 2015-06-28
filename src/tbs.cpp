@@ -3,6 +3,7 @@
 #include "game/startUp.h"
 #include "libs/mlog.h"
 #include "game/menu/MenuLoop.h"
+#include "game/menu/Menu.h"
 
 using namespace std;
 
@@ -12,12 +13,13 @@ int main(){
     cout << "Starting up Clash of Mages" << endl;
     cout << endl;
 
-    MenuLoop menu;
-    menu.init();
+    std::shared_ptr<EngineHelper> engine(new EngineHelper);
 
-    menu.run();
+    Menu menu;
+    menu.create(engine);    // creates menu overlay
 
-    //startUp();
+    MenuLoop menuLoop;
+    menuLoop.run(engine);   // starts menu loop
 
     return 0;
 }

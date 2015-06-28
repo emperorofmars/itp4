@@ -15,7 +15,7 @@
 #include "../../tbs.h"
 
 
-GameLoop::GameLoop(std::shared_ptr < Game > game) {
+GameLoop::GameLoop(std::shared_ptr<Game> game) {
     mGame = game;
     mStateContext = Context::getInstance();
     mStateContext->injectGameReference(mGame);
@@ -23,7 +23,7 @@ GameLoop::GameLoop(std::shared_ptr < Game > game) {
 
 }
 
-int GameLoop::run(std::shared_ptr < EngineHelper > engine) {
+int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
 //###############################################  Gameloop
     float current = 0, last = 0, frametime = 0;
     bool quit = false;
@@ -31,7 +31,7 @@ int GameLoop::run(std::shared_ptr < EngineHelper > engine) {
     bool mouseLeftDown = false;
     bool mouseRightDown = false;
 
-    std::queue <InputEvent> eventsQueue;
+    std::queue<InputEvent> eventsQueue;
 
     while (!quit) {
 //###############################################  Update
