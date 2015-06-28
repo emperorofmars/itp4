@@ -30,6 +30,7 @@ private:
     std::shared_ptr <Game> mGame;
     std::shared_ptr <Context> mStateContext;
 
+    bool gameFinished();
 
     bool checkOutOfBounds(glm::vec3 tvec3);
 };

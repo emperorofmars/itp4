@@ -56,6 +56,7 @@ public:
     void setCurMana(int curMana);
     bool useMana(int amount);
     void gainMana(int amount);
+    bool allDead();
 private:
     int id;
     std::string name;

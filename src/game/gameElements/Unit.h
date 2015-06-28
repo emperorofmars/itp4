@@ -68,7 +68,7 @@ private:
     int curHP;
     int remainingMovement;
     int timesDefended;
-
+    bool dead = false;
 
 public:
     int getOwner();
@@ -134,6 +134,8 @@ public:
     void setModel(std::string);
 
     std::string getModel();
+
+    bool isDead() const;
 };
 
 

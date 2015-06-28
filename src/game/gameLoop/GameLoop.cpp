@@ -79,6 +79,12 @@ int GameLoop::run(std::shared_ptr < EngineHelper > engine) {
             eventsQueue.pop();
         }
 
+//##### Check game status
+
+        if(gameFinished()){
+            mGame->quitGame();
+        }
+
 //###############################################  Rendering
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearBufferfv(GL_COLOR, 0, glm::value_ptr(glm::vec4(0.3f, 0.3f, 0.3f, 1.0f)));
@@ -115,6 +121,21 @@ bool GameLoop::checkOutOfBounds(glm::vec3 position) {
     } else if (position[2] < 20.f || position[2] > 70.f) {
         return true;
     }
+
+    return false;
+}
+
+bool GameLoop::gameFinished() {
+    int loser;
+
+    for(int i = 0; i<2; ++i){
+        if(mGame->getPlayer(i)->allDead() && mGame->getPlayer(i)->getCurMana() < 5 ||
+           mGame->getPlayer(i)->getBase()->isDead()){
+            loser = i;
+            return true;
+        }
+    }
+
 
     return false;
 }

@@ -109,3 +109,15 @@ Player::~Player() {
 
     LOG_F_TRACE(GAME_LOG_PATH, "player destroyed");
 }
+
+bool Player::allDead() {
+    bool allDead = true;
+
+    for(int i = 0; i < mUnits->size(); ++i){
+        if(!mUnits->at(i)->isDead()){
+            allDead = false;
+        }
+    }
+
+    return allDead;
+}

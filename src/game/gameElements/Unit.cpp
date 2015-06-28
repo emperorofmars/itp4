@@ -173,7 +173,7 @@ void Unit::getHit(int dmg) {
         mUnitNode->setVisible(false);
         mCurrentHexfield->setEmtpy();
         mCurrentHexfield.reset();
-
+        dead = true;
     }
 }
 
@@ -333,4 +333,8 @@ void Unit::setModel(std::string string) {
 
 std::string Unit::getModel() {
     return modelName;
+}
+
+bool Unit::isDead() const {
+        return dead;
 }
