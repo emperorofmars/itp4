@@ -18,8 +18,8 @@ int main(){
     Menu menu;
     menu.create(engine);    // creates menu overlay
 
-    MenuLoop menuLoop;
-    menuLoop.run(engine);   // starts menu loop
+    MenuLoop menuLoop(engine);
+    menuLoop.run();   // starts menu loop
 
     return 0;
 }

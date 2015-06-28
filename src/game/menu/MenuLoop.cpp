@@ -9,19 +9,15 @@
 #include <src/collision/MouseRay.h>
 #include <src/collision/RayPlane.h>
 #include "MenuLoop.h"
-#include "../EngineHelper.h"
-#include "../../tbs.h"
 #include "../startUp.h"
-#include "Menu.h"
 #include "Settings.h"
 
-MenuLoop::MenuLoop() {
+MenuLoop::MenuLoop(std::shared_ptr<EngineHelper> engine): mEngine(engine) {
     mStateContext = Context::getInstance();
 }
 
 
-int MenuLoop::run(std::shared_ptr<EngineHelper> engine) {
-    mEngine = engine;
+int MenuLoop::run() {
     std::cout << "Starting menu loop..." << std::endl;
 
     quit = false;
@@ -39,15 +35,15 @@ int MenuLoop::run(std::shared_ptr<EngineHelper> engine) {
             running = true;
         }
 
-        engine->input->update();
-        quit = (engine->input->getQuit());
+        mEngine->input->update();
+        quit = (mEngine->input->getQuit());
 
-        engine->setPointer();
+        mEngine->setPointer();
 
         //###############################################  Controls
-        bool leftClick = engine->input->getMouseClick()[0];
-        bool rightClick = engine->input->getMouseClick()[2];
-        bool middleClick = engine->input->getMouseClick()[1];
+        bool leftClick = mEngine->input->getMouseClick()[0];
+        bool rightClick = mEngine->input->getMouseClick()[2];
+        bool middleClick = mEngine->input->getMouseClick()[1];
 
         if (middleClick) {
             mouseMidDown = true;
@@ -68,11 +64,11 @@ int MenuLoop::run(std::shared_ptr<EngineHelper> engine) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearBufferfv(GL_COLOR, 0, glm::value_ptr(glm::vec4(0.3f, 0.3f, 0.3f, 1.0f)));
 
-        engine->actualScene->render(engine->renderer); //rendering on gpu happens here
-        engine->overlay->render(engine->renderer);
+        mEngine->actualScene->render(mEngine->renderer); //rendering on gpu happens here
+        mEngine->overlay->render(mEngine->renderer);
 
 
-        engine->w->swap(); //display the rendered image on screen
+        mEngine->w->swap(); //display the rendered image on screen
 
 //###############################################  Calculate fps
         current = SDL_GetTicks();

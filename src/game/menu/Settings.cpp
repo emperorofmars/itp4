@@ -88,8 +88,8 @@ int Settings::quit() {
     Menu menu;
     menu.create(mEngine);    // creates menu overlay
 
-    MenuLoop menuLoop;
-    menuLoop.run(mEngine);
+    MenuLoop menuLoop(mEngine);
+    menuLoop.run();
 
     return 0;
 }

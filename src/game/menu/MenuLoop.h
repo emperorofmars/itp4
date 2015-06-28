@@ -11,9 +11,9 @@
 
 class MenuLoop {
 public:
-    MenuLoop();
+    MenuLoop(std::shared_ptr<EngineHelper> engine);
 
-    int run(std::shared_ptr < EngineHelper > engine);
+    int run();
 
 private:
     std::shared_ptr <Context> mStateContext;
