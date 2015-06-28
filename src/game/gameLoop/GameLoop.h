@@ -21,6 +21,7 @@ class Context;
 class GameLoop {
 public:
     GameLoop(std::shared_ptr <Game>);
+    ~GameLoop();
 
     std::deque <int> input;
 

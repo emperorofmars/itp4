@@ -15,12 +15,17 @@
 #include "../../tbs.h"
 
 
-GameLoop::GameLoop(std::shared_ptr<Game> game) {
-    mGame = game;
+GameLoop::GameLoop(std::shared_ptr<Game> game): mGame(game) {
     mStateContext = Context::getInstance();
     mStateContext->injectGameReference(mGame);
     LOG_F_TRACE(GAME_LOG_PATH, "context adress ", mStateContext.get());
 
+}
+
+GameLoop::~GameLoop() {
+    std::cout << "GameLoop Destructor." << std::endl;
+    mGame.reset();
+    mStateContext.reset();
 }
 
 int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
