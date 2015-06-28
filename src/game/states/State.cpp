@@ -87,8 +87,8 @@ bool State::reactToInterfaceInteraction(std::shared_ptr < mgf::IOverlayElement >
         return true;
     } else if (element->getName() == "quitBtn") {
         LOG_F_TRACE(GAME_LOG_PATH, "button: Quit");
-        mGame->showMenu();
-//        mGame->quitGame();
+//        mGame->showMenu();
+        mGame->quitGame();
         return true;
     }
 

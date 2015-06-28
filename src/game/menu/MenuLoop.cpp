@@ -31,7 +31,7 @@ int MenuLoop::run() {
 
 
     while (!quit) {
-        std::cout << "MenuLoop running." << std::endl;
+        //std::cout << "MenuLoop running." << std::endl;
 
 
         input->update();
@@ -141,6 +141,8 @@ void MenuLoop::init() {
     root->print();
 
     createOverlay();
+
+
 }
 
 
@@ -162,9 +164,9 @@ void MenuLoop::createOverlay() {
     quitBtn->setBackground("res/images/elemente/quit.png");
     quitBtn->translate(glm::vec2(0.85f, -0.05f));
 
-
-
-
+    //std::shared_ptr<mgf::Label> background(new mgf::Label("background"));
+    //background->setBackground("res/images/elemente/test.bmp");
+    //background->scale(glm::vec2(10.f, 10.f));
     /**
  * Set mouse pointer
  */
@@ -181,6 +183,8 @@ void MenuLoop::createOverlay() {
     //overlay->add(statusHealth);
     //overlay->add(actualHealth);
     overlay->add(pointer);
+    overlay->add(background);
+
 }
 
 void MenuLoop::cleanUp() {
