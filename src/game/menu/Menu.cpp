@@ -6,11 +6,16 @@
 #include "Menu.h"
 
 Menu::Menu() {
-    std::cout << "Entered menu constructor." << std::endl;
+    std::cout << "Creating menu." << std::endl;
+}
+
+Menu::~Menu() {
+    root.reset();
+    actualScene.reset();
+    menuOverlay.reset();
 }
 
 void Menu::create(std::shared_ptr<EngineHelper> engine) {
-    std::cout << "Creating menu..." << std::endl;
 
     engine->actualScene.reset(new mgf::Node("menuScene"));
     engine->overlay.reset(new mgf::Overlay());
@@ -46,6 +51,3 @@ void Menu::create(std::shared_ptr<EngineHelper> engine) {
     engine->overlay->add(engine->pointer);
 }
 
-void Menu::destroy() {
-    std::cout << "Destroying menu..." << std::endl;
-}

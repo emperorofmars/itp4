@@ -15,7 +15,7 @@
 #include "Menu.h"
 
 MenuLoop::MenuLoop() {
-//    mStateContext = Context::getInstance();
+    mStateContext = Context::getInstance();
 }
 
 

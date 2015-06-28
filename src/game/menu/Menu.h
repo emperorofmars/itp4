@@ -6,12 +6,12 @@
 class Menu {
 public:
     Menu();
+    ~Menu();
 
     std::shared_ptr <mgf::Node> root;
     std::shared_ptr <mgf::Node> actualScene;
     std::shared_ptr <mgf::Overlay> menuOverlay;
 
-    void create(std::shared_ptr<EngineHelper> ptr);
+    void create(std::shared_ptr<EngineHelper>);
 
-    void destroy();
 };
