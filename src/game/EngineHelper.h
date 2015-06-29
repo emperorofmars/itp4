@@ -32,6 +32,11 @@ public:
     std::shared_ptr <mgf::Label> mana;
     std::shared_ptr <mgf::Label> player;
 
+    unsigned int mWindowWidth;
+    unsigned int mWindowHeight;
+    bool mFullscreen;
+
+
     EngineHelper();
 
     glm::vec3 getMousePos();
@@ -42,9 +47,9 @@ public:
 
     void printStatus(int status, std::string object);
 
-    void processMenuLeftClick();
+    void readConfig();
 
-    void processSettingsLeftClick();
+    bool setConfig(std::string key, std::string value);
 };
 
 

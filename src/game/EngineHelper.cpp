@@ -2,6 +2,7 @@
 // Created by lukas on 26.04.15.
 //
 
+
 #include <src/overlay/Label.h>
 #include <src/overlay/Button.h>
 #include <src/overlay/Overlay.h>
@@ -19,7 +20,8 @@
 EngineHelper::EngineHelper() {
     printStatus(1, "EngineHelper object");
 
-    w.reset(new mgf::Window("Clash of Mages", 1000, 800, 0, 0));
+    readConfig();
+    w.reset(new mgf::Window("Clash of Mages", mWindowWidth, mWindowHeight, mFullscreen, 0));
     input.reset(new mgf::InputTopDown);
 
     p.reset(new mgf::ShaderProgram);
@@ -62,6 +64,8 @@ std::shared_ptr <mgf::IOverlayElement> EngineHelper::getOverlayOnPos() {
     return elm;
 }
 
+
+
 /*
  * For debugging.
  */
@@ -73,4 +77,62 @@ void EngineHelper::printStatus(int status, std::string object) {
     } else {
         std::cout << object << std::endl;
     }
+}
+
+void EngineHelper::readConfig() {
+    bool fallback = false;
+
+    std::string line;
+    std::ifstream file("res/settings.txt");
+
+    if(file.is_open()){
+        while(getline(file, line)){
+
+            auto tmp = line.find('=');
+
+            std::string key = line.substr(0, tmp);
+            std::string val = line.substr(++tmp, std::string::npos);
+
+            std::cout << key << " " << val << std::endl;
+            if(!setConfig(key, val)) fallback = true;
+
+        }
+
+    }else{
+        fallback = true;
+        std::cout << "settings not found" << std::endl;
+    }
+
+    if(fallback){
+        std::cout << "using fallback" << std::endl;
+        mWindowWidth = 1000;
+        mWindowHeight = 800;
+        mFullscreen = false;
+    }
+}
+
+bool EngineHelper::setConfig(std::string key, std::string value) {
+    if(key == "resolution"){
+        auto index = value.find('x');
+
+        std::string widthStr = value.substr(0, index);
+        std::string lengthStr = value.substr(++index, std::string::npos);
+
+        int width = std::atoi(widthStr.c_str());
+        int height = std::atoi(lengthStr.c_str());
+
+        mWindowWidth = width;
+        mWindowHeight = height;
+
+        return true;
+    }else if(key == "fullscreen"){
+        if(value == "yes"){
+            mFullscreen = true;
+        }else{
+            mFullscreen = false;
+        }
+        return true;
+    }
+
+    return false;
 }
