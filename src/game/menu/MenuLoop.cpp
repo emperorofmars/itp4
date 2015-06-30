@@ -13,6 +13,7 @@
 #include "Settings.h"
 
 MenuLoop::MenuLoop(std::shared_ptr<EngineHelper> engine): mEngine(engine) {
+
     startGame = false;
 }
 

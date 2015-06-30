@@ -451,7 +451,9 @@ int Game::deleteUnits() {
 
     for (int i = 0; i < mUnitHolder1->size(); ++i) {
         std::shared_ptr<Unit> currentUnit = mUnitHolder1->at(i);
-        currentUnit->getCurrentHexfield()->setEmtpy();
+        if(currentUnit->getCurrentHexfield() != NULL){
+            currentUnit->getCurrentHexfield()->setEmtpy();
+        }
         mUnitHolder1->at(i).reset();
         currentUnit.reset();
     }
