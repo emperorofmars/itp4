@@ -12,7 +12,7 @@ Unit::Unit() {
 
 }
 
-Unit::Unit(std::shared_ptr < Unit > original) {
+Unit::Unit(std::shared_ptr<Unit> original) {
     type = original->type;
     name = original->name;
 
@@ -30,8 +30,8 @@ Unit::Unit(std::shared_ptr < Unit > original) {
     remainingMovement = movement;
 }
 
-std::shared_ptr <Unit> Unit::clone() {
-    std::shared_ptr <Unit> unit(new Unit);
+std::shared_ptr<Unit> Unit::clone() {
+    std::shared_ptr<Unit> unit(new Unit);
 
     unit->type = type;
     unit->name = name;
@@ -54,7 +54,7 @@ std::shared_ptr <Unit> Unit::clone() {
 }
 
 
-std::shared_ptr <Hexfield> Unit::moveTo(std::shared_ptr < Unit > self) {
+std::shared_ptr<Hexfield> Unit::moveTo(std::shared_ptr<Unit> self) {
     float destinationXPos = mDestination->mPosition[1];
     float destinationYPos = mDestination->mPosition[0];
 
@@ -62,7 +62,7 @@ std::shared_ptr <Hexfield> Unit::moveTo(std::shared_ptr < Unit > self) {
     LOG_F_TRACE(GAME_LOG_PATH, "POS: ", mCurrentHexfield->mPosition[1], "/", mCurrentHexfield->mPosition[0]);
     LOG_F_TRACE(GAME_LOG_PATH, "moving.. (dest: ", mDestination->mPosition[1], "/", mDestination->mPosition[0], ")");
 
-    std::shared_ptr <Hexfield> nearestHex;
+    std::shared_ptr<Hexfield> nearestHex;
     float minDist;
     float curDist = INFINITY;
 
@@ -71,7 +71,7 @@ std::shared_ptr <Hexfield> Unit::moveTo(std::shared_ptr < Unit > self) {
 
     //DEBUG var
     int i = 0;
-    for (std::shared_ptr <Hexfield> neighbor : mCurrentHexfield->linkedTo) {
+    for (std::shared_ptr<Hexfield> neighbor : mCurrentHexfield->linkedTo) {
         if (neighbor == NULL) continue;
 
         curDist = neighbor->getDist(mDestination);
@@ -106,10 +106,10 @@ std::shared_ptr <Hexfield> Unit::moveTo(std::shared_ptr < Unit > self) {
     return nearestHex;
 }
 
-bool Unit::isInRange(std::shared_ptr < Hexfield > target) {
+bool Unit::isInRange(std::shared_ptr<Hexfield> target) {
     if (mCurrentHexfield == target) return false;
 
-    std::shared_ptr <Hexfield> targetableHex = mCurrentHexfield;
+    std::shared_ptr<Hexfield> targetableHex = mCurrentHexfield;
 
     for (int i = 0; i < range; ++i) {
         targetableHex = checkRange(targetableHex, target);
@@ -123,8 +123,8 @@ bool Unit::isInRange(std::shared_ptr < Hexfield > target) {
 }
 
 //TODO rename this method
-std::shared_ptr <Hexfield> Unit::checkRange(std::shared_ptr < Hexfield > start,
-                                            std::shared_ptr < Hexfield > target) {
+std::shared_ptr<Hexfield> Unit::checkRange(std::shared_ptr<Hexfield> start,
+                                           std::shared_ptr<Hexfield> target) {
     return start->getNearestNeighbor(target);
 }
 
@@ -286,20 +286,20 @@ void Unit::setTimesDefended(int i) {
     timesDefended = i;
 }
 
-void Unit::setCurrentHexfield(std::shared_ptr < Hexfield > hexfield) {
+void Unit::setCurrentHexfield(std::shared_ptr<Hexfield> hexfield) {
     mCurrentHexfield.reset();
     mCurrentHexfield = hexfield;
 }
 
-std::shared_ptr <Hexfield> Unit::getCurrentHexfield() {
+std::shared_ptr<Hexfield> Unit::getCurrentHexfield() {
     return mCurrentHexfield;
 }
 
-void Unit::setUnitNode(std::shared_ptr < mgf::Node > node) {
+void Unit::setUnitNode(std::shared_ptr<mgf::Node> node) {
     mUnitNode = node;
 }
 
-std::shared_ptr <mgf::Node> Unit::getUnitNode() { return mUnitNode; }
+std::shared_ptr<mgf::Node> Unit::getUnitNode() { return mUnitNode; }
 
 void Unit::printStats() {
     std::cout << type << std::endl
@@ -322,11 +322,11 @@ Unit::~Unit() {
     LOG_F_TRACE(GAME_LOG_PATH, "Unit destroyed.");
 }
 
-void Unit::setDestination(std::shared_ptr < Hexfield > d) {
+void Unit::setDestination(std::shared_ptr<Hexfield> d) {
     mDestination = d;
 }
 
-std::shared_ptr <Hexfield> Unit::getDestination() {
+std::shared_ptr<Hexfield> Unit::getDestination() {
     return mDestination;
 }
 
@@ -339,5 +339,5 @@ std::string Unit::getModel() {
 }
 
 bool Unit::isDead() const {
-        return dead;
+    return dead;
 }
