@@ -22,15 +22,19 @@ int startUp(std::shared_ptr<EngineHelper> engine) {
 	
     cout << "Creating new Game" << endl;
     std::shared_ptr<Game> game(new Game());
+	
+    std::cout << "FOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO 01" << std::endl;
 
     game->initGame();
+	
+    std::cout << "FOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO 02" << std::endl;
 
     cout << "First player: " << game->getPlayer(0)->getName() << endl;
     cout << "Second player: " << game->getPlayer(1)->getName() << endl;
 
     cout << "Creating Game Loop element" << endl;
     std::shared_ptr<GameLoop> loop(new GameLoop(game));
-
+	
     //Setting up overlay
     game->setEngine(engine);
     game->createGameOverlay();
@@ -75,7 +79,6 @@ int startUp(std::shared_ptr<EngineHelper> engine) {
     }
 
 //#######Start Game
-	
     loop->run(engine);
 
     return 0;

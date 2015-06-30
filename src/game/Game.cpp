@@ -63,6 +63,8 @@ void Game::initGame() {
     mUnitManager->loadProtoypes();
 
     mUnitManager->printPrototypesToCout();
+	
+    std::cout << "DEBUG 01" << std::endl;
 
     generatePlayingField();
 
@@ -226,20 +228,26 @@ void Game::generatePlayingField() {
     cout << endl;
 
     mFirstField = field[0][0];
+    cout << "linking complete" << endl;
 
 
     //Sets Position of Magetowers
     std::shared_ptr<Unit> tower(mUnitManager->getChild("Magierturm")->clone());
     mPlayers[0]->setBase(tower);
     field[4][4]->setOccupation(tower);
+    cout << "fuuu 01" << endl;
     tower->setCurrentHexfield(field[4][4]);
+    cout << "fuuu 02" << endl;
     tower->setOwner(0);
 
     std::shared_ptr<Unit> tower2(mUnitManager->getChild("Magierturm")->clone());
     mPlayers[1]->setBase(tower2);
     field[19][19]->setOccupation(tower2);
+    cout << "fuuu 01" << endl;
     tower2->setCurrentHexfield(field[19][19]);
+    cout << "fuuu 02" << endl;
     tower2->setOwner(1);
+    cout << "fuuu end" << endl;
 
     LOG_F_TRACE(GAME_LOG_PATH, "player 1 base : ", mPlayers[0]->getBase()->getCurrentHexfield()->printPos());
     LOG_F_TRACE(GAME_LOG_PATH, "player 2 base: ", mPlayers[1]->getBase()->getCurrentHexfield()->printPos());
