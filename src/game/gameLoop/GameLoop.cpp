@@ -62,7 +62,9 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
             mGame->unitDmgCounter[1]++;
 
             if(mGame->unitDmgCounter[1] > 15){
-                mGame->dmgedUnit[1]->getUnitNode()->resetMaterial();
+                std::shared_ptr<mgf::Material> newmat(new mgf::Material);
+                newmat->mDiffuseColor = glm::vec4(1.f, 1.f, 1.f, 1.f);
+                mGame->dmgedUnit[1]->getUnitNode()->setMaterial(newmat);
                 mGame->dmgedUnit[1].reset();
             }
 

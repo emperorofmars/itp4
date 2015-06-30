@@ -400,28 +400,6 @@ std::shared_ptr<Hexfield> Game::getNextFreeField(std::shared_ptr<Hexfield> curre
     return NULL;
 }
 
-int Game::unitMovementWrapper(std::shared_ptr<Unit> unit,
-                              std::shared_ptr<Hexfield> destination) {
-    LOG_F_TRACE(GAME_LOG_PATH, "Starting unit movement ", unit->getName(), " to ",
-                destination->mPosition[1], "/", destination->mPosition[0]);
-
-    std::shared_ptr<Hexfield> startField = unit->getCurrentHexfield();
-
-
-    std::shared_ptr<Hexfield> finishedField = unit->moveTo(unit);
-
-    LOG_F_TRACE(GAME_LOG_PATH, "translating unit to endpoint");
-    if (finishedField) {
-        //LOG_F_TRACE(GAME_LOG_PATH, finishedField->mPositionVector);
-        std::shared_ptr<mgf::Node> node = unit->getUnitNode();
-        finishedField->mPositionVector;
-        LOG_F_TRACE(GAME_LOG_PATH, finishedField->mPosition[1], "/", finishedField->mPosition[0]);
-
-        unit->getUnitNode()->setTranslation(finishedField->mPositionVector);
-
-    }
-
-}
 
 
 int Game::cleanUp() {
