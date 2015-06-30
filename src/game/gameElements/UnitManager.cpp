@@ -36,7 +36,6 @@ void UnitManager::loadProtoypes() {
     std::cout << "opening config file " << std::endl;
     configFile.open(pathToConfig);
 
-
     if (configFile.is_open()) {
         std::string line;
         while (std::getline(configFile, line)) {
