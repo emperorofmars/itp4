@@ -92,6 +92,7 @@ void MenuLoop::processMenuLeftClick() {
         } else if (elm->getName() == "settingsBtn") {
             std::cout << "Settings starting now!" << std::endl;
             Settings settings(mEngine);
+            std::cout << "DEBUG settings 01" << std::endl;
             settings.run();
         } else if (elm->getName() == "quitBtn") {
             std::cout << "Exiting now!" << std::endl;
