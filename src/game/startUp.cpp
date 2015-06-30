@@ -28,7 +28,7 @@ int startUp(std::shared_ptr<EngineHelper> engine) {
     cout << "First player: " << game->getPlayer(0)->getName() << endl;
     cout << "Second player: " << game->getPlayer(1)->getName() << endl;
 
-    cout << "Creating Game Loop element" << endl;
+    cout << "Creating Game Loop element..." << endl;
     std::shared_ptr<GameLoop> loop(new GameLoop(game));
 	
     //Setting up overlay
