@@ -692,6 +692,13 @@ void Game::createGameOverlay() {
     /*
      * Create buttons
      */
+    float x = 0.0;
+    float y = 0.0;
+    float dividend = 0.36;
+
+    if (engine->isCurrentDisplayMode()) dividend = 0.5;
+    std::cout << dividend << std::endl;
+
     std::shared_ptr <mgf::Button> endTurnBtn(new mgf::Button("endTurnBtn"));
     endTurnBtn->setBackground("res/images/elemente/nextround.png");
     endTurnBtn->translate(glm::vec2(0.85f, 0.65f));
@@ -723,6 +730,8 @@ void Game::createGameOverlay() {
 
     engine->health.reset(new mgf::Label("health"));
     engine->health->setFont("res/fonts/main.ttf");
+    engine->health->setBackground("res/images/elemente/transparent.png");
+    engine->health->setColor(glm::vec3(265,165,0));
     engine->health->translate(glm::vec2(0.07f, -0.05f));
 
     // Mana
@@ -732,12 +741,15 @@ void Game::createGameOverlay() {
 
     engine->mana.reset(new mgf::Label("mana"));
     engine->mana->setFont("res/fonts/main.ttf");
+    engine->mana->setBackground("res/images/elemente/transparent.png");
+    engine->mana->setColor(glm::vec3(265,165,0));
     engine->mana->translate(glm::vec2(0.4f, -0.05f));
 
     // Player
     engine->player.reset(new mgf::Label("label"));
     engine->player->setFont("res/fonts/main.ttf");
-    engine->player->setLayer(0);
+    engine->player->setBackground("res/images/elemente/transparent.png");
+    engine->player->setColor(glm::vec3(265,165,0));
     engine->player->translate(glm::vec2(-0.05f, 0.02));
 
     /*
