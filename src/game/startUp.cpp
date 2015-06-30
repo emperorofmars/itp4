@@ -19,22 +19,18 @@
 using namespace std;
 
 int startUp(std::shared_ptr<EngineHelper> engine) {
-
-    LOG_INIT("log/log_tbs.txt", true);
-
-    LOG_F_TRACE(GAME_LOG_PATH, "Starting up ... ");
-
+	
     cout << "Creating new Game" << endl;
     std::shared_ptr<Game> game(new Game());
-
+	
     game->initGame();
 
     cout << "First player: " << game->getPlayer(0)->getName() << endl;
     cout << "Second player: " << game->getPlayer(1)->getName() << endl;
 
-    cout << "Creating Game Loop element" << endl;
+    cout << "Creating Game Loop element..." << endl;
     std::shared_ptr<GameLoop> loop(new GameLoop(game));
-
+	
     //Setting up overlay
     game->setEngine(engine);
     game->createGameOverlay();

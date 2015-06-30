@@ -226,6 +226,7 @@ void Game::generatePlayingField() {
     cout << endl;
 
     mFirstField = field[0][0];
+    cout << "linking complete" << endl;
 
 
     //Sets Position of Magetowers
@@ -241,8 +242,8 @@ void Game::generatePlayingField() {
     tower2->setCurrentHexfield(field[19][19]);
     tower2->setOwner(1);
 
-    LOG_F_TRACE(GAME_LOG_PATH, "player 1 base : ", mPlayers[0]->getBase()->getCurrentHexfield()->printPos());
-    LOG_F_TRACE(GAME_LOG_PATH, "player 2 base: ", mPlayers[1]->getBase()->getCurrentHexfield()->printPos());
+//    LOG_F_TRACE(GAME_LOG_PATH, "player 1 base : ", mPlayers[0]->getBase()->getCurrentHexfield()->printPos());
+//    LOG_F_TRACE(GAME_LOG_PATH, "player 2 base: ", mPlayers[1]->getBase()->getCurrentHexfield()->printPos());
 
 }
 
@@ -694,30 +695,40 @@ void Game::createGameOverlay() {
      */
     float x = 0.0;
     float y = 0.0;
-    float dividend = 0.36;
-
-    if (engine->isCurrentDisplayMode()) dividend = 0.5;
-    std::cout << dividend << std::endl;
-
-    std::shared_ptr <mgf::Button> endTurnBtn(new mgf::Button("endTurnBtn"));
-    endTurnBtn->setBackground("res/images/elemente/nextround.png");
-    endTurnBtn->translate(glm::vec2(0.85f, 0.65f));
 
     std::shared_ptr <mgf::Button> quitBtn(new mgf::Button("quitBtn"));
     quitBtn->setBackground("res/images/elemente/quit.png");
-    quitBtn->translate(glm::vec2(0.85f, -0.05f));
+    x = (0.92f/engine->w->getAspectRatio() + quitBtn->getScale()[0]);
+    y = (0.06f/engine->w->getAspectRatio() + quitBtn->getScale()[1]);
+    std::cout << "Quit button coordinates: " << x << "x" << y << std::endl;
+    quitBtn->translate(glm::vec2(x, y));
+
+    std::shared_ptr <mgf::Button> endTurnBtn(new mgf::Button("endTurnBtn"));
+    endTurnBtn->setBackground("res/images/elemente/nextround.png");
+    y = (0.94f/engine->w->getAspectRatio() + endTurnBtn->getScale()[1]);
+    std::cout << "Next turn button coordinates: " << x << "x" << y << std::endl;
+    endTurnBtn->translate(glm::vec2(x, y));
 
     std::shared_ptr <mgf::Button> createInfantry(new mgf::Button("infantryBtn"));
     createInfantry->setBackground("res/images/elemente/infantry.png");
-    createInfantry->translate(glm::vec2(-0.05f, 0.65f));
+    std::cout << "Window Aspect Ratio: " << engine->w->getAspectRatio() << std::endl
+    << "Scale: " << createInfantry->getScale()[0];
+//    exit(1);
+    x = ((1/engine->w->getAspectRatio()) + createInfantry->getScale()[0]);
+    x -= 0.94;
+    std::cout << "Create infantry coordinates: " << x << "x" << y << std::endl;
+    createInfantry->translate(glm::vec2(x, y));
+//    exit(1);
 
     std::shared_ptr <mgf::Button> createCavalry(new mgf::Button("cavalryBtn"));
     createCavalry->setBackground("res/images/elemente/cavalry.png");
-    createCavalry->translate(glm::vec2(0.05f, 0.65f));
+    x += 0.1f;
+    createCavalry->translate(glm::vec2(x, y));
 
     std::shared_ptr <mgf::Button> createArtillery(new mgf::Button("artilleryBtn"));
     createArtillery->setBackground("res/images/elemente/artillery.png");
-    createArtillery->translate(glm::vec2(0.15f, 0.65f));
+    x += 0.1f;
+    createArtillery->translate(glm::vec2(x, y));
 
     /*
      * Create game status Labels:
@@ -726,31 +737,33 @@ void Game::createGameOverlay() {
     // Health
     std::shared_ptr <mgf::Label> statusHealth(new mgf::Label("statusHealth"));
     statusHealth->setBackground("res/images/elemente/health.png");
-    statusHealth->translate(glm::vec2(-0.05f, -0.05f));
-
-    engine->health.reset(new mgf::Label("health"));
-    engine->health->setFont("res/fonts/main.ttf");
-    engine->health->setBackground("res/images/elemente/transparent.png");
-    engine->health->setColor(glm::vec3(265,165,0));
-    engine->health->translate(glm::vec2(0.07f, -0.05f));
-
-    // Mana
-    std::shared_ptr <mgf::Label> statusMana(new mgf::Label("statusMana"));
-    statusMana->setBackground("res/images/elemente/mana.png");
-    statusMana->translate(glm::vec2(0.3, -0.05f));
-
-    engine->mana.reset(new mgf::Label("mana"));
-    engine->mana->setFont("res/fonts/main.ttf");
-    engine->mana->setBackground("res/images/elemente/transparent.png");
-    engine->mana->setColor(glm::vec3(265,165,0));
-    engine->mana->translate(glm::vec2(0.4f, -0.05f));
+    x = -0.05f;
+    y = -0.05f;
+    statusHealth->translate(glm::vec2(x,y));
 
     // Player
     engine->player.reset(new mgf::Label("label"));
     engine->player->setFont("res/fonts/main.ttf");
     engine->player->setBackground("res/images/elemente/transparent.png");
     engine->player->setColor(glm::vec3(265,165,0));
-    engine->player->translate(glm::vec2(-0.05f, 0.02));
+    engine->player->translate(glm::vec2(x+0.01, 0.01));
+
+    engine->health.reset(new mgf::Label("health"));
+    engine->health->setFont("res/fonts/main.ttf");
+    engine->health->setBackground("res/images/elemente/transparent.png");
+    engine->health->setColor(glm::vec3(265,165,0));
+    engine->health->translate(glm::vec2(0.05f, y-0.01));
+
+    // Mana
+    std::shared_ptr <mgf::Label> statusMana(new mgf::Label("statusMana"));
+    statusMana->setBackground("res/images/elemente/mana.png");
+    statusMana->translate(glm::vec2(0.3, y));
+
+    engine->mana.reset(new mgf::Label("mana"));
+    engine->mana->setFont("res/fonts/main.ttf");
+    engine->mana->setBackground("res/images/elemente/transparent.png");
+    engine->mana->setColor(glm::vec3(265,165,0));
+    engine->mana->translate(glm::vec2(0.37f, y-0.01));
 
     /*
      * Add elements to Overlay

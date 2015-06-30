@@ -66,7 +66,6 @@ void Context::injectGameReference(std::shared_ptr < Game > game) {
     for (std::shared_ptr <State> state : mStates) {
         state->setGame(game);
     }
-
 }
 
 void Context::handle(InputEvent e) {

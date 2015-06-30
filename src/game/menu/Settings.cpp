@@ -9,7 +9,7 @@
 #include "Menu.h"
 
 Settings::Settings(std::shared_ptr<EngineHelper> engine): mEngine(engine) {
-    mStateContext = Context::getInstance();
+    //mStateContext = Context::getInstance();
     createSettingsOverlay();
 }
 

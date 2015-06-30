@@ -15,6 +15,7 @@
 MenuLoop::MenuLoop(std::shared_ptr<EngineHelper> engine): mEngine(engine) {
     mStateContext = Context::getInstance();
     startGame = false;
+    //mStateContext = Context::getInstance();
 }
 
 
@@ -24,9 +25,9 @@ int MenuLoop::run() {
     quit = false;
     float current = 0, last = 0, frametime = 0;
 
-    bool mouseMidDown = false;
+//    bool mouseMidDown = false;
     bool mouseLeftDown = false;
-    bool mouseRightDown = false;
+//    bool mouseRightDown = false;
 
     bool running = false;
 
@@ -43,18 +44,18 @@ int MenuLoop::run() {
 
         //###############################################  Controls
         bool leftClick = mEngine->input->getMouseClick()[0];
-        bool rightClick = mEngine->input->getMouseClick()[2];
-        bool middleClick = mEngine->input->getMouseClick()[1];
+//        bool rightClick = mEngine->input->getMouseClick()[2];
+//        bool middleClick = mEngine->input->getMouseClick()[1];
 
-        if (middleClick) {
-            mouseMidDown = true;
-        }
+//        if (middleClick) {
+//            mouseMidDown = true;
+//        }
         if (leftClick) {
             mouseLeftDown = true;
         }
-        if (rightClick) {
-            mouseRightDown = true;
-        }
+//        if (rightClick) {
+//            mouseRightDown = true;
+//        }
 
         if (mouseLeftDown && !leftClick) {
             processMenuLeftClick();
@@ -85,6 +86,7 @@ int MenuLoop::run() {
         return 0;
     }
     return 1;
+
 }
 
 void MenuLoop::processMenuLeftClick() {
@@ -97,8 +99,10 @@ void MenuLoop::processMenuLeftClick() {
         } else if (elm->getName() == "settingsBtn") {
             std::cout << "Settings starting now!" << std::endl;
             Settings settings(mEngine);
+            std::cout << "DEBUG settings 01" << std::endl;
             settings.run();
         } else if (elm->getName() == "quitBtn") {
+            std::cout << "Exiting now!" << std::endl;
             exit(0);
         }
     }

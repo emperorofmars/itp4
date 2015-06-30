@@ -288,7 +288,6 @@ void Unit::setTimesDefended(int i) {
 
 void Unit::setCurrentHexfield(std::shared_ptr < Hexfield > hexfield) {
     mCurrentHexfield.reset();
-    LOG_F_TRACE(GAME_LOG_PATH, hexfield->mPosition[1], "/", hexfield->mPosition[0]);
     mCurrentHexfield = hexfield;
 }
 

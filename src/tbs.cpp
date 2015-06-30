@@ -10,6 +10,8 @@ using namespace std;
 
 int main(){
 
+    LOG_INIT("log/log_tbs.txt", true);
+
     cout << "Starting up Clash of Mages" << endl;
     cout << endl;
 
