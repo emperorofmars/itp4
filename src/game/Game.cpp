@@ -694,30 +694,43 @@ void Game::createGameOverlay() {
      */
     float x = 0.0;
     float y = 0.0;
-    float dividend = 0.36;
-
-    if (engine->isCurrentDisplayMode()) dividend = 0.5;
-    std::cout << dividend << std::endl;
-
-    std::shared_ptr <mgf::Button> endTurnBtn(new mgf::Button("endTurnBtn"));
-    endTurnBtn->setBackground("res/images/elemente/nextround.png");
-    endTurnBtn->translate(glm::vec2(0.85f, 0.65f));
 
     std::shared_ptr <mgf::Button> quitBtn(new mgf::Button("quitBtn"));
     quitBtn->setBackground("res/images/elemente/quit.png");
-    quitBtn->translate(glm::vec2(0.85f, -0.05f));
+    x = (0.92f/engine->w->getAspectRatio() + quitBtn->getScale()[0]);
+    y = (0.06f/engine->w->getAspectRatio() + quitBtn->getScale()[1]);
+    std::cout << "Quit button coordinates: " << x << "x" << y << std::endl;
+    quitBtn->translate(glm::vec2(x, y));
+
+    std::shared_ptr <mgf::Button> endTurnBtn(new mgf::Button("endTurnBtn"));
+    endTurnBtn->setBackground("res/images/elemente/nextround.png");
+    y = (0.94f/engine->w->getAspectRatio() + endTurnBtn->getScale()[1]);
+    std::cout << "Next turn button coordinates: " << x << "x" << y << std::endl;
+    endTurnBtn->translate(glm::vec2(x, y));
+//    exit(1);
+
+//    exit(1);
 
     std::shared_ptr <mgf::Button> createInfantry(new mgf::Button("infantryBtn"));
     createInfantry->setBackground("res/images/elemente/infantry.png");
-    createInfantry->translate(glm::vec2(-0.05f, 0.65f));
+    std::cout << "Window Aspect Ratio: " << engine->w->getAspectRatio() << std::endl
+    << "Scale: " << createInfantry->getScale()[0];
+//    exit(1);
+    x = ((1/engine->w->getAspectRatio()) + createInfantry->getScale()[0]);
+    x -= 0.94;
+    std::cout << "Create infantry coordinates: " << x << "x" << y << std::endl;
+    createInfantry->translate(glm::vec2(x, y));
+//    exit(1);
 
     std::shared_ptr <mgf::Button> createCavalry(new mgf::Button("cavalryBtn"));
     createCavalry->setBackground("res/images/elemente/cavalry.png");
-    createCavalry->translate(glm::vec2(0.05f, 0.65f));
+    x += 0.1f;
+    createCavalry->translate(glm::vec2(x, y));
 
     std::shared_ptr <mgf::Button> createArtillery(new mgf::Button("artilleryBtn"));
     createArtillery->setBackground("res/images/elemente/artillery.png");
-    createArtillery->translate(glm::vec2(0.15f, 0.65f));
+    x += 0.1f;
+    createArtillery->translate(glm::vec2(x, y));
 
     /*
      * Create game status Labels:

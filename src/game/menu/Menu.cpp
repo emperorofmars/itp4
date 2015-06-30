@@ -25,7 +25,7 @@ void Menu::create(std::shared_ptr<EngineHelper> engine) {
      */
     float x = 0.0;
     float y = 0.0;
-    float dividend = 0.36;
+    float dividend = 0.4;
 
     if (engine->isCurrentDisplayMode()) dividend = 0.5;
     std::cout << dividend << std::endl;
