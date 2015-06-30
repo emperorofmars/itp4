@@ -20,12 +20,13 @@ using namespace std;
 std::shared_ptr <Context> Context::instance;
 
 std::shared_ptr <Context> Context::getInstance() {
-
+    cout << "getting context instance " << endl;
     if (instance == nullptr) {
+        cout << " creating new one " << endl;
         instance = std::shared_ptr<Context>(new Context());
         instance->initialize();
     }
-    //static shared_ptr<Context> instance (new Context());
+    cout << " returning " << endl;
     return instance;
 }
 

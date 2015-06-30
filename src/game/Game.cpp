@@ -439,6 +439,7 @@ int Game::cleanUp() {
     eraseField(mFirstField);
     mFirstField.reset();
 
+
     delete(mUnitManager);
 
 
