@@ -105,7 +105,9 @@ void Player::gainMana(int amount){
 
 Player::~Player() {
     mNext.reset();
-    baseTower->getCurrentHexfield()->setEmtpy();
+    if(baseTower->getCurrentHexfield() != NULL){
+        baseTower->getCurrentHexfield()->setEmtpy();
+    }
     baseTower.reset();
     mUnits.reset();
 

@@ -158,7 +158,11 @@ bool Unit::counterAttack(std::shared_ptr<Unit> attacker) {
     bool hit;
     if (timesDefended < 2) {
         LOG_F_TRACE(GAME_LOG_PATH, "Counter attack!");
-        hit = attack(attacker);
+        if(isInRange(attacker->getCurrentHexfield())){
+            hit = attack(attacker);
+        }else{
+            hit = false;
+        }
         timesDefended++;
     } else {
         LOG_F_TRACE(GAME_LOG_PATH, "Defended to often.");
