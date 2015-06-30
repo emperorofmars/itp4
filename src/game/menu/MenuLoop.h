@@ -29,6 +29,8 @@ private:
 
     std::shared_ptr <EngineHelper> mEngine;
 
+    bool startGame;
+
     void processMenuLeftClick();
 };
 

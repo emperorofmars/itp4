@@ -32,6 +32,7 @@ vec4 calculatePointLight(float diffuseStrength, float specularStrength,
 vec4 calculateSunLight(float diffuseStrength, float specularStrength,
 						vec4 lightColor, vec4 lightDir);
 
+
 vec4 calculateSpotLight(float diffuseStrength, float specularStrength,
 						vec4 lightColor, vec4 lightPos, vec4 lightDir, float coneAngle);
 
@@ -44,6 +45,7 @@ void main(void){
 			FragColor = fs_in.material.color;
 		}
 	}
+
 	else if(fs_in.material.shadingType < 1.5){	//Normal Shading
 		for(int i = 0; i < numlights; i++){
 			vec4 lightInfo = texelFetch(lights, ivec2(0, i), 0);
@@ -52,6 +54,7 @@ void main(void){
 			vec4 lightColor = texelFetch(lights, ivec2(1, i), 0);
 			vec4 lightPos = texelFetch(lights, ivec2(2, i), 0);
 			vec4 lightDir = texelFetch(lights, ivec2(3, i), 0);
+
 			vec4 lightInfo2 = texelFetch(lights, ivec2(4, i), 0);
 			
 			if(lightInfo.g < 1.5){	//Point Loght
@@ -81,6 +84,7 @@ void main(void){
 vec4 calculatePointLight(float diffuseStrength, float specularStrength,
 						vec4 lightColor, vec4 lightPos)
 {
+
 	vec4 SurfaceNormal = normalize(vec4(fs_in.norm, 0));
 	vec4 LightRay = normalize(lightPos - fs_in.pos);
 	float Reflectance = max(dot(SurfaceNormal, LightRay), 0);
@@ -99,12 +103,14 @@ vec4 calculatePointLight(float diffuseStrength, float specularStrength,
 		MaterialColor = fs_in.material.color;
 	}
 	
+
 	return vec4((Diffuse * diffuseStrength + Specular * specularStrength).rgb, 1) * MaterialColor;
 }
 
 vec4 calculateSunLight(float diffuseStrength, float specularStrength,
 						vec4 lightColor, vec4 lightDir)
 {
+
 	vec4 SurfaceNormal = normalize(vec4(fs_in.norm, 0));
 	vec4 LightRay = normalize(-lightDir);
 	float Reflectance = max(dot(SurfaceNormal, LightRay), 0);
@@ -151,6 +157,7 @@ vec4 calculateSpotLight(float diffuseStrength, float specularStrength,
 		MaterialColor = fs_in.material.color;
 	}
 	
+
 	return vec4((Diffuse * diffuseStrength + Specular * specularStrength).rgb, 1) * MaterialColor;
 }
 

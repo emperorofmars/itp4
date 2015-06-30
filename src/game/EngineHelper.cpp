@@ -28,8 +28,8 @@ EngineHelper::EngineHelper() {
     p.reset(new mgf::ShaderProgram);
     p->addShader("res/shader/vertex_shader.glsl", GL_VERTEX_SHADER);
     std::cout << "fragment shader..." << std::endl;
-//    p->addShader("res/shader/fragment_shader.glsl", GL_FRAGMENT_SHADER);
-    p->addShader("res/shader/fragment_shader_intel.glsl", GL_FRAGMENT_SHADER);
+    p->addShader("res/shader/fragment_shader.glsl", GL_FRAGMENT_SHADER);
+//    p->addShader("res/shader/fragment_shader_intel.glsl", GL_FRAGMENT_SHADER);
     std::cout << "fragment shader set!" << std::endl;
     p->createProgram();
 

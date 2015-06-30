@@ -439,11 +439,11 @@ int Game::cleanUp() {
     eraseField(mFirstField);
     mFirstField.reset();
 
-    Menu menu;
-    menu.create(engine);    // creates menu overlay
+    delete(mUnitManager);
 
-    MenuLoop menuLoop(engine);
-    menuLoop.run();   // starts menu loop
+
+
+
     return 0;
 }
 

@@ -21,12 +21,12 @@ public:
 
     void printPrototypesToCout();
 
-    std::shared_ptr<Unit> getChild(std::string name);
+    std::shared_ptr <Unit> getChild(std::string name);
+    ~UnitManager();
 
 private:
     UnitManager();
 
-    ~UnitManager();
 
     static UnitManager *mInstance;
 

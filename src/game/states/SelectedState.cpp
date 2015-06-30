@@ -42,16 +42,19 @@ void SelectedState::handleRightClick() {
             LOG_F_TRACE(GAME_LOG_PATH, "Target is enemy and in range");
             bool hit = selectedUnit->attack(dest->getOccupation());
 
-            if(hit){
-                mGame->dmgedUnit[0] = dest->getOccupation();
-                mGame->unitDmgCounter[0] = 0;
-                std::shared_ptr<mgf::Material> newmat(new mgf::Material);
-                newmat->mDiffuseColor = glm::vec4(1.f, 0.f, 0.f, 1.f);
-                dest->getOccupation()->getUnitNode()->setMaterial(newmat);
-            }
+
+
             if (dest->getIsOccupied()) {
+                if(hit){
+                    mGame->dmgedUnit[0] = dest->getOccupation();
+                    mGame->unitDmgCounter[0] = 0;
+                    std::shared_ptr<mgf::Material> newmat(new mgf::Material);
+                    newmat->mDiffuseColor = glm::vec4(1.f, 0.f, 0.f, 1.f);
+                    dest->getOccupation()->getUnitNode()->setMaterial(newmat);
+                }
+
                 bool counterHit = dest->getOccupation()->counterAttack(selectedUnit);
-                if(counterHit){
+                if(counterHit && !selectedUnit->isDead()){
                     mGame->dmgedUnit[1] = selectedUnit;
                     mGame->unitDmgCounter[1] = 0;
                     std::shared_ptr<mgf::Material> newmat(new mgf::Material);

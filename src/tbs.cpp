@@ -16,12 +16,15 @@ int main(){
     cout << endl;
 
     std::shared_ptr<EngineHelper> engine(new EngineHelper);
-
+    int quit = false;
+while(!quit){
     Menu menu;
     menu.create(engine);    // creates menu overlay
 
     MenuLoop menuLoop(engine);
-    menuLoop.run();   // starts menu loop
+    quit = menuLoop.run();   // starts menu loop
+
+}
 
     return 0;
 }
