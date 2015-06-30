@@ -736,31 +736,33 @@ void Game::createGameOverlay() {
     // Health
     std::shared_ptr <mgf::Label> statusHealth(new mgf::Label("statusHealth"));
     statusHealth->setBackground("res/images/elemente/health.png");
-    statusHealth->translate(glm::vec2(-0.05f, -0.05f));
-
-    engine->health.reset(new mgf::Label("health"));
-    engine->health->setFont("res/fonts/main.ttf");
-    engine->health->setBackground("res/images/elemente/transparent.png");
-    engine->health->setColor(glm::vec3(265,165,0));
-    engine->health->translate(glm::vec2(0.07f, -0.05f));
-
-    // Mana
-    std::shared_ptr <mgf::Label> statusMana(new mgf::Label("statusMana"));
-    statusMana->setBackground("res/images/elemente/mana.png");
-    statusMana->translate(glm::vec2(0.3, -0.05f));
-
-    engine->mana.reset(new mgf::Label("mana"));
-    engine->mana->setFont("res/fonts/main.ttf");
-    engine->mana->setBackground("res/images/elemente/transparent.png");
-    engine->mana->setColor(glm::vec3(265,165,0));
-    engine->mana->translate(glm::vec2(0.4f, -0.05f));
+    x = -0.05f;
+    y = -0.05f;
+    statusHealth->translate(glm::vec2(x,y));
 
     // Player
     engine->player.reset(new mgf::Label("label"));
     engine->player->setFont("res/fonts/main.ttf");
     engine->player->setBackground("res/images/elemente/transparent.png");
     engine->player->setColor(glm::vec3(265,165,0));
-    engine->player->translate(glm::vec2(-0.05f, 0.02));
+    engine->player->translate(glm::vec2(x+0.01, 0.01));
+
+    engine->health.reset(new mgf::Label("health"));
+    engine->health->setFont("res/fonts/main.ttf");
+    engine->health->setBackground("res/images/elemente/transparent.png");
+    engine->health->setColor(glm::vec3(265,165,0));
+    engine->health->translate(glm::vec2(0.05f, y-0.01));
+
+    // Mana
+    std::shared_ptr <mgf::Label> statusMana(new mgf::Label("statusMana"));
+    statusMana->setBackground("res/images/elemente/mana.png");
+    statusMana->translate(glm::vec2(0.3, y));
+
+    engine->mana.reset(new mgf::Label("mana"));
+    engine->mana->setFont("res/fonts/main.ttf");
+    engine->mana->setBackground("res/images/elemente/transparent.png");
+    engine->mana->setColor(glm::vec3(265,165,0));
+    engine->mana->translate(glm::vec2(0.37f, y-0.01));
 
     /*
      * Add elements to Overlay

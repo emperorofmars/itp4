@@ -23,9 +23,9 @@ int MenuLoop::run() {
     quit = false;
     float current = 0, last = 0, frametime = 0;
 
-    bool mouseMidDown = false;
+//    bool mouseMidDown = false;
     bool mouseLeftDown = false;
-    bool mouseRightDown = false;
+//    bool mouseRightDown = false;
 
     bool running = false;
 
@@ -42,18 +42,18 @@ int MenuLoop::run() {
 
         //###############################################  Controls
         bool leftClick = mEngine->input->getMouseClick()[0];
-        bool rightClick = mEngine->input->getMouseClick()[2];
-        bool middleClick = mEngine->input->getMouseClick()[1];
+//        bool rightClick = mEngine->input->getMouseClick()[2];
+//        bool middleClick = mEngine->input->getMouseClick()[1];
 
-        if (middleClick) {
-            mouseMidDown = true;
-        }
+//        if (middleClick) {
+//            mouseMidDown = true;
+//        }
         if (leftClick) {
             mouseLeftDown = true;
         }
-        if (rightClick) {
-            mouseRightDown = true;
-        }
+//        if (rightClick) {
+//            mouseRightDown = true;
+//        }
 
         if (mouseLeftDown && !leftClick) {
             processMenuLeftClick();
