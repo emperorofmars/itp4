@@ -48,13 +48,21 @@ void Menu::create(std::shared_ptr<EngineHelper> engine) {
     startBtn->translate(glm::vec2(x, y));
     engine->overlay->add(startBtn);
 
-    std::shared_ptr<mgf::Button> settingsBtn(new mgf::Button("settingsBtn"));
-    settingsBtn->setBackground("res/images/elemente/settings.png");
-    x = (dividend/engine->w->getAspectRatio() + settingsBtn->getScale()[0]);
+    std::shared_ptr<mgf::Button> creditsBtn(new mgf::Button("creditsBtn"));
+    creditsBtn->setBackground("res/images/elemente/credits.png");
+    x = (dividend/engine->w->getAspectRatio() + creditsBtn->getScale()[0]);
     y += 0.1;
     std::cout << x <<"x"<< y << " (Settings Button)" << std::endl;
-    settingsBtn->translate(glm::vec2(x, y));
-    engine->overlay->add(settingsBtn);
+    creditsBtn->translate(glm::vec2(x, y));
+    engine->overlay->add(creditsBtn);
+
+//    std::shared_ptr<mgf::Button> settingsBtn(new mgf::Button("settingsBtn"));
+//    settingsBtn->setBackground("res/images/elemente/settings.png");
+//    x = (dividend/engine->w->getAspectRatio() + settingsBtn->getScale()[0]);
+//    y += 0.1;
+//    std::cout << x <<"x"<< y << " (Settings Button)" << std::endl;
+//    settingsBtn->translate(glm::vec2(x, y));
+//    engine->overlay->add(settingsBtn);
 
     std::shared_ptr<mgf::Button> quitBtn(new mgf::Button("quitBtn"));
     quitBtn->setBackground("res/images/elemente/quit.png");
