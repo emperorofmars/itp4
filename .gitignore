@@ -9,7 +9,6 @@ src/log/
 deploy
 Makefile
 src/res/shader/fragment_shader.glsl.backup
-src/res/shader/fragment_shader.glsl
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake

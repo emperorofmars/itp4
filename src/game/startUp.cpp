@@ -23,9 +23,7 @@ int startUp(std::shared_ptr<EngineHelper> engine) {
     cout << "Creating new Game" << endl;
     std::shared_ptr<Game> game(new Game());
 	
-    std::cout << "FOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO 01" << std::endl;
     game->initGame();
-    std::cout << "FOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO 02" << std::endl;
 
     cout << "First player: " << game->getPlayer(0)->getName() << endl;
     cout << "Second player: " << game->getPlayer(1)->getName() << endl;
