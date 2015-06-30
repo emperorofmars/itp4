@@ -22,6 +22,11 @@ Game::Game() {
     SELECTED_STATE = false;
     mFieldSize = 24;
     quit = false;
+    unitDmgCounter[0] = 0;
+    unitDmgCounter[1] = 0;
+
+    dmgedUnit[0].reset();
+    dmgedUnit[1].reset();
 }
 
 Game::~Game() {

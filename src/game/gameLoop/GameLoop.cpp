@@ -43,9 +43,27 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
         engine->input->update();
         quit = (engine->input->getQuit() || mGame->getQuit());
 
-        //if(!checkOutOfBounds(engine->input->getPosition() + engine->cam->getPos())){
         engine->cam->update(engine->input->getPosition(), engine->input->getMouseRelative());
-        //}
+
+        if(mGame->dmgedUnit[0] != NULL){
+            mGame->unitDmgCounter[0]++;
+
+            if(mGame->unitDmgCounter[0] > 15){
+                mGame->dmgedUnit[0]->getUnitNode()->resetMaterial();
+                mGame->dmgedUnit[0].reset();
+            }
+
+        }
+
+        if(mGame->dmgedUnit[1] != NULL){
+            mGame->unitDmgCounter[1]++;
+
+            if(mGame->unitDmgCounter[1] > 15){
+                mGame->dmgedUnit[1]->getUnitNode()->resetMaterial();
+                mGame->dmgedUnit[1].reset();
+            }
+
+        }
 
 //###############################################  Pointer
         engine->setPointer();
@@ -134,7 +152,7 @@ bool GameLoop::gameFinished() {
     int loser;
 
     for(int i = 0; i<2; ++i){
-        if(mGame->getPlayer(i)->allDead() && mGame->getPlayer(i)->getCurMana() < 5 ||
+        if((mGame->getPlayer(i)->allDead() && mGame->getPlayer(i)->getCurMana() < 5) ||
            mGame->getPlayer(i)->getBase()->isDead()){
             loser = i;
             return true;

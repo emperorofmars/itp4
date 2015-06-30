@@ -128,7 +128,7 @@ std::shared_ptr <Hexfield> Unit::checkRange(std::shared_ptr < Hexfield > start,
     return start->getNearestNeighbor(target);
 }
 
-void Unit::attack(std::shared_ptr < Unit > target) {
+bool Unit::attack(std::shared_ptr<Unit> target) {
     LOG_F_TRACE(GAME_LOG_PATH, "attacking..");
     bool hit = false;
 
@@ -150,18 +150,22 @@ void Unit::attack(std::shared_ptr < Unit > target) {
         LOG_F_TRACE(GAME_LOG_PATH, "MISS");
     }
 
+    return hit;
 }
 
 
-void Unit::counterAttack(std::shared_ptr < Unit > attacker) {
+bool Unit::counterAttack(std::shared_ptr<Unit> attacker) {
+    bool hit;
     if (timesDefended < 2) {
         LOG_F_TRACE(GAME_LOG_PATH, "Counter attack!");
-        attack(attacker);
+        hit = attack(attacker);
         timesDefended++;
     } else {
         LOG_F_TRACE(GAME_LOG_PATH, "Defended to often.");
+        hit = false;
     }
 
+    return hit;
 }
 
 void Unit::getHit(int dmg) {

@@ -26,9 +26,9 @@ public:
 
     std::shared_ptr <Hexfield> checkRange(std::shared_ptr <Hexfield> start, std::shared_ptr <Hexfield> target);
 
-    void attack(std::shared_ptr <Unit> target);
+    bool attack(std::shared_ptr<Unit> target);
 
-    void counterAttack(std::shared_ptr <Unit> attacker);
+    bool counterAttack(std::shared_ptr<Unit> attacker);
 
     void getHit(int dmg);
 
