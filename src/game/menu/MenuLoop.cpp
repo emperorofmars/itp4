@@ -13,7 +13,7 @@
 #include "Settings.h"
 
 MenuLoop::MenuLoop(std::shared_ptr<EngineHelper> engine): mEngine(engine) {
-    mStateContext = Context::getInstance();
+    //mStateContext = Context::getInstance();
     startGame = false;
     //mStateContext = Context::getInstance();
 }
