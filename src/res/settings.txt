@@ -1,0 +1,2 @@
+fullscreen=no
+resolution=1440x900
