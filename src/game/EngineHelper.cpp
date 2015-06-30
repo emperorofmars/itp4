@@ -123,8 +123,6 @@ bool EngineHelper::setConfig(std::string key, std::string value) {
         mWindowWidth = width;
         mWindowHeight = height;
 
-        isCurrentDisplayMode();
-
         return true;
     } else if (key == "fullscreen") {
         if (value == "yes") {
@@ -163,12 +161,12 @@ bool EngineHelper::isCurrentDisplayMode() {
     }
 
 // Clean up and exit the program.
-    SDL_Quit();
+//    SDL_Quit();
 
     std::cout << "Current display width: " << currentW
     << "\nCurrent display height: " << currentH
     << "\nSet game width: " << mWindowWidth
     << "\nSet game height: " << mWindowHeight << std::endl;
 
-    return (currentW == mWindowWidth) && currentH == mWindowHeight;
+    return (currentW == mWindowWidth) && (currentH == mWindowHeight);
 }

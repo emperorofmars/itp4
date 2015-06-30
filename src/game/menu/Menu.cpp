@@ -23,8 +23,8 @@ void Menu::create(std::shared_ptr<EngineHelper> engine) {
     /*
      * Create buttons
      */
-    float width;
-    float height;
+    float width = 0.0;
+    float height = 0.0;
     float dividend = 0.4;
 
     if (engine->isCurrentDisplayMode()) dividend = 0.5;
@@ -34,7 +34,7 @@ void Menu::create(std::shared_ptr<EngineHelper> engine) {
     startBtn->setBackground("res/images/elemente/play.png");
     width = (dividend/engine->w->getAspectRatio() + startBtn->getScale()[0]);
     height = (0.2f/engine->w->getAspectRatio() + startBtn->getScale()[1]);
-    std::cout << width <<"x"<< height << std::endl;
+    std::cout << width <<"x"<< height << " (Start Button)" << std::endl;
     startBtn->translate(glm::vec2(width, height));
     engine->overlay->add(startBtn);
 
@@ -42,7 +42,7 @@ void Menu::create(std::shared_ptr<EngineHelper> engine) {
     settingsBtn->setBackground("res/images/elemente/settings.png");
     width = (dividend/engine->w->getAspectRatio() + settingsBtn->getScale()[0]);
     height += 0.1;
-    std::cout << width <<"x"<< height << std::endl;
+    std::cout << width <<"x"<< height << " (Settings Button)" << std::endl;
     settingsBtn->translate(glm::vec2(width, height));
     engine->overlay->add(settingsBtn);
 
@@ -50,7 +50,7 @@ void Menu::create(std::shared_ptr<EngineHelper> engine) {
     quitBtn->setBackground("res/images/elemente/quit.png");
     width = (dividend/engine->w->getAspectRatio() + quitBtn->getScale()[0]);
     height += 0.1;
-    std::cout << width <<"x"<< height << std::endl;
+    std::cout << width <<"x"<< height << " (Quit Button)" <<  std::endl;
     quitBtn->translate(glm::vec2(width, height));
     engine->overlay->add(quitBtn);
 
