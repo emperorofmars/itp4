@@ -31,6 +31,8 @@ public:
 
     void initialize();
 
+
+    void cleanUp();
     ~Context();
 
 private:
