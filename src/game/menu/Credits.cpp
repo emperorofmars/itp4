@@ -43,7 +43,7 @@ void Credits::createCreditsOverlay() {
     std::shared_ptr <mgf::Label> credit2(new mgf::Label("credit2"));
     credit1->setBackground("res/images/elemente/transparent.png");
     credit1->setFont("res/fonts/main.ttf");
-    credit1->setText("Engine:\nMartin Schwarz");
+    credit1->setText("Logic:\nLukas Stanek");
     height += 0.05f;
     credit2->translate(glm::vec2(width, height));
     mEngine->overlay->add(credit2);
@@ -51,7 +51,7 @@ void Credits::createCreditsOverlay() {
     std::shared_ptr <mgf::Label> credit3(new mgf::Label("credit3"));
     credit1->setBackground("res/images/elemente/transparent.png");
     credit1->setFont("res/fonts/main.ttf");
-    credit1->setText("Engine:\nMartin Schwarz");
+    credit1->setText("Guenter Kubicki");
     height += 0.05f;
     credit3->translate(glm::vec2(width, height));
     mEngine->overlay->add(credit3);
