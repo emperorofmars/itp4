@@ -39,9 +39,7 @@ EngineHelper::EngineHelper() {
     renderer.reset(new mgf::Renderer(w, cam, p));
 
     root.reset(new mgf::Node("root"));
-
     root->add(l.load("res/models/assets/alt/Assets.obj"));
-
     root->print();
 
     printStatus(2, "EngineHelper object");
