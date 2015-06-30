@@ -19,11 +19,7 @@
 using namespace std;
 
 int startUp(std::shared_ptr<EngineHelper> engine) {
-
-    LOG_INIT("log/log_tbs.txt", true);
-
-    LOG_F_TRACE(GAME_LOG_PATH, "Starting up ... ");
-
+	
     cout << "Creating new Game" << endl;
     std::shared_ptr<Game> game(new Game());
 
@@ -79,6 +75,7 @@ int startUp(std::shared_ptr<EngineHelper> engine) {
     }
 
 //#######Start Game
+	
     loop->run(engine);
 
     return 0;

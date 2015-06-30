@@ -13,7 +13,7 @@
 #include "Settings.h"
 
 MenuLoop::MenuLoop(std::shared_ptr<EngineHelper> engine): mEngine(engine) {
-    mStateContext = Context::getInstance();
+    //mStateContext = Context::getInstance();
 }
 
 
@@ -78,6 +78,7 @@ int MenuLoop::run() {
     }
 //###############################################  MenuLoop end
 
+    std::cout << "Exiting now!" << std::endl;
     return 0;
 }
 
@@ -86,12 +87,14 @@ void MenuLoop::processMenuLeftClick() {
 
     if (elm) {
         if (elm->getName() == "startBtn") {
+            std::cout << "Game starting now!" << std::endl;
             startUp(mEngine);
         } else if (elm->getName() == "settingsBtn") {
             std::cout << "Settings starting now!" << std::endl;
             Settings settings(mEngine);
             settings.run();
         } else if (elm->getName() == "quitBtn") {
+            std::cout << "Exiting now!" << std::endl;
             exit(0);
         }
     }
