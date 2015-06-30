@@ -25,19 +25,22 @@ void Menu::create(std::shared_ptr<EngineHelper> engine) {
      */
     float width;
     float height;
-    std::shared_ptr<mgf::Button> startBtn(new mgf::Button("startBtn"));
+    float dividend = 0.4;
 
+    if (engine->isCurrentDisplayMode()) dividend = 0.5;
+    std::cout << dividend << std::endl;
+
+    std::shared_ptr<mgf::Button> startBtn(new mgf::Button("startBtn"));
     startBtn->setBackground("res/images/elemente/play.png");
-    width = (0.4/engine->w->getAspectRatio() + startBtn->getScale()[0]);
-    height = (0.2/engine->w->getAspectRatio() + startBtn->getScale()[1]);
+    width = (dividend/engine->w->getAspectRatio() + startBtn->getScale()[0]);
+    height = (0.2f/engine->w->getAspectRatio() + startBtn->getScale()[1]);
     std::cout << width <<"x"<< height << std::endl;
     startBtn->translate(glm::vec2(width, height));
     engine->overlay->add(startBtn);
 
     std::shared_ptr<mgf::Button> settingsBtn(new mgf::Button("settingsBtn"));
     settingsBtn->setBackground("res/images/elemente/settings.png");
-    width = (0.4/engine->w->getAspectRatio() + settingsBtn->getScale()[0]);
-//    height = (0.3/engine->w->getAspectRatio() + settingsBtn->getScale()[1]);
+    width = (dividend/engine->w->getAspectRatio() + settingsBtn->getScale()[0]);
     height += 0.1;
     std::cout << width <<"x"<< height << std::endl;
     settingsBtn->translate(glm::vec2(width, height));
@@ -45,8 +48,7 @@ void Menu::create(std::shared_ptr<EngineHelper> engine) {
 
     std::shared_ptr<mgf::Button> quitBtn(new mgf::Button("quitBtn"));
     quitBtn->setBackground("res/images/elemente/quit.png");
-    width = (0.4/engine->w->getAspectRatio() + quitBtn->getScale()[0]);
-//    height = (0.4/engine->w->getAspectRatio() + quitBtn->getScale()[1]);
+    width = (dividend/engine->w->getAspectRatio() + quitBtn->getScale()[0]);
     height += 0.1;
     std::cout << width <<"x"<< height << std::endl;
     quitBtn->translate(glm::vec2(width, height));

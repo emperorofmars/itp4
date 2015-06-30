@@ -7,6 +7,7 @@
 #include <src/overlay/Button.h>
 #include <src/overlay/Overlay.h>
 #include <src/scene/LightNode.h>
+#include <SDL_video.h>
 #include "src/camera/CameraTopDown.h"
 #include "src/input/InputTopDown.h"
 #include "src/collision/MouseRay.h"
@@ -78,42 +79,7 @@ void EngineHelper::printStatus(int status, std::string object) {
     }
 }
 
-int getDisplays() {
-    SDL_DisplayMode dm;
-    if (SDL_GetDesktopDisplayMode(0, &dm) != 0) {
-        SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
-        return 1;
-    }
-
-    int i;
-
-// Declare display mode structure to be filled in.
-    SDL_DisplayMode current;
-
-    SDL_Init(SDL_INIT_VIDEO);
-
-// Get current display mode of all displays.
-    for (i = 0; i < SDL_GetNumVideoDisplays(); ++i) {
-
-        int should_be_zero = SDL_GetCurrentDisplayMode(i, &current);
-
-        if (should_be_zero != 0)
-// In case of error...
-            SDL_Log("Could not get display mode for video display #%d: %s", i, SDL_GetError());
-
-        else
-// On success, print the current display mode.
-            SDL_Log("Display #%d: current display mode is %dx%dpx @ %dhz. \n", i, current.w, current.h,
-                    current.refresh_rate);
-
-    }
-
-// Clean up and exit the program.
-    SDL_Quit();
-}
-
 void EngineHelper::readConfig() {
-    getDisplays();
     bool fallback = false;
 
     std::string line;
@@ -157,6 +123,8 @@ bool EngineHelper::setConfig(std::string key, std::string value) {
         mWindowWidth = width;
         mWindowHeight = height;
 
+        isCurrentDisplayMode();
+
         return true;
     } else if (key == "fullscreen") {
         if (value == "yes") {
@@ -170,3 +138,37 @@ bool EngineHelper::setConfig(std::string key, std::string value) {
     return false;
 }
 
+bool EngineHelper::isCurrentDisplayMode() {
+    int i, currentW=0, currentH=0;
+    SDL_DisplayMode current;
+    SDL_Init(SDL_INIT_VIDEO);
+
+// Get current display mode of all displays.
+    for (i = 0; i < SDL_GetNumVideoDisplays(); ++i) {
+
+        int should_be_zero = SDL_GetCurrentDisplayMode(i, &current);
+
+        if (should_be_zero != 0)
+// In case of error...
+            SDL_Log("Could not get display mode for video display #%d: %s", i, SDL_GetError());
+
+        else {
+// On success, print the current display mode.
+            currentW = current.w;
+            currentH = current.h;
+            SDL_Log("Display #%d: current display mode is %dx%dpx @ %dhz. \n", i, current.w, current.h,
+                    current.refresh_rate);
+        }
+
+    }
+
+// Clean up and exit the program.
+    SDL_Quit();
+
+    std::cout << "Current display width: " << currentW
+    << "\nCurrent display height: " << currentH
+    << "\nSet game width: " << mWindowWidth
+    << "\nSet game height: " << mWindowHeight << std::endl;
+
+    return (currentW == mWindowWidth) && currentH == mWindowHeight;
+}

@@ -50,6 +50,8 @@ public:
     void readConfig();
 
     bool setConfig(std::string key, std::string value);
+
+    bool isCurrentDisplayMode();
 };
 
 
