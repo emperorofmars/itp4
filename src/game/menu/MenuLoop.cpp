@@ -11,6 +11,7 @@
 #include "MenuLoop.h"
 #include "../startUp.h"
 #include "Settings.h"
+#include "Credits.h"
 
 MenuLoop::MenuLoop(std::shared_ptr<EngineHelper> engine): mEngine(engine) {
 
@@ -100,6 +101,10 @@ void MenuLoop::processMenuLeftClick() {
             Settings settings(mEngine);
             std::cout << "DEBUG settings 01" << std::endl;
             settings.run();
+        } else if (elm->getName() == "creditsBtn") {
+            std::cout << "Credits showing now!" << std::endl;
+            Credits credits(mEngine);
+            credits.run();
         } else if (elm->getName() == "quitBtn") {
             std::cout << "Exiting now!" << std::endl;
             exit(0);
