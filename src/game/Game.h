@@ -90,7 +90,8 @@ public:
 
     void createGameOverlay();
 
-
+    int unitDmgCounter[2];
+    std::shared_ptr<Unit> dmgedUnit[2];
 private:
     std::shared_ptr <Player> mPlayers[2];
     std::shared_ptr <Player> mWinner;
