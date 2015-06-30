@@ -70,7 +70,7 @@ void Menu::create(std::shared_ptr<EngineHelper> engine) {
     engine->pointer.reset(new mgf::Label("mouse"));
     engine->pointer->setBackground("res/images/Mouse.png");
     engine->pointer->translate(glm::vec2(-10.f, -10.f));
-
+    std::cout << x <<"x"<< y << " (Quit Button)" <<  std::endl;
     /*
      * Add elements to Overlay
      */
