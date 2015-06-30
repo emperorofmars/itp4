@@ -31,6 +31,8 @@ public:
 
     void initialize();
 
+    ~Context();
+
 private:
     //Singleton handling
     Context();

@@ -88,3 +88,10 @@ void Context::initialize() {
     }
 
 }
+
+Context::~Context() {
+    for(int i = 0; i < mStates.size(); ++i){
+        mStates[i].reset();
+    }
+    cout << "destroying context" << endl;
+}
