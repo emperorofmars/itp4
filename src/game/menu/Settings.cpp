@@ -43,8 +43,9 @@ void Settings::createSettingsOverlay() {
     settingRes->translate(glm::vec2(width, height));
 
     std::shared_ptr <mgf::Button> fullScreenChooseBtn(new mgf::Button("fullScreenChooseBtn"));
+    fullScreenChooseBtn->setBackground("res/images/elemente/transparent.png");
     fullScreenChooseBtn->setText("No");
-    fullScreenChooseBtn->translate(glm::vec2(width, height));
+    fullScreenChooseBtn->translate(glm::vec2(width+1, height));
     mEngine->overlay->add(fullScreenChooseBtn);
 
     // Create buttons
