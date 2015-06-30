@@ -90,8 +90,16 @@ void Context::initialize() {
 }
 
 Context::~Context() {
+
+    instance = nullptr;
+    cout << "destroying context" << endl;
+
+}
+
+void Context::cleanUp() {
+    mCurrentState.reset();
+    instance.reset();
     for(int i = 0; i < mStates.size(); ++i){
         mStates[i].reset();
     }
-    cout << "destroying context" << endl;
 }

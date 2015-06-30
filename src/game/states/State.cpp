@@ -60,6 +60,7 @@ std::string State::getName() {
 }
 
 State::~State() {
+    mContext.reset();
     LOG_F_TRACE(GAME_LOG_PATH, "Destroying State ", getName());
 }
 

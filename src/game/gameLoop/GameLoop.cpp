@@ -131,7 +131,10 @@ int GameLoop::run(std::shared_ptr<EngineHelper> engine) {
 
     LOG_F_TRACE(GAME_LOG_PATH, "starting clean up!");
     mGame->cleanUp();
+
+    mStateContext->cleanUp();
     mStateContext.reset();
+
     LOG_F_TRACE(GAME_LOG_PATH, "cleanup complete, exiting");
 
     return 0;
