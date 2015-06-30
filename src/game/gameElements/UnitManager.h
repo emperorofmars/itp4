@@ -17,11 +17,11 @@ public:
 
     void loadProtoypes();
 
-    std::vector <std::shared_ptr<Unit>> getList();
+    std::vector<std::shared_ptr<Unit>> getList();
 
     void printPrototypesToCout();
 
-    std::shared_ptr <Unit> getChild(std::string name);
+    std::shared_ptr<Unit> getChild(std::string name);
 
 private:
     UnitManager();
@@ -30,9 +30,9 @@ private:
 
     static UnitManager *mInstance;
 
-    std::vector <std::shared_ptr<Unit>> mPrototypes;
+    std::vector<std::shared_ptr<Unit>> mPrototypes;
 
-    std::shared_ptr <Unit> parseLine(std::string);
+    std::shared_ptr<Unit> parseLine(std::string);
 
 };
 
