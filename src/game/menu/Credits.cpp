@@ -24,51 +24,64 @@ void Credits::createCreditsOverlay() {
      * Create elements for overlay
      */
     float width = 0.0f;
-    float height = 0.2f;
+    float height = 0.0f;
     float dividend = 0.4f;
 
     if (mEngine->isCurrentDisplayMode()) dividend = 0.5f;
     std::cout << dividend << std::endl;
 
+    std::shared_ptr <mgf::Label> title1(new mgf::Label("title1"));
+    title1->setBackground("res/images/elemente/transparent.png");
+    title1->setFont("res/fonts/main.ttf");
+    title1->setText("ITP 4");
+    title1->setColor(glm::vec3(255,165,0));
+    width = (dividend/mEngine->w->getAspectRatio() + title1->getScale()[0]);
+    title1->scale(glm::vec2(2,1));
+    title1->translate(glm::vec2(width,height));
+//    width+=0.2f;
+    mEngine->overlay->add(title1);
+
     // Create labels
     std::shared_ptr <mgf::Label> credit1(new mgf::Label("credit1"));
     credit1->setBackground("res/images/elemente/transparent.png");
     credit1->setFont("res/fonts/main.ttf");
-    credit1->setText("Engine:\nMartin Schwarz");
+    credit1->setText("Martin Schwarz");
+    credit1->setColor(glm::vec3(255,165,0));
     width = (dividend/mEngine->w->getAspectRatio() + credit1->getScale()[0]);
+    height += 0.12;
     std::cout << width << "x" << height << " (Fullscreen Label)" << std::endl;
     credit1->translate(glm::vec2(width, height));
+    credit1->scale(glm::vec2(2,1));
     mEngine->overlay->add(credit1);
 
     std::shared_ptr <mgf::Label> credit2(new mgf::Label("credit2"));
-    credit1->setBackground("res/images/elemente/transparent.png");
-    credit1->setFont("res/fonts/main.ttf");
-    credit1->setText("Logic:\nLukas Stanek");
-    height += 0.05f;
+    credit2->setBackground("res/images/elemente/transparent.png");
+    credit2->setFont("res/fonts/main.ttf");
+    credit2->setText("Lukas Stanek");
+    credit2->setColor(glm::vec3(255,165,0));
+    height += 0.1f;
     credit2->translate(glm::vec2(width, height));
+    credit2->scale(glm::vec2(2,1));
     mEngine->overlay->add(credit2);
 
     std::shared_ptr <mgf::Label> credit3(new mgf::Label("credit3"));
-    credit1->setBackground("res/images/elemente/transparent.png");
-    credit1->setFont("res/fonts/main.ttf");
-    credit1->setText("Guenter Kubicki");
-    height += 0.05f;
+    credit3->setBackground("res/images/elemente/transparent.png");
+    credit3->setFont("res/fonts/main.ttf");
+    credit3->setText("Guenter Kubicki");
+    credit3->setColor(glm::vec3(255,165,0));
+    height += 0.1f;
     credit3->translate(glm::vec2(width, height));
+    credit3->scale(glm::vec2(2,1));
     mEngine->overlay->add(credit3);
 
     // Create buttons
     backBtn.reset(new mgf::Button("backBtn"));
     backBtn->setBackground("res/images/elemente/back.png");
-    height += 0.05f;
+    height += 0.15f;
     backBtn->translate(glm::vec2(width, height));
-
-    saveBtn.reset(new mgf::Button("saveBtn"));
-    saveBtn->setBackground("res/images/elemente/save.png");
-    saveBtn->translate(glm::vec2(width + 0.2f, height)); // height stays the same as back button
 
     // Add buttons to overlay
     mEngine->overlay->add(backBtn);
-    mEngine->overlay->add(saveBtn);
     mEngine->overlay->add(mEngine->pointer);
 }
 
