@@ -16,8 +16,11 @@
 
 
 GameLoop::GameLoop(std::shared_ptr<Game> game): mGame(game) {
+    std::cout << "GameLoop constructor." << std::endl;
     mStateContext = Context::getInstance();
+    std::cout << "GameLoop instance set." << std::endl;
     mStateContext->injectGameReference(mGame);
+    std::cout << "GameLoop game reference injected." << std::endl;
     LOG_F_TRACE(GAME_LOG_PATH, "context adress ", mStateContext.get());
 
 }
