@@ -707,9 +707,6 @@ void Game::createGameOverlay() {
     y = (0.94f/engine->w->getAspectRatio() + endTurnBtn->getScale()[1]);
     std::cout << "Next turn button coordinates: " << x << "x" << y << std::endl;
     endTurnBtn->translate(glm::vec2(x, y));
-//    exit(1);
-
-//    exit(1);
 
     std::shared_ptr <mgf::Button> createInfantry(new mgf::Button("infantryBtn"));
     createInfantry->setBackground("res/images/elemente/infantry.png");
