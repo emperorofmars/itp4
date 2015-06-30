@@ -21,13 +21,17 @@ UnitManager::~UnitManager() {
     for (int i = 0; i < mPrototypes.size(); ++i) {
         mPrototypes.at(i).reset();
     }
+    mInstance = nullptr;
     LOG_F_TRACE(GAME_LOG_PATH, "destroying unitManager");
 }
 
 UnitManager *UnitManager::getInstance() {
-    if (mInstance == 0) {
+    if (mInstance == nullptr) {
+        std::cout << " creating new one" << std::endl;
         mInstance = new UnitManager();
     }
+    std::cout << " returning ..." << std::endl;
+
     return mInstance;
 }
 
