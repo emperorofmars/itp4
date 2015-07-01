@@ -682,7 +682,7 @@ void Game::createGameOverlay() {
 
     std::shared_ptr <mgf::Button> quitBtn(new mgf::Button("quitBtn"));
     quitBtn->setBackground("res/images/elemente/quit.png");
-    x = (0.92f/engine->w->getAspectRatio() + quitBtn->getScale()[0]);
+    x = (0.92f - quitBtn->getScale()[0]);
     y = (0.06f/engine->w->getAspectRatio() + quitBtn->getScale()[1]);
     std::cout << "Quit button coordinates: " << x << "x" << y << std::endl;
     quitBtn->translate(glm::vec2(x, y));
@@ -698,7 +698,7 @@ void Game::createGameOverlay() {
     std::cout << "Window Aspect Ratio: " << engine->w->getAspectRatio() << std::endl
     << "Scale: " << createInfantry->getScale()[0];
 //    exit(1);
-    x = ((1/engine->w->getAspectRatio()) + createInfantry->getScale()[0]);
+    x = 1 - createInfantry->getScale()[0];
     x -= 0.94;
     std::cout << "Create infantry coordinates: " << x << "x" << y << std::endl;
     createInfantry->translate(glm::vec2(x, y));

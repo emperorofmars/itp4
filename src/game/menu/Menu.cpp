@@ -25,7 +25,7 @@ void Menu::create(std::shared_ptr<EngineHelper> engine) {
      */
     float x = 0.0;
     float y = 0.0;
-    float dividend = 0.4;
+    float dividend = 0.5;
 
     if (engine->isCurrentDisplayMode()) dividend = 0.5;
     std::cout << dividend << std::endl;
@@ -35,14 +35,14 @@ void Menu::create(std::shared_ptr<EngineHelper> engine) {
     titleLbl->setFont("res/fonts/main.ttf");
     titleLbl->setText("Clash of Mages");
     titleLbl->setColor(glm::vec3(255,165,0)); // some green
-    x = (dividend/engine->w->getAspectRatio() + titleLbl->getScale()[0]);
+    x = (dividend - titleLbl->getScale()[0] / 2);
     titleLbl->scale(glm::vec2(4,2));
     titleLbl->translate(glm::vec2(x, 0.0f));
     engine->overlay->add(titleLbl);
 
     std::shared_ptr<mgf::Button> startBtn(new mgf::Button("startBtn"));
     startBtn->setBackground("res/images/elemente/play.png");
-    x = (dividend/engine->w->getAspectRatio() + startBtn->getScale()[0]);
+    x = (dividend - startBtn->getScale()[0] / 2);
     y = (0.3f/engine->w->getAspectRatio() + startBtn->getScale()[1]);
     std::cout << x <<"x"<< y << " (Start Button)" << std::endl;
     startBtn->translate(glm::vec2(x, y));
@@ -50,7 +50,7 @@ void Menu::create(std::shared_ptr<EngineHelper> engine) {
 
     std::shared_ptr<mgf::Button> creditsBtn(new mgf::Button("creditsBtn"));
     creditsBtn->setBackground("res/images/elemente/credits.png");
-    x = (dividend/engine->w->getAspectRatio() + creditsBtn->getScale()[0]);
+    x = (dividend - creditsBtn->getScale()[0] / 2);
     y += 0.1;
     std::cout << x <<"x"<< y << " (Settings Button)" << std::endl;
     creditsBtn->translate(glm::vec2(x, y));
@@ -66,7 +66,7 @@ void Menu::create(std::shared_ptr<EngineHelper> engine) {
 
     std::shared_ptr<mgf::Button> quitBtn(new mgf::Button("quitBtn"));
     quitBtn->setBackground("res/images/elemente/quit.png");
-    x = (dividend/engine->w->getAspectRatio() + quitBtn->getScale()[0]);
+    x = (dividend - quitBtn->getScale()[0] / 2);
     y += 0.1;
     std::cout << x <<"x"<< y << " (Quit Button)" <<  std::endl;
     quitBtn->translate(glm::vec2(x, y));

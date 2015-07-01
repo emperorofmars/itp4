@@ -1,2 +1,2 @@
 fullscreen=no
-resolution=1000x800
+resolution=1200x800
