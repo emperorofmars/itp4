@@ -1,4 +1,0 @@
-Building;Magierturm;100;0;0;0;0;0;0;Tower
-Unit;Infanterie;10;2;1;80;3;4;5;Infantry
-Unit;Kavallerie;15;4;1;50;4;5;10;Cavalry
-Unit;Artillerie;8;3;4;60;2;6;10;Artillery

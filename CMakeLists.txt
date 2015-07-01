@@ -7,6 +7,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 include_directories("${CMAKE_SOURCE_DIR}/src/libs/mgf")
 add_subdirectory("${CMAKE_SOURCE_DIR}/src/libs/mgf")
 
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+set(CMAKE_INSTALL_RPATH "./libs")
+
 set(SOURCE_FILES
     src/game/gameElements/Hexfield.h
     src/game/gameElements/Hexfield.cpp
