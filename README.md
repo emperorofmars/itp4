@@ -1,6 +1,4 @@
 # itp4
 Turn Based Strategy Game
 
-- Jeder pushed in einen eigenen Branch, zB.: martin-engine
-- Sagt mir bescheid wenn ein Feature fertig ist
-- Viel Spaß^^
+Aus dem Ordner der ausführbaren Datei muss ein Symlink hergestellt werden zu dem res Folder im root Verzeichnis.
