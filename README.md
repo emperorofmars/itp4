@@ -1,4 +1,20 @@
 # itp4
-Turn Based Strategy Game
+Turn Based Strategy Game based on [mgf](https://github.com/emperorofmars/mgf)
 
-Falls die Executeable nicht im root Verzeichnis liegt, muss ein Symlink hergestellt werden zum res Folder im root Verzeichnis.
+#### Install and run:
+Compile with cmake:<br>
+mkdir build<br>
+cd build<br>
+cmake ..<br>
+make<br>
+cd ../bin
+ln -s ../res res<br>
+ln -s ../libs libs<br>
+
+run:<br>
+./itp4
+
+Screenshots:
+
+![](doc/itp4_01.png)
+![](doc/itp4_02.png)
