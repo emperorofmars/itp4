@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(itp4)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 
 include_directories("${CMAKE_SOURCE_DIR}/src/libs/mgf")

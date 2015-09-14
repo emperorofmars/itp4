@@ -537,24 +537,24 @@ std::string mLog::printStartedMsg(int format){
 #define LOG_ALL (*mLog::Instance())
 #define LOG_INIT mLog::Instance()->init
 
-#define LOG(level, output, ...) if(MLOG_DISABLE != 1) mLog::Instance()->log(level, output, MLOG_PRINT_POSITION, __VA_ARGS__)
-#define LOG_F(level, output, ...) if(MLOG_DISABLE != 1) mLog::Instance()->log_f(level, output, MLOG_PRINT_POSITION, __VA_ARGS__)
-#define LOG_D(level, ...) if(MLOG_DISABLE != 1) mLog::Instance()->log(level, MLOG_DEFAULT_ALIAS, MLOG_PRINT_POSITION, __VA_ARGS__)
+#define LOG(level, output, ...) //if(MLOG_DISABLE != 1) mLog::Instance()->log(level, output, MLOG_PRINT_POSITION, __VA_ARGS__)
+#define LOG_F(level, output, ...) //if(MLOG_DISABLE != 1) mLog::Instance()->log_f(level, output, MLOG_PRINT_POSITION, __VA_ARGS__)
+#define LOG_D(level, ...) //if(MLOG_DISABLE != 1) mLog::Instance()->log(level, MLOG_DEFAULT_ALIAS, MLOG_PRINT_POSITION, __VA_ARGS__)
 
-#define LOG_ERROR(output, ...) if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_ERROR, output, MLOG_PRINT_POSITION, __VA_ARGS__)
-#define LOG_WARNING(output, ...) if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_WARNING, output, MLOG_PRINT_POSITION, __VA_ARGS__)
-#define LOG_INFO(output, ...) if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_INFO, output, MLOG_PRINT_POSITION, __VA_ARGS__)
-#define LOG_TRACE(output, ...) if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_TRACE, output, MLOG_PRINT_POSITION, __VA_ARGS__)
+#define LOG_ERROR(output, ...) //if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_ERROR, output, MLOG_PRINT_POSITION, __VA_ARGS__)
+#define LOG_WARNING(output, ...) //if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_WARNING, output, MLOG_PRINT_POSITION, __VA_ARGS__)
+#define LOG_INFO(output, ...) //if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_INFO, output, MLOG_PRINT_POSITION, __VA_ARGS__)
+#define LOG_TRACE(output, ...) //if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_TRACE, output, MLOG_PRINT_POSITION, __VA_ARGS__)
 
-#define LOG_F_ERROR(output, ...) if(MLOG_DISABLE != 1) mLog::Instance()->log_f(MLOG_ERROR, output, MLOG_PRINT_POSITION, __VA_ARGS__)
-#define LOG_F_WARNING(output, ...) if(MLOG_DISABLE != 1) mLog::Instance()->log_f(MLOG_WARNING, output, MLOG_PRINT_POSITION, __VA_ARGS__)
-#define LOG_F_INFO(output, ...) if(MLOG_DISABLE != 1) mLog::Instance()->log_f(MLOG_INFO, output, MLOG_PRINT_POSITION,  __VA_ARGS__)
-#define LOG_F_TRACE(output, ...) if(MLOG_DISABLE != 1) mLog::Instance()->log_f(MLOG_TRACE, output, MLOG_PRINT_POSITION,  __VA_ARGS__)
+#define LOG_F_ERROR(output, ...) //if(MLOG_DISABLE != 1) mLog::Instance()->log_f(MLOG_ERROR, output, MLOG_PRINT_POSITION, __VA_ARGS__)
+#define LOG_F_WARNING(output, ...) //if(MLOG_DISABLE != 1) mLog::Instance()->log_f(MLOG_WARNING, output, MLOG_PRINT_POSITION, __VA_ARGS__)
+#define LOG_F_INFO(output, ...) //if(MLOG_DISABLE != 1) mLog::Instance()->log_f(MLOG_INFO, output, MLOG_PRINT_POSITION,  __VA_ARGS__)
+#define LOG_F_TRACE(output, ...) //if(MLOG_DISABLE != 1) mLog::Instance()->log_f(MLOG_TRACE, output, MLOG_PRINT_POSITION,  __VA_ARGS__)
 
-#define LOG_D_ERROR(...) if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_ERROR, MLOG_DEFAULT_ALIAS, MLOG_PRINT_POSITION, __VA_ARGS__)
-#define LOG_D_WARNING(...) if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_WARNING, MLOG_DEFAULT_ALIAS, MLOG_PRINT_POSITION, __VA_ARGS__)
-#define LOG_D_INFO(...) if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_INFO, MLOG_DEFAULT_ALIAS, MLOG_PRINT_POSITION, __VA_ARGS__)
-#define LOG_D_TRACE(...) if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_TRACE, MLOG_DEFAULT_ALIAS, MLOG_PRINT_POSITION, __VA_ARGS__)
+#define LOG_D_ERROR(...) //if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_ERROR, MLOG_DEFAULT_ALIAS, MLOG_PRINT_POSITION, __VA_ARGS__)
+#define LOG_D_WARNING(...) //if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_WARNING, MLOG_DEFAULT_ALIAS, MLOG_PRINT_POSITION, __VA_ARGS__)
+#define LOG_D_INFO(...) //if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_INFO, MLOG_DEFAULT_ALIAS, MLOG_PRINT_POSITION, __VA_ARGS__)
+#define LOG_D_TRACE(...) //if(MLOG_DISABLE != 1) mLog::Instance()->log(MLOG_TRACE, MLOG_DEFAULT_ALIAS, MLOG_PRINT_POSITION, __VA_ARGS__)
 
 #endif // MLOG_H
 

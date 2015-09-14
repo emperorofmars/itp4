@@ -368,7 +368,7 @@ bool Loader::loadMeshToGPU(std::shared_ptr<Mesh> mgfmesh, aiMesh *aimesh){
 }
 
 bool Loader::loadTextureToGPU(std::shared_ptr<Texture> texture, unsigned int index){
-	glActiveTexture(GL_TEXTURE0 + index);	//createSettingsOverlay opengl texture object
+	glActiveTexture(GL_TEXTURE0 + index);	//create opengl texture object
 	glGenTextures(1, &texture->mTextureBuffer);
 	glBindTexture(GL_TEXTURE_2D, texture->mTextureBuffer);
 

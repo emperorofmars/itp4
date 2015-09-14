@@ -61,7 +61,7 @@ bool loadMeshToGPU(std::shared_ptr<Mesh> mesh){
 }
 
 bool loadTextureToGPU(std::shared_ptr<Texture> texture, unsigned int index){
-	glActiveTexture(GL_TEXTURE0 + index);	//createSettingsOverlay opengl texture object
+	glActiveTexture(GL_TEXTURE0 + index);	//create opengl texture object
 	glGenTextures(1, &texture->mTextureBuffer);
 	glBindTexture(GL_TEXTURE_2D, texture->mTextureBuffer);
 
@@ -86,7 +86,7 @@ std::shared_ptr<Texture> loadTextureFromSDLSurface(SDL_Surface *image, unsigned 
 	std::shared_ptr<Texture> texture(new Texture());
 	texture->mImage = image;
 
-	glActiveTexture(GL_TEXTURE0 + index);	//createSettingsOverlay opengl texture object
+	glActiveTexture(GL_TEXTURE0 + index);	//create opengl texture object
 	glGenTextures(1, &texture->mTextureBuffer);
 	glBindTexture(GL_TEXTURE_2D, texture->mTextureBuffer);
 
@@ -106,7 +106,7 @@ std::shared_ptr<Texture> loadTextureFromPath(const std::string &path, unsigned i
 	texture->mImage = IMG_Load(path.c_str());
 	if(!texture->mImage) return NULL;
 
-	glActiveTexture(GL_TEXTURE0 + index);	//createSettingsOverlay opengl texture object
+	glActiveTexture(GL_TEXTURE0 + index);	//create opengl texture object
 	glGenTextures(1, &texture->mTextureBuffer);
 	glBindTexture(GL_TEXTURE_2D, texture->mTextureBuffer);
 

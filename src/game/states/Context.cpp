@@ -21,11 +21,12 @@ std::shared_ptr <Context> Context::instance;
 
 std::shared_ptr <Context> Context::getInstance() {
     cout << "getting context instance " << endl;
-    if (instance == nullptr) {
+    if (!instance) {
         cout << " creating new one " << endl;
         instance = std::shared_ptr<Context>(new Context());
         std::cout<<"Initializing instance..." << std::endl;
         instance->initialize();
+        std::cout<<"Initializing complete" << std::endl;
     }
     cout << " returning " << endl;
     return instance;
@@ -83,10 +84,10 @@ void Context::initialize() {
 
     mCurrentState = mStates[0];
 
-    LOG_F_TRACE(GAME_LOG_PATH, "States loaded");
+    /*LOG_F_TRACE(GAME_LOG_PATH, "States loaded");
     for (int i = 0; i < mStates.size(); ++i) {
         LOG_F_TRACE(GAME_LOG_PATH, mStates[i]->getName());
-    }
+    }*/
 
 }
 
